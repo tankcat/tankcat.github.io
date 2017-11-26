@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+	<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="css/comment.css">    
+    <meta charset="utf-8">
+    
+    <title>MIT 6.824 Lab 1 MapReduce | Tankcat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    
+
+    
+
+    
+        <link rel="shortcut icon" href="/css/images/favicon.ico" />
+    
+	
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/tagclouds.css">
+	<link rel="stylesheet" href="/css/font-awesome.css">
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/lightgallery/css/lightgallery.min.css">
+    
+    
+    
+    
+    
+
+
+	<script src="//cdn.bootcss.com/jquery/2.1.0/jquery.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <div id="container">
+        
+    <header id="header">
+    <div id="header-main" class="header-inner">
+			 <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/index.html">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archive</a>
+                
+                    <a class="main-nav-link" href="/categories">Category</a>
+                
+                    <a class="main-nav-link" href="/tags">Tag</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+                    <a class="main-nav-link" href="/favorite">Photos</a>
+                
+            </nav>
+            
+    </div> 
+	</div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/index.html">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archive</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Category</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tag</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                    <td><a class="main-nav-link" href="/favorite">Photos</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+
+
+
+			
+        <div class="outer">
+			<aside id="profile">
+					<div class="profile-inner">
+					</div>
+			</aside>
+			
+					<section id="main"><article id="post-Lab1_MapReduce" class="article article-type-post" itemscope itemprop="blogPost">
+    
+	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
+        
+            
+	
+		<img src="http://7xwggp.com1.z0.glb.clouddn.com/MapReduce.png" class="article-banner" />
+	
+
+
+
+        
+        
+            <header class="article-header">
+				
+					<center>
+    
+        <h1 class="article-title" itemprop="name">
+            MIT 6.824 Lab 1 MapReduce
+        </h1>
+    
+
+					 
+						<div class="article-meta">
+							
+    <div class="article-date">    
+        <a href="/2017/03/14/Lab1_MapReduce/">
+            <time datetime="2017-03-14T14:57:31.000Z" itemprop="datePublished">2017-03-14</time>
+        </a>
+    </div>
+
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/MIT6-824/">MIT6.824</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/MapReduce/">MapReduce</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/MapReduce/">MapReduce</a>
+    </div>
+-->
+						</div>
+					
+					
+					
+						<span class="article-meta">
+							
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/MIT6-824/">MIT6.824</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/MapReduce/">MapReduce</a>
+			</span>
+		
+    </div>
+
+							
+						</span>
+						
+					
+					
+					</center>
+				
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+			
+				<br/>
+				 <blockquote style="font-size:120%;line-height:1.5em;color:#083a4e">
+					最近在自学MIT6.824的分布式系统课程，翻译自课程主页，第一节课讲得是MapReduce并行计算框架的基本知识。这部分是实验的介绍，先作翻译，代码还在编写当中。
+				 </blockquote>
+			  
+            <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>在这个实验中，我们将构建一个MapReduce的类库，作为使用Go语言进行编程与构建容错分布式系统的介绍。首先，我们将编写一个简单的MapReduce程序。接着，编写一个Master程序，手动向MapReduce的worker分发任务，解决worker的失效。类库的接口与容错的方法，和<a href="http://research.google.com/archive/mapreduce-osdi04.pdf" target="_blank" rel="noopener">论文MapReduce: Simplified Data Processing on Large Clusters</a>类似。<br><a id="more"></a></p>
+<h2 id="软件工具"><a href="#软件工具" class="headerlink" title="软件工具"></a>软件工具</h2><p>我们可以使用 <a href="http://www.golang.org/" target="_blank" rel="noopener">Go</a>语言完成该实验(或所有实现).Go的网站上有许多教程，在个人计算机上安装与开发Go十分简便。评测实验代码使用的Go版本是1.7，因此我们也最好使用该版本进行代码编写，以免出现一些版本问题。</p>
+<p>课程提供了部分MapReduce的实现代码，包括分布式与非分布式的操作。我们可以使用 <a href="https://git-scm.com/" target="_blank" rel="noopener">git</a>获取最初的类库版本。该课程的git仓库链接为<code>git://g.csail.mit.edu/6.824-golabs-2017</code>。我们可以使用下面的命令，克隆一份类库到自己的计算机上。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git clone git://g.csail.mit.edu/6.824-golabs-2017 6.824</span><br><span class="line">cd 6.824</span><br><span class="line">ls</span><br><span class="line">Makefile src</span><br></pre></td></tr></table></figure>
+<p>Git提供了追踪代码修改的功能。举个例子，如果我们需要对编写的代码进行checkpoint，可执行下面的命令提交更改：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -am 'partial solution to lab 1'</span><br></pre></td></tr></table></figure>
+<p>MapReduce的实现部分提供了两种模式操作，即<em>顺序的</em>与<em>分布式的</em>。前者，在一个时刻内只存在一个map或者reduce的task在执行：首先，第一个map的task执行结束，接着是第二个、第三个…；当所有的map task均执行完后，第一个reduce的task开始执行，接着是第二个、第三个…。这种模式的运行速度不快，但是对于debug是有用的。分布式的模式同时运行多个worker线程，首先并行执行map的task，接着是reduce的task。这种模式执行速度快，但是实现与调试较为困难。</p>
+<h2 id="熟悉源码"><a href="#熟悉源码" class="headerlink" title="熟悉源码"></a>熟悉源码</h2><p>mapreduce包提供了Map/Reduce的类库。应用程序调用<code>Distributed()</code>（位于<code>master.go</code>文件）以启动一个job作业，也可以调用<code>Sequential()</code>(也位于<code>master.go</code>)，在debug的时候启动一个顺序执行。</p>
+<p>代码按照以下步骤执行一个job：</p>
+<ol>
+<li><p>应用程序提供一些输入文件，一个map函数，一个reduce函数，以及reduce task的并行度(<code>nReduce</code>)；</p>
+</li>
+<li><p>使用以上信息，创建一个master。启动一个RPC服务器(见<code>master rpc.go</code>文件)，等待worker注册完毕(使用RPC调用<code>Register()</code>，定义在<code>master.go</code>文件)。当task可用时(步骤4与步骤5)，<code>schedule()</code>(见文件<code>schedule.go</code>)决定如何将这些task分配给worker，以及如何处理worker的失效；</p>
+</li>
+<li><p>master将每个输入文件指定给一个map task，为每个map的task至少调用一次<code>doMap()</code>(见<code>common_map.go</code>)。当使用<code>Sequential()</code>或者是向一个worker发出<code>DoTask</code>的RPC请求时，采取同样的做法。每次调用<code>doMap()</code>会读取适当的文件，在该文件的内容上使用map 函数，并将中间结果<code>key/value</code>键值对写入<code>nReduce</code>个中间文件。<code>doMap()</code>对key进行哈希，挑选一个中间文件，则相应的reduce task会处理这个key。在所有的map task执行结束后将会存在$nMap \times nReduce$个文件。每个文件名包含一个前缀：map task与reduce task的序号。如果有两个map task和三个reduce task，则map task会创建六个中间文件，如下所示：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mrtmp.xxx-0-0</span><br><span class="line">mrtmp.xxx-0-1</span><br><span class="line">mrtmp.xxx-0-2</span><br><span class="line">mrtmp.xxx-1-0</span><br><span class="line">mrtmp.xxx-1-1</span><br><span class="line">mrtmp.xxx-1-2</span><br></pre></td></tr></table></figure>
+<p>每个worker必须能够读取其他worker读写的文件。现实应用中的部署采用分布式存储系统来实现这一点，比如GFS，即使worker运行在不同的机器上。在实验中，我们在同一个机器上运行所有的worker，使用本地文件系统；</p>
+</li>
+<li><p>接下来master为每个reduce task至少调用一次<code>doReduce()</code>(见<code>common_reduce.go</code>)。与<code>doMap()</code>一样，直接或者通过一个worker进行操作。reduce task r 的<code>doReduce()</code>从每个map task中收集第r个中间文件，为文件中的每个key调用reduce 函数。reduce task会产生<code>nReduce</code>个结果文件；</p>
+</li>
+<li><p>master调用<code>mr.merge()</code>(见<code>master_splitmerge.go</code>)，将<code>nReduce</code>个文件的内容合并到一个文件中；</p>
+</li>
+<li><p>master向每个worker发送<code>RPC Shutdown</code>，接着关闭自己的RPC服务器。</p>
+</li>
+</ol>
+<blockquote>
+<p>注意：在接下来的练习中，我们需要自己重写/调整 <code>doMap()</code>，<code>doReduce()</code>和<code>schedule()</code>，这些方法分布位于<code>common_map.go</code>，<code>common_reduce.go</code>和<code>schedule.go</code>文件中。我们也需要在<code>../main/wc.go</code>文件中编写map和reduce函数。</p>
+</blockquote>
+<p>我们不需要修改其他任何文件，但是阅读这些文件对理解其他方法是如何参与整体架构的运行是有帮助的。</p>
+<h2 id="第一部分：Map-Reduce的输入与输出"><a href="#第一部分：Map-Reduce的输入与输出" class="headerlink" title="第一部分：Map/Reduce的输入与输出"></a>第一部分：Map/Reduce的输入与输出</h2><p>在给定的Map/Reduce代码实现中存在代码缺失。在写我们的第一个Map/Reduce函数前，需要完成顺序实现模块。特别地，给定的代码中缺失了两个关键部分：划分一个map task的输出的函数，和收集一个reduce task的所有输入的函数。这两个模块分别被位于<code>common_map.go</code>和<code>common_reduce.go</code>中的 <code>doMap()</code>，<code>doReduce()</code>执行。这些文件中的注释可为我们指出正确的方向。</p>
+<p>为了验证是否正确地实现了<code>doMap()</code>和<code>doReduce()</code>的编写，课程提供了一组用Go编写的测试套件，用于检测正确性。这些测试程序位于<code>test_test.go</code>文件中。可以执行下面的命令，运行顺序模式的测试程序：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd 6.824</span><br><span class="line">export "GOPATH=$PWD" # go needs $GOPATH to be set to the project's working directory</span><br><span class="line">cd "$GOPATH/src/mapreduce"</span><br><span class="line">go test -run Sequential</span><br><span class="line">ok  	mapreduce	2.694s</span><br></pre></td></tr></table></figure>
+<p>如果运行测试程序的输出结果不是<em>ok</em>，则说明我们的程序中有bug。为了展示更详细的输出内容，在<code>common.go</code>文件中设置<code>debugEnabled = true</code>，并在上面的测试命令中添加<code>-v</code>。则我们会得出类似下面的更多输出信息：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">env "GOPATH=$PWD/../../" go test -v -run Sequential</span><br><span class="line">=== RUN   TestSequentialSingle</span><br><span class="line">master: Starting Map/Reduce task test</span><br><span class="line">Merge: read mrtmp.test-res-0</span><br><span class="line">master: Map/Reduce task completed</span><br><span class="line">--- PASS: TestSequentialSingle (1.34s)</span><br><span class="line">=== RUN   TestSequentialMany</span><br><span class="line">master: Starting Map/Reduce task test</span><br><span class="line">Merge: read mrtmp.test-res-0</span><br><span class="line">Merge: read mrtmp.test-res-1</span><br><span class="line">Merge: read mrtmp.test-res-2</span><br><span class="line">master: Map/Reduce task completed</span><br><span class="line">--- PASS: TestSequentialMany (1.33s)</span><br><span class="line">PASS</span><br><span class="line">ok  	mapreduce	2.672s</span><br></pre></td></tr></table></figure>
+<h2 id="第二部分：单个worker的单词计数"><a href="#第二部分：单个worker的单词计数" class="headerlink" title="第二部分：单个worker的单词计数"></a>第二部分：单个worker的单词计数</h2><p>现在我们要实现一个简单的Map/Reduce程序——单词统计。在<code>main/wc.go</code>中，发现函数体空的<code>mapF()</code>和<code>reduceF()</code>。我们的任务是填充这两个函数，使得<code>wc.go</code>汇报每个单词出现的频数。一个单词是任何连续的字母序列，由<a href="http://golang.org/pkg/unicode/#IsLetter" target="_blank" rel="noopener">unicode.IsLetter</a>控制。</p>
+<p>在~/6.824/src/main有一些输入文件，以<code>pg-* txt</code>形式为路径名，下载自 <a href="https://www.gutenberg.org/ebooks/search/%3Fsort_order%3Ddownloads" target="_blank" rel="noopener">Project Gutenberg</a>。下面是添加了输入文件运行<code>wc</code>：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd 6.824</span><br><span class="line">export "GOPATH=$PWD"</span><br><span class="line">cd "$GOPATH/src/main"</span><br><span class="line">go run wc.go master sequential pg-*.txt</span><br><span class="line">command-line-arguments</span><br><span class="line">./wc.go:14: missing return at end of function</span><br><span class="line">./wc.go:21: missing return at end of function</span><br></pre></td></tr></table></figure>
+<p>由于<code>mapF()</code>和<code>reduceF()</code>没有实现，所以出现编译错误。</p>
+<p>回顾<a href="http://research.google.com/archive/mapreduce-osdi04.pdf" target="_blank" rel="noopener">论文MapReduce: Simplified Data Processing on Large Clusters</a>的第二部分。我们实现的<code>mapF()</code>和<code>reduceF()</code>与第2.1章节中描述的有一点区别。我们需要向<code>mapF()</code>传入文件名和文件内容，将内容分割成蛋醋，返回一个<code>mapreduce.KeyValue</code>的slice (Go的一种类型)。我们可以选择放入<code>mapF()</code>输出的key和value的内容。对于单词计数，使用单词作为key才有意义。对于每个key和由<code>mapF()</code>生成的该key的slice，会调用一次<code>reduceF()</code>，返回一个string，包含该key出现的频数总和。</p>
+<blockquote>
+<p>提示：a good read on what strings are in Go is the <a href="http://blog.golang.org/strings" target="_blank" rel="noopener">Go Blog on strings</a>.</p>
+<p>提示：我们可以使用 <a href="http://golang.org/pkg/strings/#FieldsFunc" target="_blank" rel="noopener">strings.FieldsFunc</a> 来将string划分成单词；</p>
+<p>提示：我们可以使用strconv 包(<a href="http://golang.org/pkg/strconv/" target="_blank" rel="noopener">http://golang.org/pkg/strconv/</a>) ，很方便地将string转为integer。</p>
+</blockquote>
+<p>我们可以使用下面的例子进行测试：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd "$GOPATH/src/main"</span><br><span class="line">time go run wc.go master sequential pg-*.txt</span><br><span class="line">master: Starting Map/Reduce task wcseq</span><br><span class="line">Merge: read mrtmp.wcseq-res-0</span><br><span class="line">Merge: read mrtmp.wcseq-res-1</span><br><span class="line">Merge: read mrtmp.wcseq-res-2</span><br><span class="line">master: Map/Reduce task completed</span><br><span class="line">14.59user 3.78system 0:14.81elapsed</span><br></pre></td></tr></table></figure>
+<p>输出结果将保存在文件<code>mrtmp.wxseq</code>中。如果代码实现是正确的，则执行下面的命令将输出下面的信息：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">sort -n -k2 mrtmp.wcseq | tail -10</span><br><span class="line">he: 34077</span><br><span class="line">was: 37044</span><br><span class="line">that: 37495</span><br><span class="line">I: 44502</span><br><span class="line">in: 46092</span><br><span class="line">a: 60558</span><br><span class="line">to: 74357</span><br><span class="line">of: 79727</span><br><span class="line">and: 93990</span><br><span class="line">the: 154024</span><br></pre></td></tr></table></figure>
+<p>执行下面的命令可以删除输出文件和所有中间文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm mrtmp.*</span><br></pre></td></tr></table></figure>
+<p>为了方便测试，可以执行下面的命令，并报告程序的正确与否。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash ./test-wc.sh</span><br></pre></td></tr></table></figure>
+<h2 id="第三部分：分发MapReduce-task"><a href="#第三部分：分发MapReduce-task" class="headerlink" title="第三部分：分发MapReduce task"></a>第三部分：分发MapReduce task</h2><p>我们当前的代码实现在一个时刻只运行一个map和reduce的task。Map/Reduce最大的卖点之一就是它可以自动地将顺序执行的代码并行化，而免去了开发者的额外工作。在这部分实验中，我们要实现另一个版本的MapReduce，将工作划分成多个worker线程，使用多核并行执行。尽管不能与现实MapReduce的部署一样，在多台机器上分布式部署，我们可以使用RPC来模拟分布式计算。</p>
+<p><code>mapreduce/master.go</code>中的代码主要用于管理一个MapReduce的job。课程在<code>mapreduce/worker.go</code>的代码中提供了一个完整的worker线程的代码，并在<code>mapreduce/common_rpc.go</code>中提供了处理RPC的代码。</p>
+<p>我们的工作是实现<code>mapreduce/schedule.go</code>中的<code>schedule()</code>函数。master在一个MapReduce的job运行期间，两次调用<code>schedule()</code>，一次是为了Map操作，一次是为了Reduce操作。<code>schedule()</code>的功能是将task分发到可用的worker上执行。一般来说，task的数量多于worker线程的数量，因此<code>schedule()</code>必须每次给一个worker分配一组task，并且只有当所有的task都执行完时，<code>schedule()</code>才可以返回。</p>
+<p><code>schedule()</code>通过读取参数<code>registerChan</code>获取worker的集合。该channel为每个worker生成一个包含worker的RPC地址的字符串。某些worker可能在调用<code>schedule()</code>前就已经存在，而有些可能在<code>schedule()</code>运行期间被启动。<code>schedule()</code>需要使用所有的worker，包括那些在启动之后出现的。</p>
+<p>使用<code>mapreduce/common_rpc.go</code>中的<code>call()</code>向一个worker发送一个RPC请求。第一个参数是worker的地址，从<code>registerChan</code>中获取。第二个参数是<code>Worker.DoTask</code>。第三个参数是结构体<code>DoTaskArgs</code>，最后一个参数是<code>nil</code>。</p>
+<p>在这部分我们只需要修改<code>schedule.go</code>，如果修改了其他文件，比如debug部分，需要在提交测试之前还原到初始内容。</p>
+<p>为了测试代码，我们使用与第一部分相同的测试套件，但是需要将<code>-run Sequential</code>替换成<code>-run Basic</code>。这回执行不包含worker失效的分布式测试代码，代替前面运行的顺序模式代码：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> test -run TestBasic</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>提示：<a href="https://golang.org/pkg/net/rpc/" target="_blank" rel="noopener">RPC package</a> 记录了Go的RPC包。</p>
+<p>提示：<code>schedule()</code>需要向并行的worker发送RPC，以便worker可能并发运行task。我们可以在 <a href="http://golang.org/doc/effective_go.html#concurrency" target="_blank" rel="noopener">Concurrency in Go</a>上找到实现这一目标的语句。</p>
+<p>提示：<code>schedule()</code>必须等待一个worker执行结束，才能给该worker分配下一个task。我们可以发现Go的channel很有用。</p>
+<p>提示：我们可以发现 <a href="https://golang.org/pkg/sync/#WaitGroup" target="_blank" rel="noopener">sync.WaitGroup</a> 很有帮助。</p>
+<p>提示：追踪bug最简单的方法是插入打印状态信息的语句(可调用<code>common.go</code>中的<code>debug</code>)，执行命令<code>go test -run TestBasic &gt; out</code>收集文件中的输出数据，并思考输出的内容与理解实现的代码是否匹配。最后一步思考是很重要的。</p>
+<p>提示：为了检测代码是否包含竞争状态，运行Go的<a href="https://golang.org/doc/articles/race_detector.html" target="_blank" rel="noopener">race detector</a>：<code>go test -race -run TestBasic &gt; out</code></p>
+<p>注意：课程给出的代码是在一个UNIX进程下执行worker线程，并可利用一台机器的多核。需要进行某些调整，以在多台机器上利用网络通信运行worker。RPC需要使用TCP而不是UNIX-domain的socket。需要在所有的机器上启动worker，并且所有的机器需要通过某种网路文件系统共享存储。</p>
+</blockquote>
+<h2 id="第四部分：处理worker失效"><a href="#第四部分：处理worker失效" class="headerlink" title="第四部分：处理worker失效"></a>第四部分：处理worker失效</h2><p>这部分我们将使master处理失效的worker。MapReduce以一种相对容易的方式处理，因为worker不会保存持久的状态信息。如果一个worker失效了，master发送给该worker的任何RPC也将失效，由于一个timeout。因此，如果master发送的RPC失效了，master需要将分配给失效worker的task重新分配给另一个worker。</p>
+<p>一个RPC失效不一定代表对应的worker不行执行task，worker可能已经执行了，但是回应丢失了，或者work仍然在执行而master的RPC超时了。因此，可能导致两个worker接收到相同的task，计算，并生成输出数据。一个map或者reduce函数的两次调用，会生成相同的输出结果(即map和reduce函数是函数式的)。所以如果后续处理去读一个输出或者读取另一个，不会发生不一致性。此外，MapReduce的框架保证了map和reduce的函数输出操作是原子性的：输出文件要么是不存在，要么是包含map或者reduce函数的一次执行的全部输出内容(实验代码并非真正实现了这一点，只是在task结束时worker失效，因此不存在一个任务的并发执行)。</p>
+<blockquote>
+<p>我们不需要处理master的失效。使master具备容错较为困难，因为master需要维持状态信息，以便在失效后进行操作恢复。后面的实验致力于解决这一问题。</p>
+</blockquote>
+<p>我们实现的代码必须通过<code>test_test.go</code>中的两个测试案例。第一个案例测试了一个worker的失效，第二个测试了多个worker的失效。这些测试案例会阶段性地启动新的worker，这样master可以继续向下运行，但是在处理完一部分task后这些worker失效。执行下面的命令运行这些测试：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> test -run Failure</span><br></pre></td></tr></table></figure>
+<p>在这部分我们只需要修改<code>schedule.go</code>，如果修改了其他文件，比如debug部分，需要在提交测试之前还原到初始内容。</p>
+<h2 id="运行所有的测试"><a href="#运行所有的测试" class="headerlink" title="运行所有的测试"></a>运行所有的测试</h2><p>我们可以执行脚本<code>src/main/test-mr.sh</code>来运行所有的测试案例。正确的代码实现输出信息类似于下面的内容：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">bash ./test-mr.sh</span><br><span class="line">==&gt; Part I</span><br><span class="line">ok  	mapreduce	3.053s</span><br><span class="line"></span><br><span class="line">==&gt; Part II</span><br><span class="line">Passed test</span><br><span class="line"></span><br><span class="line">==&gt; Part III</span><br><span class="line">ok  	mapreduce	1.851s</span><br><span class="line"></span><br><span class="line">==&gt; Part IV</span><br><span class="line">ok  	mapreduce	10.650s</span><br><span class="line"></span><br><span class="line">==&gt; Part V (challenge)</span><br><span class="line">Passed test</span><br></pre></td></tr></table></figure>
+			
+			
+		<br>
+		
+		
+		
+<div class="copyright">
+  <p><span>Title:</span><a href="/2017/03/14/Lab1_MapReduce/">MIT 6.824 Lab 1 MapReduce</a></p>
+  <p><span>Author:</span><a href="/" title="visit Tankcat 's personal blog">Tankcat</a></p>
+  <p><span>Release Date:</span>2017-03-14  22:57</p>
+  <p><span>Update Date:</span>2017-05-06  21:05</p>
+  <p>
+    <span>Original Link:</span><a href="/2017/03/14/Lab1_MapReduce/" title="MIT 6.824 Lab 1 MapReduce">http://tankcat2.com/2017/03/14/Lab1_MapReduce/</a>
+    <span class="btn" data-clipboard-text="Master Copy: http://tankcat2.com/2017/03/14/Lab1_MapReduce/　　Author: Tankcat" title="copy the article link">
+        <i class="fa fa-clipboard"></i>
+    </span>
+  </p>
+ <p><span>License Agreement:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="Mainland China (CC BY-NC-SA 3.0 CN)">"Signature-Non Commercial-Share Alike 3.0"</a>.
+ <br>
+ <br>
+ <span>Please retain the original link and author if reprinting.
+ </span>
+ </p>
+  <script src="/js/clipboard.min.js"></script>
+  <script> var clipboard = new Clipboard('.btn'); </script>
+</div>
+<style type="text/css">
+  .copyright p .btn {
+    margin-left: 1em;
+  }
+  .copyright:hover p .btn::after {
+    content: "Copy"
+  }
+  .copyright p .btn:hover {
+      color: gray;
+      cursor: pointer;
+    };
+</style>
+
+<br>
+<br>
+		<style type="text/css">
+		  .center {
+			  text-align: center;
+		  }
+		  .hidden {
+			  display: none;
+		  }
+		.donate_bar a.btn_donate{
+		  display: inline-block;
+		  width: 82px;
+		  height: 82px;
+		  background: url("http://7xsl28.com1.z0.glb.clouddn.com/btn_reward.gif") no-repeat;
+		  _background: url("http://7xsl28.com1.z0.glb.clouddn.com/btn_reward.gif") no-repeat;
+		  -webkit-transition: background 0s;
+		  -moz-transition: background 0s;
+		  -o-transition: background 0s;
+		  -ms-transition: background 0s;
+		  transition: background 0s;
+		}
+
+		.donate_bar a.btn_donate:hover{ background-position: 0px -82px;}
+		.donate_bar .donate_txt {
+		  display: block;
+		  color: #9d9d9d;
+		  font: 14px/2 "Microsoft Yahei";
+		}
+		.bold{ font-weight: bold; }
+	  </style>
+	  
+	  
+	  
+	  <div id="donate_module">
+		<div id="donate_board" class="donate_bar center">
+		打赏 | Buy me a coffee<br/><br/>
+		<a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}"></a>
+		  
+		
+		</div>
+		
+		<div id="QR" style="display: none;">
+			<br>
+		  <br>
+		
+		<a href="http://7xwggp.com1.z0.glb.clouddn.com/webwxgetmsgimg.jpg" title="用微信扫一扫哦~" class="fancybox" rel="article0">
+		  <img src="http://7xwggp.com1.z0.glb.clouddn.com/webwxgetmsgimg.jpg" title="微信打赏 Colin" height="250px" width="250px"/>
+		</a>
+		<br>
+		<center>
+		<span class="donate_txt">
+		  If you enjoy the blog, please feel free to donate~Thx for your support.
+		</span>
+	</center>
+	  </div>
+	  <br>
+	   
+	  </div>
+		
+				
+			
+        </div>
+		
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://tankcat2.com/2017/03/14/Lab1_MapReduce/" data-id="cjagbx10h0004ookx7gt48e0a" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + encodedUrl + '" class="fa fa-qq article-share-qzone" target="_blank" title="Qzone"></a>',
+                            '<a href="http://service.weibo.com/share/share.php?url=' + encodedUrl + '" class="fa fa-weibo article-share-weibo" target="_blank" title="Weibo"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="http://tankcat2.com/2017/03/14/Lab1_MapReduce/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://tankcat2.com/2017/03/14/Lab1_MapReduce/">Comments</a>
+    
+
+        </footer>
+		
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2017/04/16/historyUSA/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    &lt;简明美国史&gt;观后感
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2017/03/14/Lecture1_MapReduce/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">MIT 6.824 Lecture 1 MapReduce</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+
+
+	
+    
+    <section id="comments" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+</section>
+			
+			
+			
+        </div>
+
+			<div style="height:10px;pistion:absolute;bottom:0"></div>
+<footer id="footer" >
+    <div class="outer">
+		<div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        <div id="footer-info" class="inner">
+            &copy; 2017 <i class="fa fa-heart blink-slow"></i> Tankcat<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+		
+    </div>
+</footer>
+			
+    
+    <script>
+    var disqus_config = function () {
+        
+            this.page.url = 'http://tankcat2.com/2017/03/14/Lab1_MapReduce/';
+        
+        this.page.identifier = 'Lab1_MapReduce';
+    };
+    (function() { 
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'tankcat2' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+    
+        <script src="/vendor/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-share.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-video.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+	
+    </div>
+</body>
+
+</html>
