@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://tankcat2.com/"/>
-  <updated>2017-11-26T06:16:30.824Z</updated>
+  <updated>2017-11-26T10:38:13.351Z</updated>
   <id>http://tankcat2.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>十一月的第四周</title>
+    <link href="http://tankcat2.com/2017/11/26/diary1126/"/>
+    <id>http://tankcat2.com/2017/11/26/diary1126/</id>
+    <published>2017-11-26T10:29:45.000Z</published>
+    <updated>2017-11-26T10:38:13.351Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="工作日的survey"><a href="#工作日的survey" class="headerlink" title="工作日的survey"></a>工作日的survey</h3><p>这个月进行survey的第四周，工作日的五天细读了两篇微软的流处理系统paper，一篇Naiad和一篇Falkirk Wheel；一篇很经典的Dynamo，十年前就发表的这篇今年喜获SIGOPS名人堂奖，重点关注了它的高可用是如何实现的；一篇综述，其中一个作者和Naiad、Falkirk Wheel联系密切，这篇综述关注的点很基础。</p><p>算下来从开始做survey，看过的文章也有二十多篇了，关于容错，心中确实有了一点感觉，但觉得还不够，有的时候回头想想看过的文章，竟然不能一句话讲出它做了什么，看过就忘成了很大的问题。男票告诉我，这是因为我没有理解透彻。所以，现在就有点迷茫，到底什么文章该精读，精读到什么程度是够的，要想真正理解一篇文章的proposal，耗时不短，这当中该怎么做权衡呢？</p><p>还有一点需要反省，就是效率问题，一周只看了四篇文章，很大一部分时间还是被我浪费了，经常看文章看到一半就去找人聊天、逛豆瓣微博，没有完整、高效率的学习时间，这应该也是导致文章理解不透彻的原因之一吧。</p><p>不过，有进步的是，开始定制周计划了，也切实进行了，希望在次基础上提高效率并继续保持。</p><h3 id="周六周日的吃吃玩玩"><a href="#周六周日的吃吃玩玩" class="headerlink" title="周六周日的吃吃玩玩"></a>周六周日的吃吃玩玩</h3><p>周六中午出门，骑单车去武康路的一家星巴克臻选店买工业风的杯子，哪里知道好不容易找到这家店却被告之没有存货，感觉委屈的不行。直接返程肯定是不行的，不然就白出来了，于是就在武昌路和湖南路附近逛逛，后来又去一家网红面店吃了一碗辣肉面。然而，十个网红店九个是垃圾，这家面店很荣幸也是垃圾，38块一碗的面还不如河西食堂3块一碗的阳春面。返程的时候选择步行，正好记一记路线。从武康路-兴国路-华山路-江苏路-愚园路-长宁路-凯旋路-万航渡路-光复西路-枣阳路，短短五公里串联了这么多道路，有些路很小资、适合拍照，有些路就普普通通、大众化。走到长宁路上的兆丰广场，看到有Bose专柜就想顺便试试音质，试玩就心动了，比我的大法轻多了。走之前顺便又去nitori买了一口雪平锅，想着宿舍厨房里有电磁炉，以后可以熬奶茶、煮泡面吃，可是买的时候没看清楚，今天早上发现这锅只能用煤气加热。晚上懒得回实验室了，和男票商量了一下要讨论微信小程序的需求问题，于是又背着包出门，选择在枣阳路的这家星巴克讨论。环境还是不错的，有无线，周六晚上人很少，买了一杯太妃榛果，店员还给了一些蛋糕试吃。讨论完肚子又饿了，就去蔡师傅汤包店点了一碗小馄饨和一块素鸡，美味又划算。最后，回寝室洗漱。哦对了，昨天是老爸生日，舅舅一家去家里，燕子姐姐又给爸爸买了礼物。听老妈说，爸爸这次很感动，不仅燕子姐姐送了礼物，我又送了手机，好像老爸都哭了。</p><p>周日赖了床，早上8点半才醒，准备用雪平锅煮奶茶的时候发现电磁炉不能加热，没办法只能换成电炖锅来做了。牛奶是在盒马鲜生上买的明治鲜奶，加了两包立顿红茶包，这次冰糖又放多了，不过口感还是很醇厚的，虽然比较甜，和外面比起来还是健康很多的。给实验室的小伙伴带了一点，评价都不错。中午去了实验室，忙着把Hexo个人博客需要的环境在新笔记本上重新搭建了一下，遇到了不少问题，但是都解决了。搞完已经三点了，在大众点评上选择了一家中江路那边的日料店，骑了单车过去，由于不是饭点，店里除了我没其他顾客，点了三文鱼刺身、炸土豆饼、煎饺和炸鸡肉串，很快就消灭了。</p><h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>这一周过得还是挺充实了，周一早上体重还下百了，激动得我发了一条朋友圈。可是下百就一天，接着几天就无所顾忌地吃，周一把剩余的牛油果继续做了奶昔喝，周二吃了冒菜，周三又跑去吃了煲宫，周五还吃了麻辣香锅和芝麻糊小圆子，周六周日前面已经说了。减肥我还是会继续的，只是不会再像一开始那么严格了，该吃吃还是要吃，该锻炼也还是会锻炼，健康的前提下保持身材。技能上，</p><p>就这样吧，明天又是新的一周，下周五轮到我讲survey，还有四天半的时间好好准备，加油吧二筒子~</p>]]></content>
+    
+    <summary type="html">
+    
+      一周的流水线，只是记录，文笔很差。
+    
+    </summary>
+    
+      <category term="随笔" scheme="http://tankcat2.com/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+      <category term="周记" scheme="http://tankcat2.com/tags/%E5%91%A8%E8%AE%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>Martiderm安瓶使用感</title>
@@ -346,6 +368,33 @@
   </entry>
   
   <entry>
+    <title>再见我的暴力女王</title>
+    <link href="http://tankcat2.com/2017/02/27/evil/"/>
+    <id>http://tankcat2.com/2017/02/27/evil/</id>
+    <published>2017-02-27T12:11:31.000Z</published>
+    <updated>2017-11-26T06:16:11.104Z</updated>
+    
+    <content type="html"><![CDATA[<p>初二的时候，老妈同事的儿子来我家排练吹笛子，给我讲了生化危机3，当时没记住名字；</p><p>后来在家里的电脑上翻到了，还是没字幕英文版的，就这样看完了；</p><p>到了高二，周末回家，把第一部第二部给补完了，没看过瘾，导致后来第二部反复拿出来看，可能看了有十多遍了，里面的角色很鲜明，很喜欢吉尔，喜欢短发帅气的她；</p><p>没过多久，第四部就上映了，在网上看过一遍之后才去老文化馆那边的电影院再看一遍，记得那次的3D眼睛还是硬纸片做的；第五部也是在网上看的枪版，越来越没趣。</p><p>今天，和实验室的小伙伴一起看了终章，看完有点失落，追了这么多年的欧美暴力女王，就这么结束了。我不说这是情怀，有点装逼，但可能也是因为生化3，开始了我喜欢丧尸类型片子之路。等网上出了终章的未删减版，我要再刷一波。</p><p>最后，刚刚在知乎上看到“如何评价生化危机6”里面有个回答说，我觉得最大的彩蛋是我旁边的哥们儿看到女主骑着摩托绝尘而去的时候，突然说了一句，她真该进复联。。。</p><a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;初二的时候，老妈同事的儿子来我家排练吹笛子，给我讲了生化危机3，当时没记住名字；&lt;/p&gt;
+&lt;p&gt;后来在家里的电脑上翻到了，还是没字幕英文版的，就这样看完了；&lt;/p&gt;
+&lt;p&gt;到了高二，周末回家，把第一部第二部给补完了，没看过瘾，导致后来第二部反复拿出来看，可能看了有十多遍了，里面的角色很鲜明，很喜欢吉尔，喜欢短发帅气的她；&lt;/p&gt;
+&lt;p&gt;没过多久，第四部就上映了，在网上看过一遍之后才去老文化馆那边的电影院再看一遍，记得那次的3D眼睛还是硬纸片做的；第五部也是在网上看的枪版，越来越没趣。&lt;/p&gt;
+&lt;p&gt;今天，和实验室的小伙伴一起看了终章，看完有点失落，追了这么多年的欧美暴力女王，就这么结束了。我不说这是情怀，有点装逼，但可能也是因为生化3，开始了我喜欢丧尸类型片子之路。等网上出了终章的未删减版，我要再刷一波。&lt;/p&gt;
+&lt;p&gt;最后，刚刚在知乎上看到“如何评价生化危机6”里面有个回答说，我觉得最大的彩蛋是我旁边的哥们儿看到女主骑着摩托绝尘而去的时候，突然说了一句，她真该进复联。。。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="随笔" scheme="http://tankcat2.com/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+      <category term="生化危机" scheme="http://tankcat2.com/tags/%E7%94%9F%E5%8C%96%E5%8D%B1%E6%9C%BA/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Kafka快速入门</title>
     <link href="http://tankcat2.com/2017/02/27/kafka_quickstart/"/>
     <id>http://tankcat2.com/2017/02/27/kafka_quickstart/</id>
@@ -372,33 +421,6 @@
     
     
       <category term="kafka" scheme="http://tankcat2.com/tags/kafka/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>再见我的暴力女王</title>
-    <link href="http://tankcat2.com/2017/02/27/evil/"/>
-    <id>http://tankcat2.com/2017/02/27/evil/</id>
-    <published>2017-02-27T12:11:31.000Z</published>
-    <updated>2017-11-26T06:16:11.104Z</updated>
-    
-    <content type="html"><![CDATA[<p>初二的时候，老妈同事的儿子来我家排练吹笛子，给我讲了生化危机3，当时没记住名字；</p><p>后来在家里的电脑上翻到了，还是没字幕英文版的，就这样看完了；</p><p>到了高二，周末回家，把第一部第二部给补完了，没看过瘾，导致后来第二部反复拿出来看，可能看了有十多遍了，里面的角色很鲜明，很喜欢吉尔，喜欢短发帅气的她；</p><p>没过多久，第四部就上映了，在网上看过一遍之后才去老文化馆那边的电影院再看一遍，记得那次的3D眼睛还是硬纸片做的；第五部也是在网上看的枪版，越来越没趣。</p><p>今天，和实验室的小伙伴一起看了终章，看完有点失落，追了这么多年的欧美暴力女王，就这么结束了。我不说这是情怀，有点装逼，但可能也是因为生化3，开始了我喜欢丧尸类型片子之路。等网上出了终章的未删减版，我要再刷一波。</p><p>最后，刚刚在知乎上看到“如何评价生化危机6”里面有个回答说，我觉得最大的彩蛋是我旁边的哥们儿看到女主骑着摩托绝尘而去的时候，突然说了一句，她真该进复联。。。</p><a id="more"></a>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;初二的时候，老妈同事的儿子来我家排练吹笛子，给我讲了生化危机3，当时没记住名字；&lt;/p&gt;
-&lt;p&gt;后来在家里的电脑上翻到了，还是没字幕英文版的，就这样看完了；&lt;/p&gt;
-&lt;p&gt;到了高二，周末回家，把第一部第二部给补完了，没看过瘾，导致后来第二部反复拿出来看，可能看了有十多遍了，里面的角色很鲜明，很喜欢吉尔，喜欢短发帅气的她；&lt;/p&gt;
-&lt;p&gt;没过多久，第四部就上映了，在网上看过一遍之后才去老文化馆那边的电影院再看一遍，记得那次的3D眼睛还是硬纸片做的；第五部也是在网上看的枪版，越来越没趣。&lt;/p&gt;
-&lt;p&gt;今天，和实验室的小伙伴一起看了终章，看完有点失落，追了这么多年的欧美暴力女王，就这么结束了。我不说这是情怀，有点装逼，但可能也是因为生化3，开始了我喜欢丧尸类型片子之路。等网上出了终章的未删减版，我要再刷一波。&lt;/p&gt;
-&lt;p&gt;最后，刚刚在知乎上看到“如何评价生化危机6”里面有个回答说，我觉得最大的彩蛋是我旁边的哥们儿看到女主骑着摩托绝尘而去的时候，突然说了一句，她真该进复联。。。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="随笔" scheme="http://tankcat2.com/categories/%E9%9A%8F%E7%AC%94/"/>
-    
-    
-      <category term="生化危机" scheme="http://tankcat2.com/tags/%E7%94%9F%E5%8C%96%E5%8D%B1%E6%9C%BA/"/>
     
   </entry>
   
@@ -515,30 +537,6 @@
     
     
       <category term="苏打绿" scheme="http://tankcat2.com/tags/%E8%8B%8F%E6%89%93%E7%BB%BF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>理解Clojure持久性Vector的实现（一）</title>
-    <link href="http://tankcat2.com/2016/08/30/vector/"/>
-    <id>http://tankcat2.com/2016/08/30/vector/</id>
-    <published>2016-08-30T04:54:31.000Z</published>
-    <updated>2016-09-19T11:52:42.000Z</updated>
-    
-    <content type="html"><![CDATA[<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script><p>原文链接：<a href="http://hypirion.com/musings/understanding-persistent-vector-pt-1" target="_blank" rel="noopener">http://hypirion.com/musings/understanding-persistent-vector-pt-1</a><br><a id="more"></a><br>你也许有或者没有听说过Clojure的持久性vector。受Phil Bagwell关于<a href="http://lampwww.epfl.ch/papers/idealhashtrees.pdf" target="_blank" rel="noopener">Idel Hash Trees</a>这篇文章的影响，Clojure的发明者Rich Hickey创造出了这种数据结构，能够在\(O(1)\)的时间复杂度内实现追加(append)、更新(update)、查找(look up)和截取片段(subvec)操作。由于该vector是持久性的，每一次的修改操作都将创建一个新的vector，而不是修改原来旧的vector。<br>那么，它们是如何工作的呢？我将尝试着通过一系列的博客来作以解释，每一篇博客将只关注一部分内容。这将是一次深入细节的解析，包括一些在实现部分上的不同的、怪异的内容。</p><p>今天，我们将学习一些基础知识，涵盖更新(update)、追加(append)和弹出(popping)操作。Clojure持久性vector的实现使用这些操作作为核心，同时也采用了一些加速优化，譬如transient和tail。我们将在后续博客中学习这些内容。</p><h1 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h1><p>一般来说，易变的vector和ArrayList仅仅是数组，可按需增长或者减小。当有易变性(mutability)的需求时，它们可以工作得很好；但是如果有持久性(persistence)的需求时，这会导致严重的问题。当执行修改操作时，由于不得不总是需要拷贝整个数组，执行速度将会降低，并且占用大量内存空间。执行查询操作时，如果在不降低性能的前提下，尽可能地避免冗余存储，这将是非常棒的。而这正是Clojure持久性vector在平衡有序二叉树上实现的。<br>基本思路就是实现一个类似二叉树的数据结构，唯一的不同就是，树的内部节点最多只有两个子节点，并且内部节点中不存储元素；叶子节点中至多存储两个元素。元素在叶子节点中是有序存储的，也就是说，第一个元素就是最左边叶子节点中存储的第一个元素，最后一个元素就是最右边叶子节点中存储的最后一个元素。眼下我们要求所有的叶子节点在同一深度上<a href="#reference">[参考1]</a>。举个例子，如下图所示，该树存储整数0~8，其中0是第一个元素，8是最后一个元素。这个树对应的vector的大小是9。<br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/9-annotated.png" alt="9-nodes"></div><br>假设这个vector是可变的，当在最后增加一个新的元素是，我们将把元素9插入到最右的叶子节点中，如下图所示。<br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/10-node.png" alt="10-nodes"></div><br>但是这里存在一个问题，如果需要保证持久性就不能这么操作。而且如果我们想要更新一个元素，这么做显然行不通，因为必须拷贝整个结构，或者至少是部分。<br>为了在保持持久性的前提下最小化拷贝代价，我们采用路径拷贝：拷贝从根节点到需要修改或者插入元素所在节点的路径上的所有内部节点，并在到达叶子节点时用新的元素值替代旧的值。下图展示了多次插入操作的结果。这里，包含7个元素的vector和包含10个元素的vector共享结构。<br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/7to10.png" alt="7to10"></div><br>粉红色的节点是两个vector所共享的部分，而棕色和蓝色的节点是各自所属的。其他没有显示的vector可能也和这两个vector共享部分节点。</p><h1 id="Update-更新"><a href="#Update-更新" class="headerlink" title="Update 更新"></a>Update 更新</h1><p>最容易理解的“修改”操作应该是更新或者替换vector中的元素。接下来我们首先解释更新(update)操作是如何运行的。在Clojure中，更新对应着<code>assoc</code>和<code>update-in</code>/<code>update</code>函数。<br>为了更新一个元素，我们需要往下对树进行遍历，直到到达该元素所在的叶子节点。当我们遍历时，对路径上的内部节点进行拷贝以保证持久性。当我们到达叶子节点时，对其进行拷贝，同时对拷贝的节点用新的元素值进行代替。最后，连带更新的路径，我们返回新的vector。<br>举个例子，我们对一个存储0~8元素的vector执行<code>assoc</code>操作，如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(def brown [0 1 2 3 4 5 6 7 8])</span><br><span class="line">(def blue (assoc brown 5 &apos;beef))</span><br></pre></td></tr></table></figure></p><p>蓝色节点是被拷贝的路径，内部结构如下图所示：<br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/update.png" alt="update"></div><br>此处假设我们已知晓如何定位到需要修改元素所在的叶子节点，这看起来非常容易。(这个系列博客的下一部分我们将介绍如何寻到一条路径到指定的索引)</p><h1 id="Appends-追加"><a href="#Appends-追加" class="headerlink" title="Appends 追加"></a>Appends 追加</h1><p>追加操作(在vector的最后插入)和更新操作差别不是很大，除了一些为了存储值不得不创建新节点的边缘情况，本质上，分为以下三种：</p><ol><li>最右叶子节点中有空间存储一个新的元素；</li><li>根节点有空余空间，但是最右叶子节点不存在空闲空间；</li><li>当前的根节点没有足够的空间存储新的元素。</li></ol><p>下面我们将一一讨论这三种情况，它们的解决方法不是很难掌握。</p><h2 id="1-类似Assoc"><a href="#1-类似Assoc" class="headerlink" title="1. 类似Assoc"></a>1. 类似Assoc</h2><p>不论何时，当最右的叶子节点中有足够的空间，执行追加操作就如同执行<code>assoc</code>函数：我们只拷贝路径上的节点，在最新创建的叶子节点上，我们将待插入的元素放置在最后一个位置中。<br>举个例子，执行<code>(conj [0 1 2 3 4] 5)</code>，下图展示了过程和内部结构。蓝色节点是新创建的，棕色节点是旧节点。<br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/conj-1.png" alt="conj1"></div><br>就这样，没有什么神奇的内容，仅仅是拷贝路径节点和在叶子节点中插入元素。</p><h2 id="2-当需要时创建新的节点"><a href="#2-当需要时创建新的节点" class="headerlink" title="2. 当需要时创建新的节点"></a>2. 当需要时创建新的节点</h2><p>那么，当最右叶子节点中存储空间不足是应该怎么办？幸运的是，我们不会止步于一个错误位置的叶子节点：我们总是有办法寻找正确的路径到达叶子节点。<br>相反，我们意识到，将达到的叶子节点并不存在(指针为空)。当一个节点不存在时，我们会创建一个并将其设置为原本“拷贝”的节点。<br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/conj-2.png" alt="conj2"></div><br>如上图所示，粉色节点是新建的节点，蓝色的是拷贝的路径节点。</p><h2 id="3-根节点溢出"><a href="#3-根节点溢出" class="headerlink" title="3. 根节点溢出"></a>3. 根节点溢出</h2><p>最后一种情况是根节点溢出。当根节点对应的这个树不存在空余空间时，这种情况会发生。<br>如何解决这个情况也不难：我们创建一个新的根节点，然后将旧的根节点作为新根节点的第一个孩子节点。从这里，我们执行了节点创建操作，就像上一种情况中一样。下图所示的例子中，紫色节点是新的根节点，粉色的节点是拷贝的路径节点和创建的叶子节点。<br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/conj-3.png" alt="conj3"></div><br>解决这种情况是问题，但检测这种情况什么时候发生也至关重要。幸运的是，这也很容易。当它是一个二叉分支的vector时，当vector中元素个数是2的幂次方时，这种情况就会发生。一般来说，当一个n叉分支的vector存储的元素为n的幂次方个时，会发生根节点溢出。</p><h1 id="Popping-弹出"><a href="#Popping-弹出" class="headerlink" title="Popping 弹出"></a>Popping 弹出</h1><p>解决弹出操作(剔除最后一个元素)的方法同样也不难掌握。类似于追加，弹出操作也会遇到三种情况：</p><ol><li>最右叶子节点包含不止一个元素；</li><li>最右叶子节点只存储一个元素(执行弹出操作后存储为空)；</li><li>执行弹出操作后，根节点只包含一个元素。</li></ol><p>本质上来说，这只是前面追加部分3种情况的复原，同样不复杂。</p><h2 id="1-Dissoc"><a href="#1-Dissoc" class="headerlink" title="1. Dissoc"></a>1. Dissoc</h2><p>再者，我们面临的情况与更新一个vector类似：我们向下遍历到叶子节点的过程中拷贝路径节点，然后移除拷贝的叶子节点的最后一个元素。只要新的叶子节点中至少还包含一个元素时，我们就不需要做额外的操作。<br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/pop-1.png" alt="pop-1"></div><br>记住，在一个vector上多次执行弹出操作不会得到同一个vector：它们是相等的，但是不共享根节点。举个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(def brown [0 1 2 3 4 5])</span><br><span class="line">(def blue (pop brown))</span><br><span class="line">(def green (pop brown))</span><br></pre></td></tr></table></figure></p><p>执行上述代码得到的结果对应的内部结构如下图所示：<br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/pop-twice.png" alt="pop-twice"></div></p><h2 id="2-移除空节点"><a href="#2-移除空节点" class="headerlink" title="2. 移除空节点"></a>2. 移除空节点</h2><p>不论什么时候，当叶子节点只包含一个元素时，我们需要一些不同的处理。不惜一切代价，我们要避免在树中存在空节点。因此，一旦出现空间点，我们返回<code>null</code>而不是返回节点本身。父节点此时将包含一个空孩子指针，而不是一个指向空节点的孩子指针：<br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/pop-2.png" alt="pop-2"></div><br>这里，棕色的vector是原始的vector，蓝色的是弹出操作之后生成的vector。<br>不幸的是，仅仅删除叶子节点不是那么容易，你会发现，当我们返回一个空指针给一个节点，而这个节点原本只包含一个子节点，我们必须将子节点作为空指针返回：清空一个节点的结果将向上层传播。这里要正确处理需要一点技巧，但本质上它是通过向下查看新的孩子节点，如果是null，并且预计要放在索引为0的位置上，则返回null。<br>如果用Clojure实现，它看起来是如下所示的递归函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">(defn node-pop [idx depth cur-node]</span><br><span class="line">  (let [sub-idx (calculate-subindex idx depth)]</span><br><span class="line">    (if (leaf-node? depth)</span><br><span class="line">      (if (== sub-idx 0)</span><br><span class="line">        nil</span><br><span class="line">        (copy-and-remove cur-node sub-idx))</span><br><span class="line">      ; not leaf node</span><br><span class="line">      (let [child (node-pop idx (- depth 1)</span><br><span class="line">                            (child-at cur-node sub-idx))]</span><br><span class="line">        (if (nil? child)</span><br><span class="line">          (if (== sub-idx 0)</span><br><span class="line">            nil</span><br><span class="line">            (copy-and-remove cur-node sub-idx))</span><br><span class="line">          (copy-and-replace cur-node sub-idx child))))))</span><br></pre></td></tr></table></figure></p><p>实现这样的函数后，节点删除操作的所有情况就全部兼顾到了。举个例子，如下图所示，执行弹出操作后，vector删除了2个节点(蓝色的表示新vector):包含<code>c</code>的叶子节点和它的父节点。<br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/pop-2-recur.png" alt="pop-2-recur"></div></p><h2 id="3-移除根节点"><a href="#3-移除根节点" class="headerlink" title="3. 移除根节点"></a>3. 移除根节点</h2><p>到此为止我们已经覆盖到所有情况，除了最后这一种。在目前的实现中，如果对包含9个元素的vector执行弹出操作，会得到以下结果：<br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/pop-3-bad.png" alt="pop-3-bad"></div><br>不错，我们得到了一个只有一个孩子节点的根节点。但这个根节点根本毫无用处，当我们查询或者添加元素时，我们总是会向下移动到孩子节点，并且追加元素时将会创建一个新的根节点。因此我们要做的就是消除这个根节点。<br>这里所做的可能是这篇博客最简单的部分：在我们执行完弹出操作后，检查根节点是否只包含一个孩子节点(检查第二个孩子指针是否为空)。如果是，并且这个根节点不是叶子节点，则我们仅需要用这个孩子节点代替根节点即可。<br>正如我们所期待，一个新的vector(蓝色的)，使用了原来vector的根节点的唯一子节点作为新的根节点：<br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/pop-3.png" alt="pop-3"></div></p><h1 id="O-1-O-log-n"><a href="#O-1-O-log-n" class="headerlink" title="O(1)!=O(log n)"></a>O(1)!=O(log n)</h1><p>有些人可能会疑惑，为什么这些操作的时间复杂度是\(O(1)\)。事实上，当一个节点有2个孩子时，负载度是\(O(log_2{n})\),与\(O(1)\)相差甚远。<br>不过，没有人说过，每个节点不许只有两个孩子(常代指分支因子)。Clojure中的vector每个节点包括32个孩子节点，这样的结果是生成的树深度很小。事实上，如果vector中的元素个数少于10亿个，整个树的深度最多6层。你需要大概35亿个元素才能达到8层深度的树。这种时候，我认为内存消耗是更加严重的问题了。<br>为了真正辨别出区别，这里我们给出一个四叉树的例子：这个四叉树含有14个元素，但只有2层的深度。如果你向上滚动鼠标查看前面包含13或者12个元素的树，你会发现它们已经达到4层的深度了，是这种情况的2倍。<br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/4-way-branching.png" alt="4way"></div><br>深度极小的树带来的后果是，我们倾向于将Clojure vector的修改和查找操作看成是近似常量时间，尽管理论上它的时间复杂度是\(O(log_{32} n)\)。了解大O记法的人应该都知道这等价于\(O(log n)\)，但是从营销角度看，人们喜欢加上常量因子。</p><h1 id="后续工作"><a href="#后续工作" class="headerlink" title="后续工作"></a>后续工作</h1><p>希望这篇博客可以帮助你们更好地理解Clojure持久性vector是如何工作的，以及在更新、添加和弹出操作背后的思想，同时非正式地阐述这些操作是如何做到高效的。关于追加和弹出的进一步优化是可以实现的，我将在写完更“关键”的部分后讨论这些工作。尤其是关于tail,transient和subvec是如何更有意义地工作的，在讨论稍许实现细节之前。</p><p>第二部分将探讨分支和如何查找元素的细节工作。</p><hr><p><span id="reference">[1] 你可以认为这是对路由选择的简化，尽管由于JVM自适应优化，它保括了对JVM运行速度的影响。后面我们会更深入讨论这一点。</span></p>]]></content>
-    
-    <summary type="html">
-    
-      翻译自《Understanding Clojure&#39;s Persistent Vectors》第一部分，这个系列博客对理解vector的内部机制很有帮助。
-    
-    </summary>
-    
-      <category term="文档翻译" scheme="http://tankcat2.com/categories/%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/"/>
-    
-    
-      <category term="clojure" scheme="http://tankcat2.com/tags/clojure/"/>
-    
-      <category term="vector" scheme="http://tankcat2.com/tags/vector/"/>
     
   </entry>
   
