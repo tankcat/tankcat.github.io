@@ -103,6 +103,88 @@
 			</aside>
 			
 					<section id="main">
+    <article id="post-KafkaSpout" class="article article-type-post" itemscope itemprop="blogPost">
+    
+	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
+        
+        
+            <header class="article-header">
+				
+					<center>
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/05/18/KafkaSpout/">Storm Kafka之KafkaSpout</a>
+        </h1>
+    
+
+					 
+						<div class="article-meta">
+							
+    <div class="article-date">    
+        <a href="/2017/05/18/KafkaSpout/">
+            <time datetime="2017-05-18T12:11:31.000Z" itemprop="datePublished">2017-05-18</time>
+        </a>
+    </div>
+
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Storm学习之路/">Storm学习之路</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/kafka/">kafka</a>, <a class="tag-link" href="/tags/storm/">storm</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/kafka/">kafka</a>, <a class="tag-link" href="/tags/storm/">storm</a>
+    </div>
+-->
+						</div>
+					
+					
+					
+					</center>
+				
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><p><code>storm-kafka-XXX.jar</code>提供了核心Storm与Trident的组件Spout的代码实现，用于消费Kafka中存储的数据(0.8.x之后的版本)。本文只介绍核心Storm的KafkaSpout。</p>
+<p>对于核心Storm与Trident两个版本的Spout实现，提供了<code>BrokerHost</code>接口，跟踪Kafka broker host$\rightarrow$partition的映射，并提供<code>KafkaConfig</code>接口来控制Kafka相关的参数。下面就这以上两点进行讲解。</p>
+<h3 id="BrokerHost"><a href="#BrokerHost" class="headerlink" title="BrokerHost"></a>BrokerHost</h3><p>为了对Kafka spout进行初始化，我们需要创建一个<code>BrokerHost</code>的实例，Storm共提供了两种实现方式：</p>
+<ol>
+<li><p>ZkHosts。ZkHosts使用Zookeeper的实体对象，可动态地追踪Kafka broker$\rightarrow$partition之间的映射，通过调用下面两种函数创建ZkHosts:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ZkHosts</span><span class="params">(String brokerZkStr,String brokerZkPath)</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ZkHosts</span><span class="params">(String brokerZkStr)</span></span></span><br></pre></td></tr></table></figure>
+<p>其中，<code>brokerZkStr</code>是<code>ip:host</code>(主机:端口)，<code>brokerZkPath</code>是存放所有topic和partition信息的根目录，默认值为<code>\broker</code>。默认地，Zookepper每60秒刷新一次broker$\rightarrow$partition，通过<code>host:refreshFreqSecs</code>可以改变这个时间。</p>
+</li>
+</ol></p>
+            <p class="article-more-link">
+               <a href="/2017/05/18/KafkaSpout/#more">Read More</a>
+				
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/kafka/">kafka</a>, <a class="tag-link" href="/tags/storm/">storm</a>
+    </div>
+
+            </p>
+        
+        </div>
+		
+    </div>
+    
+</article>
+
+
+
+
+
     <article id="post-compression" class="article article-type-post" itemscope itemprop="blogPost">
     
 	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
@@ -440,90 +522,6 @@
 
 
 
-    <article id="post-daofeng" class="article article-type-post" itemscope itemprop="blogPost">
-    
-	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
-        
-            
-	
-		<a href="/2017/04/20/daofeng/" itemprop="url">
-            <img src="http://7xwggp.com1.z0.glb.clouddn.com/daofeng.png" class="article-banner" />
-        </a>
-	
-
-
-
-        
-        
-            <header class="article-header">
-				
-					<center>
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2017/04/20/daofeng/">&lt;刀锋&gt;观后感</a>
-        </h1>
-    
-
-					 
-						<div class="article-meta">
-							
-    <div class="article-date">    
-        <a href="/2017/04/20/daofeng/">
-            <time datetime="2017-04-20T12:11:31.000Z" itemprop="datePublished">2017-04-20</time>
-        </a>
-    </div>
-
-							<!--
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/读书笔记/">读书笔记</a>
-		&nbsp;&nbsp;
-		
-			<span class="article-tag">
-				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/传记/">传记</a>
-			</span>
-		
-    </div>
--->
-							<!--
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/传记/">传记</a>
-    </div>
--->
-						</div>
-					
-					
-					
-					</center>
-				
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            <p><p>先摘抄一段刀锋里面我很喜欢的一段话，“For men and women are not only themselves; they are also the region in which they were born, the city apartment or the farm in which they learnt to walk, the games they played as children, the tales they overheard, the food they ate, the schools they attended, the sports they followed, the poets they read and the God they believed in. It is all these things that have made them what they are, and these are the things that you can’t come to know by hearsay, you can only know them if you have lived them. You can only know them if you are them.”</p></p>
-            <p class="article-more-link">
-               <a href="/2017/04/20/daofeng/#more">Read More</a>
-				
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/传记/">传记</a>
-    </div>
-
-            </p>
-        
-        </div>
-		
-    </div>
-    
-</article>
-
-
-
-
-
     <nav id="page-nav">
         <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
@@ -616,7 +614,24 @@
 <script src="/js/main.js"></script>
 
 	
-    </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 </body>
 
 </html>
