@@ -103,322 +103,6 @@
 			</aside>
 			
 					<section id="main">
-    <article id="post-kafka_quickstart" class="article article-type-post" itemscope itemprop="blogPost">
-    
-	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
-        
-            
-	
-		<a href="/2017/02/27/kafka_quickstart/" itemprop="url">
-            <img src="http://7xwggp.com1.z0.glb.clouddn.com/kafka_diagram.png" class="article-banner" />
-        </a>
-	
-
-
-
-        
-        
-            <header class="article-header">
-				
-					<center>
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2017/02/27/kafka_quickstart/">Kafka快速入门</a>
-        </h1>
-    
-
-					 
-						<div class="article-meta">
-							
-    <div class="article-date">    
-        <a href="/2017/02/27/kafka_quickstart/">
-            <time datetime="2017-02-27T12:11:31.000Z" itemprop="datePublished">2017-02-27</time>
-        </a>
-    </div>
-
-							<!--
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Kafka文档/">Kafka文档</a>
-		&nbsp;&nbsp;
-		
-			<span class="article-tag">
-				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/kafka/">kafka</a>
-			</span>
-		
-    </div>
--->
-							<!--
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/kafka/">kafka</a>
-    </div>
--->
-						</div>
-					
-					
-					
-					</center>
-				
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            <p><p>翻译自kafka documentation的quick start 部分。</p>
-<ol>
-<li><p>下载Zookeeper</p>
-<p>我使用的是<a href="http://mirrors.hust.edu.cn/apache/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz" target="_blank" rel="noopener">zookeeper-3.4.6</a>版本</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -xvzf zookeeper-3.4.6.tgz</span><br><span class="line">cd zookeeper-3.4.6/conf</span><br></pre></td></tr></table></figure>
-<p>将<code>zoo_example.cfg</code>改名为<code>zoo.cfg</code>，并在<code>/etc/profile</code>中设置环境变量：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br><span class="line">export ZK_HOME=/home/admin/zookeeper-3.4.6</span><br><span class="line">export PATH=$PATH:$ZK_HOME/bin:$ZK_HOME/conf</span><br></pre></td></tr></table></figure>
-</li>
-</ol></p>
-            <p class="article-more-link">
-               <a href="/2017/02/27/kafka_quickstart/#more">Read More</a>
-				
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/kafka/">kafka</a>
-    </div>
-
-            </p>
-        
-        </div>
-		
-    </div>
-    
-</article>
-
-
-
-
-
-    <article id="post-Robust and Skew-resistant Parallel Joins in Shared-Nothing Systems" class="article article-type-post" itemscope itemprop="blogPost">
-    
-	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
-        
-        
-            <header class="article-header">
-				
-					<center>
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2017/01/17/Robust and Skew-resistant Parallel Joins in Shared-Nothing Systems/">Robust and Skew-resistant Parallel Joins in Shared-Nothing Systems</a>
-        </h1>
-    
-
-					 
-						<div class="article-meta">
-							
-    <div class="article-date">    
-        <a href="/2017/01/17/Robust and Skew-resistant Parallel Joins in Shared-Nothing Systems/">
-            <time datetime="2017-01-17T05:11:31.000Z" itemprop="datePublished">2017-01-17</time>
-        </a>
-    </div>
-
-							<!--
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/论文阅读/">论文阅读</a>
-		&nbsp;&nbsp;
-		
-			<span class="article-tag">
-				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/data-skew/">data skew</a>, <a class="tag-link" href="/tags/parallel-join/">parallel join</a>
-			</span>
-		
-    </div>
--->
-							<!--
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/data-skew/">data skew</a>, <a class="tag-link" href="/tags/parallel-join/">parallel join</a>
-    </div>
--->
-						</div>
-					
-					
-					
-					</center>
-				
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            <p><h2 id="并行连接处理的两种基本框架"><a href="#并行连接处理的两种基本框架" class="headerlink" title="并行连接处理的两种基本框架"></a>并行连接处理的两种基本框架</h2></p>
-            <p class="article-more-link">
-               <a href="/2017/01/17/Robust and Skew-resistant Parallel Joins in Shared-Nothing Systems/#more">Read More</a>
-				
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/data-skew/">data skew</a>, <a class="tag-link" href="/tags/parallel-join/">parallel join</a>
-    </div>
-
-            </p>
-        
-        </div>
-		
-    </div>
-    
-</article>
-
-
-
-
-
-    <article id="post-stormproblems" class="article article-type-post" itemscope itemprop="blogPost">
-    
-	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
-        
-        
-            <header class="article-header">
-				
-					<center>
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2016/12/30/stormproblems/">使用Storm遇到的问题以及解决方案</a>
-        </h1>
-    
-
-					 
-						<div class="article-meta">
-							
-    <div class="article-date">    
-        <a href="/2016/12/30/stormproblems/">
-            <time datetime="2016-12-30T05:45:31.000Z" itemprop="datePublished">2016-12-30</time>
-        </a>
-    </div>
-
-							<!--
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Storm学习之路/">Storm学习之路</a>
-		&nbsp;&nbsp;
-		
-			<span class="article-tag">
-				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/Storm/">Storm</a>, <a class="tag-link" href="/tags/日志/">日志</a>, <a class="tag-link" href="/tags/环境配置/">环境配置</a>
-			</span>
-		
-    </div>
--->
-							<!--
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Storm/">Storm</a>, <a class="tag-link" href="/tags/日志/">日志</a>, <a class="tag-link" href="/tags/环境配置/">环境配置</a>
-    </div>
--->
-						</div>
-					
-					
-					
-					</center>
-				
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            <p><ol>
-<li>集群中有3台服务器执行 storm supervisor命令后自动退出，supervisor起不来，后来在 logs目录下的supervisor.log日志文件中查到以下报错：</li>
-</ol></p>
-            <p class="article-more-link">
-               <a href="/2016/12/30/stormproblems/#more">Read More</a>
-				
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Storm/">Storm</a>, <a class="tag-link" href="/tags/日志/">日志</a>, <a class="tag-link" href="/tags/环境配置/">环境配置</a>
-    </div>
-
-            </p>
-        
-        </div>
-		
-    </div>
-    
-</article>
-
-
-
-
-
-    <article id="post-knowledgebase" class="article article-type-post" itemscope itemprop="blogPost">
-    
-	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
-        
-        
-            <header class="article-header">
-				
-					<center>
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2016/10/26/knowledgebase/">关于苏打绿的题库</a>
-        </h1>
-    
-
-					 
-						<div class="article-meta">
-							
-    <div class="article-date">    
-        <a href="/2016/10/26/knowledgebase/">
-            <time datetime="2016-10-26T08:26:31.000Z" itemprop="datePublished">2016-10-26</time>
-        </a>
-    </div>
-
-							<!--
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/随笔/">随笔</a>
-		&nbsp;&nbsp;
-		
-			<span class="article-tag">
-				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/苏打绿/">苏打绿</a>
-			</span>
-		
-    </div>
--->
-							<!--
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/苏打绿/">苏打绿</a>
-    </div>
--->
-						</div>
-					
-					
-					
-					</center>
-				
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            <p><h1 id="1-团队成员"><a href="#1-团队成员" class="headerlink" title="1.团队成员"></a>1.团队成员</h1><p> 6个人。<br> 吴青峰：主唱，1982.8.30，台湾台北，国立政治大学中文系，钢琴、口琴、口风琴、打击乐器、长笛<br> 谢馨仪：贝斯手，1982.4.16，台湾台北，国立政治大学科技管理研究所，贝斯、钢琴、摇滚吉他、古筝<br> 史俊威：鼓手，1979.8.26，台湾，国立政治大学社会系，吉他、鼓、口琴<br></p>
-            <p class="article-more-link">
-               <a href="/2016/10/26/knowledgebase/#more">Read More</a>
-				
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/苏打绿/">苏打绿</a>
-    </div>
-
-            </p>
-        
-        </div>
-		
-    </div>
-    
-</article>
-
-
-
-
-
     <article id="post-jielun" class="article article-type-post" itemscope itemprop="blogPost">
     
 	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
@@ -503,8 +187,327 @@
 
 
 
+    <article id="post-sodagreen" class="article article-type-post" itemscope itemprop="blogPost">
+    
+	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
+        
+            
+	
+		<a href="/2016/10/17/sodagreen/" itemprop="url">
+            <img src="http://7xwggp.com1.z0.glb.clouddn.com/sodagreen.jpg" class="article-banner" />
+        </a>
+	
+
+
+
+        
+        
+            <header class="article-header">
+				
+					<center>
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2016/10/17/sodagreen/">My Favorite Band</a>
+        </h1>
+    
+
+					 
+						<div class="article-meta">
+							
+    <div class="article-date">    
+        <a href="/2016/10/17/sodagreen/">
+            <time datetime="2016-10-17T12:02:31.000Z" itemprop="datePublished">2016-10-17</time>
+        </a>
+    </div>
+
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/随笔/">随笔</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/苏打绿/">苏打绿</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/苏打绿/">苏打绿</a>
+    </div>
+-->
+						</div>
+					
+					
+					
+					</center>
+				
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><p>Sodagreen is a Taiwanese indie band formed in 2001. Its member has been unchanged since 2003: lead vocals Wu Tsing-Fong, guitarist Liu Jia-Kai, guitarist Ho Jing-Yang, keyboardist Kung Yu-Chi, bass guitarist Hsieh Shin-Yi and drummer Shih Jun-Wei. The band was originally named by Shih and Wu affixed his favorite color, green, to the name.<br></p>
+            <p class="article-more-link">
+               <a href="/2016/10/17/sodagreen/#more">Read More</a>
+				
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/苏打绿/">苏打绿</a>
+    </div>
+
+            </p>
+        
+        </div>
+		
+    </div>
+    
+</article>
+
+
+
+
+
+    <article id="post-vector" class="article article-type-post" itemscope itemprop="blogPost">
+    
+	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
+        
+        
+            <header class="article-header">
+				
+					<center>
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2016/08/30/vector/">理解Clojure持久性Vector的实现（一）</a>
+        </h1>
+    
+
+					 
+						<div class="article-meta">
+							
+    <div class="article-date">    
+        <a href="/2016/08/30/vector/">
+            <time datetime="2016-08-30T04:54:31.000Z" itemprop="datePublished">2016-08-30</time>
+        </a>
+    </div>
+
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/文档翻译/">文档翻译</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/clojure/">clojure</a>, <a class="tag-link" href="/tags/vector/">vector</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/clojure/">clojure</a>, <a class="tag-link" href="/tags/vector/">vector</a>
+    </div>
+-->
+						</div>
+					
+					
+					
+					</center>
+				
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<p>原文链接：<a href="http://hypirion.com/musings/understanding-persistent-vector-pt-1" target="_blank" rel="noopener">http://hypirion.com/musings/understanding-persistent-vector-pt-1</a><br></p>
+            <p class="article-more-link">
+               <a href="/2016/08/30/vector/#more">Read More</a>
+				
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/clojure/">clojure</a>, <a class="tag-link" href="/tags/vector/">vector</a>
+    </div>
+
+            </p>
+        
+        </div>
+		
+    </div>
+    
+</article>
+
+
+
+
+
+    <article id="post-sssj" class="article article-type-post" itemscope itemprop="blogPost">
+    
+	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
+        
+            
+	
+		<a href="/2016/08/23/sssj/" itemprop="url">
+            <img src="http://7xwggp.com1.z0.glb.clouddn.com/005yXe3qgw1f4tv3vh6eyj30zk0grjtj.jpg" class="article-banner" />
+        </a>
+	
+
+
+
+        
+        
+            <header class="article-header">
+				
+					<center>
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2016/08/23/sssj/">Streaming Similarity Self-Join</a>
+        </h1>
+    
+
+					 
+						<div class="article-meta">
+							
+    <div class="article-date">    
+        <a href="/2016/08/23/sssj/">
+            <time datetime="2016-08-23T05:45:31.000Z" itemprop="datePublished">2016-08-23</time>
+        </a>
+    </div>
+
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/论文阅读/">论文阅读</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/data-mining/">data mining</a>, <a class="tag-link" href="/tags/similarity-search/">similarity search</a>, <a class="tag-link" href="/tags/stream-processing/">stream processing</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/data-mining/">data mining</a>, <a class="tag-link" href="/tags/similarity-search/">similarity search</a>, <a class="tag-link" href="/tags/stream-processing/">stream processing</a>
+    </div>
+-->
+						</div>
+					
+					
+					
+					</center>
+				
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><p><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script></p>
+<h1 id="Abstract-摘要"><a href="#Abstract-摘要" class="headerlink" title="Abstract 摘要"></a>Abstract 摘要</h1><p>在数据流环境下，系统处理的数据是源源不断流进的数据项。本文研究的问题是，数据流相似性的连接处理(SSSJ)，即在数据流中找出所有的两两数据项对，它们的相似度超过一个给定的阈值。解决这个问题最简单的构想是能拥有无限大的内存空间，但目前来讲，这是不能获得的。因此为了解决这个问题，本文提出了一个概念，<code>时间依赖的相似性</code>，两个数据项到达的时间间隔越大，它们的相似度越低。<br>在此概念的基础上，本文设计两种算法框架：① 微批次处理(MiniBatch,简称MB)，使用目前已有的基于索引的过滤技术；② 流处理(Streaming,简称STR),在索引的基础上增加时间过滤，并在算法中集成一种新的基于时间的边界处理。除此之外，本文基于L2AP的索引设计一种新的适用于数据流环境的索引算法，即L2。<br></p>
+            <p class="article-more-link">
+               <a href="/2016/08/23/sssj/#more">Read More</a>
+				
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/data-mining/">data mining</a>, <a class="tag-link" href="/tags/similarity-search/">similarity search</a>, <a class="tag-link" href="/tags/stream-processing/">stream processing</a>
+    </div>
+
+            </p>
+        
+        </div>
+		
+    </div>
+    
+</article>
+
+
+
+
+
+    <article id="post-lein" class="article article-type-post" itemscope itemprop="blogPost">
+    
+	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
+        
+        
+            <header class="article-header">
+				
+					<center>
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2016/07/18/lein/">Leiningen安装</a>
+        </h1>
+    
+
+					 
+						<div class="article-meta">
+							
+    <div class="article-date">    
+        <a href="/2016/07/18/lein/">
+            <time datetime="2016-07-18T05:09:31.000Z" itemprop="datePublished">2016-07-18</time>
+        </a>
+    </div>
+
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/环境部署/">环境部署</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/leiningen/">leiningen</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/leiningen/">leiningen</a>
+    </div>
+-->
+						</div>
+					
+					
+					
+					</center>
+				
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><p>Leiningen作为Clojure的项目创建和管理工具，在Ubuntu系统下的安装过程如下：<br></p>
+            <p class="article-more-link">
+               <a href="/2016/07/18/lein/#more">Read More</a>
+				
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/leiningen/">leiningen</a>
+    </div>
+
+            </p>
+        
+        </div>
+		
+    </div>
+    
+</article>
+
+
+
+
+
     <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
+        <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
     </nav>
 </section>
 			
@@ -595,24 +598,7 @@
 <script src="/js/main.js"></script>
 
 	
-    </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+    </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 
 </html>

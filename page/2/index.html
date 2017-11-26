@@ -103,96 +103,6 @@
 			</aside>
 			
 					<section id="main">
-    <article id="post-compression" class="article article-type-post" itemscope itemprop="blogPost">
-    
-	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
-        
-            
-	
-		<a href="/2017/05/11/compression/" itemprop="url">
-            <img src="http://7xwggp.com1.z0.glb.clouddn.com/image4.png" class="article-banner" />
-        </a>
-	
-
-
-
-        
-        
-            <header class="article-header">
-				
-					<center>
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2017/05/11/compression/">列存储中常见压缩技术</a>
-        </h1>
-    
-
-					 
-						<div class="article-meta">
-							
-    <div class="article-date">    
-        <a href="/2017/05/11/compression/">
-            <time datetime="2017-05-11T05:40:00.000Z" itemprop="datePublished">2017-05-11</time>
-        </a>
-    </div>
-
-							<!--
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/数据库/">数据库</a>
-		&nbsp;&nbsp;
-		
-			<span class="article-tag">
-				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/位向量/">位向量</a>, <a class="tag-link" href="/tags/压缩/">压缩</a>, <a class="tag-link" href="/tags/行程编码/">行程编码</a>, <a class="tag-link" href="/tags/词典编码/">词典编码</a>
-			</span>
-		
-    </div>
--->
-							<!--
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/位向量/">位向量</a>, <a class="tag-link" href="/tags/压缩/">压缩</a>, <a class="tag-link" href="/tags/行程编码/">行程编码</a>, <a class="tag-link" href="/tags/词典编码/">词典编码</a>
-    </div>
--->
-						</div>
-					
-					
-					
-					</center>
-				
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            <p><p>在列数据库中，实用面向列的压缩算法进行数据压缩，并且在处理数据时保持压缩的形式，即不通过解压来处理数据，很大程度上提升了查询性能.凭直觉就能知道，以列为存储形式的数据比以行为存储形式的数据更容易压缩.当处理的数据信息熵较低，即数据的局部性较高，那么压缩算法的性能越好.举个列子来说吧，现在有一张顾客表，包含了[姓名，电话，邮箱，传真]等属性.列存储使得所有的姓名存储在一起，所有的电话号码存储在一起.有一点可以确定的是，电话号码各自之间是要比周围其他属性的数值来得更加相似的.</p>
-<p><strong>压缩的优势具体是什么呢？</strong>总结起来呢有两点：</p>
-<ol>
-<li>减少I/O操作次数.如果数据被压缩了，那么其实一次I/O读取(磁盘到内存/CPU)实际对应的源数据是远远超过不使用压缩技术的读取.</li>
-<li>提高查询性能.如果查询执行器可以直接在压缩后的数据上进行操作，在进行具体的操作时不需要进行解压，而这个操作一般开销较大.</li>
-</ol>
-<p>列存储的压缩技术一般有消零和空格符算法(Null Supression)、Lerrpel-Ziv算法、词典编码算法(Dictionary Encoding)、行程编码算法(Run-length Encoding)、位向量算法(Bit-Vector Encoding)，其中较为常见的是后三种，接下来也重点介绍这三种.</p></p>
-            <p class="article-more-link">
-               <a href="/2017/05/11/compression/#more">Read More</a>
-				
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/位向量/">位向量</a>, <a class="tag-link" href="/tags/压缩/">压缩</a>, <a class="tag-link" href="/tags/行程编码/">行程编码</a>, <a class="tag-link" href="/tags/词典编码/">词典编码</a>
-    </div>
-
-            </p>
-        
-        </div>
-		
-    </div>
-    
-</article>
-
-
-
-
-
     <article id="post-view" class="article article-type-post" itemscope itemprop="blogPost">
     
 	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
@@ -524,8 +434,92 @@
 
 
 
+    <article id="post-historyUSA" class="article article-type-post" itemscope itemprop="blogPost">
+    
+	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
+        
+            
+	
+		<a href="/2017/04/16/historyUSA/" itemprop="url">
+            <img src="http://7xwggp.com1.z0.glb.clouddn.com/meiguo.png" class="article-banner" />
+        </a>
+	
+
+
+
+        
+        
+            <header class="article-header">
+				
+					<center>
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/04/16/historyUSA/">&lt;简明美国史&gt;观后感</a>
+        </h1>
+    
+
+					 
+						<div class="article-meta">
+							
+    <div class="article-date">    
+        <a href="/2017/04/16/historyUSA/">
+            <time datetime="2017-04-16T12:11:31.000Z" itemprop="datePublished">2017-04-16</time>
+        </a>
+    </div>
+
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/读书笔记/">读书笔记</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/历史/">历史</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/历史/">历史</a>
+    </div>
+-->
+						</div>
+					
+					
+					
+					</center>
+				
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><p>相对于厚重的、教科书式的历史文献，这是一本薄薄的，轻松的普及读本，没有平板数据，没有经济图表，却把把美国历史的端倪，黑暗，辉煌，血腥，光明清晰地勾勒出来。</p></p>
+            <p class="article-more-link">
+               <a href="/2017/04/16/historyUSA/#more">Read More</a>
+				
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/历史/">历史</a>
+    </div>
+
+            </p>
+        
+        </div>
+		
+    </div>
+    
+</article>
+
+
+
+
+
     <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+        <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
 </section>
 			

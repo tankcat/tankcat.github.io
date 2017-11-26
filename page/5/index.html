@@ -103,14 +103,14 @@
 			</aside>
 			
 					<section id="main">
-    <article id="post-sodagreen" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-storm component" class="article article-type-post" itemscope itemprop="blogPost">
     
 	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
         
             
 	
-		<a href="/2016/10/17/sodagreen/" itemprop="url">
-            <img src="http://7xwggp.com1.z0.glb.clouddn.com/sodagreen.jpg" class="article-banner" />
+		<a href="/2016/07/16/storm component/" itemprop="url">
+            <img src="http://7xwggp.com1.z0.glb.clouddn.com/storm-flow.png" class="article-banner" />
         </a>
 	
 
@@ -123,7 +123,7 @@
 					<center>
     
         <h1 itemprop="name">
-            <a class="article-title" href="/2016/10/17/sodagreen/">My Favorite Band</a>
+            <a class="article-title" href="/2016/07/16/storm component/">Storm组件和拓扑结构</a>
         </h1>
     
 
@@ -131,20 +131,20 @@
 						<div class="article-meta">
 							
     <div class="article-date">    
-        <a href="/2016/10/17/sodagreen/">
-            <time datetime="2016-10-17T12:02:31.000Z" itemprop="datePublished">2016-10-17</time>
+        <a href="/2016/07/16/storm component/">
+            <time datetime="2016-07-16T02:06:31.000Z" itemprop="datePublished">2016-07-16</time>
         </a>
     </div>
 
 							<!--
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/随笔/">随笔</a>
+        <a class="article-category-link" href="/categories/源码分析/">源码分析</a>
 		&nbsp;&nbsp;
 		
 			<span class="article-tag">
 				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/苏打绿/">苏打绿</a>
+				<a class="tag-link" href="/tags/Storm/">Storm</a>
 			</span>
 		
     </div>
@@ -152,7 +152,7 @@
 							<!--
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/苏打绿/">苏打绿</a>
+        <a class="tag-link" href="/tags/Storm/">Storm</a>
     </div>
 -->
 						</div>
@@ -166,311 +166,13 @@
         
         <div class="article-entry" itemprop="articleBody">
         
-            <p><p>Sodagreen is a Taiwanese indie band formed in 2001. Its member has been unchanged since 2003: lead vocals Wu Tsing-Fong, guitarist Liu Jia-Kai, guitarist Ho Jing-Yang, keyboardist Kung Yu-Chi, bass guitarist Hsieh Shin-Yi and drummer Shih Jun-Wei. The band was originally named by Shih and Wu affixed his favorite color, green, to the name.<br></p>
+            <p><h1 id="Storm简介"><a href="#Storm简介" class="headerlink" title="Storm简介"></a>Storm简介</h1><p>　Storm是Twitter开源的一个类似Hadoop的实时数据处理框架，它原来是由BackType开发，后被Twitter收购，将Storm作为Twitter的实时数据分析系统。<br></p>
             <p class="article-more-link">
-               <a href="/2016/10/17/sodagreen/#more">Read More</a>
+               <a href="/2016/07/16/storm component/#more">Read More</a>
 				
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/苏打绿/">苏打绿</a>
-    </div>
-
-            </p>
-        
-        </div>
-		
-    </div>
-    
-</article>
-
-
-
-
-
-    <article id="post-repl" class="article article-type-post" itemscope itemprop="blogPost">
-    
-	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
-        
-        
-            <header class="article-header">
-				
-					<center>
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2016/09/13/repl/">(二)构建，运行和REPL</a>
-        </h1>
-    
-
-					 
-						<div class="article-meta">
-							
-    <div class="article-date">    
-        <a href="/2016/09/13/repl/">
-            <time datetime="2016-09-13T15:38:31.000Z" itemprop="datePublished">2016-09-13</time>
-        </a>
-    </div>
-
-							<!--
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/文档翻译/">文档翻译</a>
-		&nbsp;&nbsp;
-		
-			<span class="article-tag">
-				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/clojure/">clojure</a>, <a class="tag-link" href="/tags/leiningen/">leiningen</a>, <a class="tag-link" href="/tags/repl/">repl</a>
-			</span>
-		
-    </div>
--->
-							<!--
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/clojure/">clojure</a>, <a class="tag-link" href="/tags/leiningen/">leiningen</a>, <a class="tag-link" href="/tags/repl/">repl</a>
-    </div>
--->
-						</div>
-					
-					
-					
-					</center>
-				
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            <p><p>原文地址：<a href="http://www.braveclojure.com/getting-started/" target="_blank" rel="noopener">http://www.braveclojure.com/getting-started/</a><br>在这一章节呢，你得花一小段时间，熟悉一个快速简单的方法来构建并运行Clojure程序。能在自己机子上跑通一个程序的感觉很棒有木有！到达这一里程碑会让你轻松地实践，会让你忍不住地和别人分享，让你偷偷对那些还在使用上个世纪的编程语言的同事幸灾乐祸hiahiahia…这真的能让你一直充满动力诶~<br></p>
-            <p class="article-more-link">
-               <a href="/2016/09/13/repl/#more">Read More</a>
-				
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/clojure/">clojure</a>, <a class="tag-link" href="/tags/leiningen/">leiningen</a>, <a class="tag-link" href="/tags/repl/">repl</a>
-    </div>
-
-            </p>
-        
-        </div>
-		
-    </div>
-    
-</article>
-
-
-
-
-
-    <article id="post-functions" class="article article-type-post" itemscope itemprop="blogPost">
-    
-	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
-        
-        
-            <header class="article-header">
-				
-					<center>
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2016/08/30/functions/">Clojure API整理</a>
-        </h1>
-    
-
-					 
-						<div class="article-meta">
-							
-    <div class="article-date">    
-        <a href="/2016/08/30/functions/">
-            <time datetime="2016-08-30T13:37:31.000Z" itemprop="datePublished">2016-08-30</time>
-        </a>
-    </div>
-
-							<!--
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/函数式编程/">函数式编程</a>
-		&nbsp;&nbsp;
-		
-			<span class="article-tag">
-				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/clojure/">clojure</a>
-			</span>
-		
-    </div>
--->
-							<!--
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/clojure/">clojure</a>
-    </div>
--->
-						</div>
-					
-					
-					
-					</center>
-				
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            <p><p>clojure初学者，在读《clojure编程》的过程中经常遇到一些没有看到过的函数或者宏，于是翻阅clojure api文档了解功能定义与使用方式，在这里做个汇总。由于处于不断学习中，所以不会一下子整理完整。<br></p>
-            <p class="article-more-link">
-               <a href="/2016/08/30/functions/#more">Read More</a>
-				
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/clojure/">clojure</a>
-    </div>
-
-            </p>
-        
-        </div>
-		
-    </div>
-    
-</article>
-
-
-
-
-
-    <article id="post-vector" class="article article-type-post" itemscope itemprop="blogPost">
-    
-	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
-        
-        
-            <header class="article-header">
-				
-					<center>
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2016/08/30/vector/">理解Clojure持久性Vector的实现（一）</a>
-        </h1>
-    
-
-					 
-						<div class="article-meta">
-							
-    <div class="article-date">    
-        <a href="/2016/08/30/vector/">
-            <time datetime="2016-08-30T04:54:31.000Z" itemprop="datePublished">2016-08-30</time>
-        </a>
-    </div>
-
-							<!--
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/文档翻译/">文档翻译</a>
-		&nbsp;&nbsp;
-		
-			<span class="article-tag">
-				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/clojure/">clojure</a>, <a class="tag-link" href="/tags/vector/">vector</a>
-			</span>
-		
-    </div>
--->
-							<!--
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/clojure/">clojure</a>, <a class="tag-link" href="/tags/vector/">vector</a>
-    </div>
--->
-						</div>
-					
-					
-					
-					</center>
-				
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            <p><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
-
-<p>原文链接：<a href="http://hypirion.com/musings/understanding-persistent-vector-pt-1" target="_blank" rel="noopener">http://hypirion.com/musings/understanding-persistent-vector-pt-1</a><br></p>
-            <p class="article-more-link">
-               <a href="/2016/08/30/vector/#more">Read More</a>
-				
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/clojure/">clojure</a>, <a class="tag-link" href="/tags/vector/">vector</a>
-    </div>
-
-            </p>
-        
-        </div>
-		
-    </div>
-    
-</article>
-
-
-
-
-
-    <article id="post-map" class="article article-type-post" itemscope itemprop="blogPost">
-    
-	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
-        
-        
-            <header class="article-header">
-				
-					<center>
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2016/08/29/map/">利用map简单实现数据聚合计算</a>
-        </h1>
-    
-
-					 
-						<div class="article-meta">
-							
-    <div class="article-date">    
-        <a href="/2016/08/29/map/">
-            <time datetime="2016-08-29T09:09:31.000Z" itemprop="datePublished">2016-08-29</time>
-        </a>
-    </div>
-
-							<!--
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/函数式编程/">函数式编程</a>
-		&nbsp;&nbsp;
-		
-			<span class="article-tag">
-				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/clojure/">clojure</a>, <a class="tag-link" href="/tags/map/">map</a>, <a class="tag-link" href="/tags/reduce/">reduce</a>
-			</span>
-		
-    </div>
--->
-							<!--
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/clojure/">clojure</a>, <a class="tag-link" href="/tags/map/">map</a>, <a class="tag-link" href="/tags/reduce/">reduce</a>
-    </div>
--->
-						</div>
-					
-					
-					
-					</center>
-				
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            <p><p>map通常也被用来保存总结信息、索引信息或者对应关系，想象一下数据库中的索引和视图，map和它们类似。<br>比如group-by函数可以用来很方便地根据一个key函数把一个集合分成多组：<br></p>
-            <p class="article-more-link">
-               <a href="/2016/08/29/map/#more">Read More</a>
-				
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/clojure/">clojure</a>, <a class="tag-link" href="/tags/map/">map</a>, <a class="tag-link" href="/tags/reduce/">reduce</a>
+        <a class="tag-link" href="/tags/Storm/">Storm</a>
     </div>
 
             </p>
@@ -486,7 +188,7 @@
 
 
     <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
+        <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
     </nav>
 </section>
 			
