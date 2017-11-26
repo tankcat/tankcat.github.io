@@ -5,7 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="css/comment.css">    
     <meta charset="utf-8">
     
-    <title>Tankcat</title>
+    <title>关于clojure的some函数 | Tankcat</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     
 
@@ -102,24 +102,83 @@
 					</div>
 			</aside>
 			
-					<section id="main"><article id="default-" class="article article-type-default" itemscope itemprop="blogPost">
+					<section id="main"><article id="post-some" class="article article-type-post" itemscope itemprop="blogPost">
     
 	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
         
+        
+            <header class="article-header">
+				
+					<center>
+    
+        <h1 class="article-title" itemprop="name">
+            关于clojure的some函数
+        </h1>
+    
+
+					 
+						<div class="article-meta">
+							
+    <div class="article-date">    
+        <a href="/2016/08/29/some/">
+            <time datetime="2016-08-29T04:33:31.000Z" itemprop="datePublished">2016-08-29</time>
+        </a>
+    </div>
+
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/函数式编程/">函数式编程</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/clojure/">clojure</a>, <a class="tag-link" href="/tags/some/">some</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/clojure/">clojure</a>, <a class="tag-link" href="/tags/some/">some</a>
+    </div>
+-->
+						</div>
+					
+					
+					
+						<span class="article-meta">
+							
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/函数式编程/">函数式编程</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/clojure/">clojure</a>, <a class="tag-link" href="/tags/some/">some</a>
+			</span>
+		
+    </div>
+
+							
+						</span>
+						
+					
+					
+					</center>
+				
+            </header>
         
         
         <div class="article-entry" itemprop="articleBody">
         
 			
-            <html>
-    <head>
-         <meta charset="UTF-8">
-         <title>404</title>                                                                                                                                        
-    </head>
-    <body>
-         <script type="text/javascript" src="http://www.qq.com/404/search_children.js" charset="utf-8"></script>
-    </body>
-</html>
+            <p>在读《clojure编程》，关于some函数有点疑惑，书中some函数的解释是<code>在一个序列里面搜索第一个能够符合指定谓词的元素</code>，给出的例子是：<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">user=&gt;(some #&#123;1 3 7&#125; [0 2 4 5 6])</span><br><span class="line">nill</span><br><span class="line"></span><br><span class="line">user=&gt;(some #&#123;1 3 7&#125; [0 2 3 4 5 6])</span><br><span class="line">3</span><br></pre></td></tr></table></figure></p>
+<p>但是，在执行下面一个例子时，返回的结果和我想象中的不一样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user=&gt;(some #&#123;false 3 7&#125; [false])</span><br><span class="line">nill</span><br></pre></td></tr></table></figure></p>
+<p>按理说，false是存在于这个set集合中的，但是返回的是nil。后来翻看了<a href="http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/some" target="_blank" rel="noopener">clojure api</a>中关于some函数的定义，才知道是怎么一回事。<br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/some.png" alt="some"></div><br>some函数的参数是一个谓词函数和一个集合，返回集合中第一个符合谓词(pred x)的逻辑上为true的元素。而nil或者false在逻辑上均是false，不符合要求，所以最后的返回值是nil。</p>
+<p>下面给出some的源码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(defn some</span><br><span class="line">  [pred coll]</span><br><span class="line">    (when (seq coll)</span><br><span class="line">      (or (pred (first coll)) (recur pred (next coll)))))</span><br></pre></td></tr></table></figure></p>
 
 			
 			
@@ -128,13 +187,13 @@
 		
 		
 <div class="copyright">
-  <p><span>Title:</span><a href="/404.html"></a></p>
+  <p><span>Title:</span><a href="/2016/08/29/some/">关于clojure的some函数</a></p>
   <p><span>Author:</span><a href="/" title="visit Tankcat 's personal blog">Tankcat</a></p>
-  <p><span>Release Date:</span>2017-11-26  13:25</p>
-  <p><span>Update Date:</span>2016-07-11  01:29</p>
+  <p><span>Release Date:</span>2016-08-29  12:33</p>
+  <p><span>Update Date:</span>2017-05-06  21:06</p>
   <p>
-    <span>Original Link:</span><a href="/404.html" title="">http://tankcat2.com/404.html</a>
-    <span class="btn" data-clipboard-text="Master Copy: http://tankcat2.com/404.html　　Author: Tankcat" title="copy the article link">
+    <span>Original Link:</span><a href="/2016/08/29/some/" title="关于clojure的some函数">http://tankcat2.com/2016/08/29/some/</a>
+    <span class="btn" data-clipboard-text="Master Copy: http://tankcat2.com/2016/08/29/some/　　Author: Tankcat" title="copy the article link">
         <i class="fa fa-clipboard"></i>
     </span>
   </p>
@@ -230,7 +289,7 @@
 
 </div>
 
-    <a data-url="http://tankcat2.com/404.html" data-id="cjagbn1440000pgkxymz9a36f" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://tankcat2.com/2016/08/29/some/" data-id="cjagbn1d60027pgkx3p5s6yqh" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -298,7 +357,7 @@
 
             
     
-        <a href="http://tankcat2.com/404.html#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://tankcat2.com/404.html">Comments</a>
+        <a href="http://tankcat2.com/2016/08/29/some/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://tankcat2.com/2016/08/29/some/">Comments</a>
     
 
         </footer>
@@ -306,6 +365,25 @@
     </div>
     
         
+<nav id="article-nav">
+    
+        <a href="/2016/08/29/map/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    利用map简单实现数据聚合计算
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2016/08/28/introduction/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">(一)Introduction</div>
+        </a>
+    
+</nav>
+
 
     
 </article>
@@ -384,9 +462,9 @@
     <script>
     var disqus_config = function () {
         
-            this.page.url = 'http://tankcat2.com/404.html';
+            this.page.url = 'http://tankcat2.com/2016/08/29/some/';
         
-        this.page.identifier = '';
+        this.page.identifier = 'some';
     };
     (function() { 
         var d = document, s = d.createElement('script');  

@@ -5,7 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="css/comment.css">    
     <meta charset="utf-8">
     
-    <title>Tankcat</title>
+    <title>利用map简单实现数据聚合计算 | Tankcat</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     
 
@@ -102,25 +102,102 @@
 					</div>
 			</aside>
 			
-					<section id="main"><article id="default-" class="article article-type-default" itemscope itemprop="blogPost">
+					<section id="main"><article id="post-map" class="article article-type-post" itemscope itemprop="blogPost">
     
 	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
         
+        
+            <header class="article-header">
+				
+					<center>
+    
+        <h1 class="article-title" itemprop="name">
+            利用map简单实现数据聚合计算
+        </h1>
+    
+
+					 
+						<div class="article-meta">
+							
+    <div class="article-date">    
+        <a href="/2016/08/29/map/">
+            <time datetime="2016-08-29T09:09:31.000Z" itemprop="datePublished">2016-08-29</time>
+        </a>
+    </div>
+
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/函数式编程/">函数式编程</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/clojure/">clojure</a>, <a class="tag-link" href="/tags/map/">map</a>, <a class="tag-link" href="/tags/reduce/">reduce</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/clojure/">clojure</a>, <a class="tag-link" href="/tags/map/">map</a>, <a class="tag-link" href="/tags/reduce/">reduce</a>
+    </div>
+-->
+						</div>
+					
+					
+					
+						<span class="article-meta">
+							
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/函数式编程/">函数式编程</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/clojure/">clojure</a>, <a class="tag-link" href="/tags/map/">map</a>, <a class="tag-link" href="/tags/reduce/">reduce</a>
+			</span>
+		
+    </div>
+
+							
+						</span>
+						
+					
+					
+					</center>
+				
+            </header>
         
         
         <div class="article-entry" itemprop="articleBody">
         
 			
-            <html>
-    <head>
-         <meta charset="UTF-8">
-         <title>404</title>                                                                                                                                        
-    </head>
-    <body>
-         <script type="text/javascript" src="http://www.qq.com/404/search_children.js" charset="utf-8"></script>
-    </body>
-</html>
-
+				<br/>
+				 <blockquote style="font-size:120%;line-height:1.5em;color:#083a4e">
+					读《clojure编程》第三章关于map的其他用途部分，有一些函数譬如reduce没有遇到过，这里做个整理。
+				 </blockquote>
+			  
+            <p>map通常也被用来保存总结信息、索引信息或者对应关系，想象一下数据库中的索引和视图，map和它们类似。<br>比如group-by函数可以用来很方便地根据一个key函数把一个集合分成多组：<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user=&gt;(group-by #(rem % 3) (range 10))</span><br><span class="line">&#123;0 [0 3 6 9] 1[1 4 7] 2[2 5 8]&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里我们看到，把相同key的值的元素组合到了同一个组里面去了。<br>有的时候我们需要的不是把元素分组，而是计算出每组的聚合信息。可以利用group-by和reduce来定义一个reduce-by函数用来对任意种类的数据计算聚合数据。<br>假设有一些订单数据，我们利用map来表示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">user=&gt;(def orders</span><br><span class="line">        [&#123;:product &quot;Clock&quot;, :customer &quot;Wile Coyote&quot;, :qty 6, :total 300&#125;</span><br><span class="line">         &#123;:product &quot;Dynamite&quot;, :customer &quot;Wile Coyote&quot;, :qty 20, :total 5000&#125;</span><br><span class="line">         &#123;:product &quot;Shotgun&quot;, :customer &quot;Elmer Fudd&quot;, :qty 2, :total 800&#125;</span><br><span class="line">         &#123;:product &quot;Shells&quot;, :customer &quot;Elmer Fudd&quot;, :qty 4, :total 100&#125;</span><br><span class="line">         &#123;:product &quot;Hole&quot;, :customer &quot;Wile Coyote&quot;, :qty 1, :total 1000&#125;</span><br><span class="line">         &#123;:product &quot;Anvil&quot;, :customer &quot;Elmer Fudd&quot;, :qty 2, :total 300&#125;</span><br><span class="line">         &#123;:product &quot;Anvil&quot;, :customer &quot;Wile Coyote&quot;, :qty 6, :total 900&#125;</span><br><span class="line">         ])</span><br><span class="line">#&apos;user/orders</span><br></pre></td></tr></table></figure></p>
+<p>下面定义一个reduce-by函数，算出每个人的订单总金额：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">user=&gt;(def reduce-by [key-fn f init coll]</span><br><span class="line">            (reduce (fn [summaries x]</span><br><span class="line">                        (let [k (key-fn x)]</span><br><span class="line">                            (assoc summaries k (f (summaries k init) x))</span><br><span class="line">                        )</span><br><span class="line">                     )</span><br><span class="line">            ) &#123;&#125; coll</span><br><span class="line">       )</span><br><span class="line">#&apos;user/orders</span><br></pre></td></tr></table></figure></p>
+<p>这里讲一下reduce函数的功能。<br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/reduce.png" alt="reduce"></div><br>定义中给出的解释是，reduce的功能由以下情况定义：</p>
+<ul>
+<li>没有给定val<ul>
+<li>coll为空：以无参的方式调用f，调用所得的值为返回值；</li>
+<li>coll只有一个元素：不调用f，直接将这个元素作为返回值；</li>
+<li>coll不止一个元素：将coll的前两个元素应用到f，得到的结果再和coll的第三个元素一起应用到f，以此类推。</li>
+</ul>
+</li>
+<li>给定val<ul>
+<li>coll为空：不调用f，直接返回val；</li>
+<li>coll不为空：将val和coll的第一个元素应用到f，得到的结果和coll的第二个元素一起应用到f，以此类推。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user=&gt;(reduce-by :customer #(+ %1 (:total %2)) 0 orders)</span><br><span class="line">&#123;&quot;Elmer Fudd&quot; 1200, &quot;Wile Coyote&quot; 7200&#125;</span><br></pre></td></tr></table></figure>
 			
 			
 		<br>
@@ -128,13 +205,13 @@
 		
 		
 <div class="copyright">
-  <p><span>Title:</span><a href="/404.html"></a></p>
+  <p><span>Title:</span><a href="/2016/08/29/map/">利用map简单实现数据聚合计算</a></p>
   <p><span>Author:</span><a href="/" title="visit Tankcat 's personal blog">Tankcat</a></p>
-  <p><span>Release Date:</span>2017-11-26  13:25</p>
-  <p><span>Update Date:</span>2016-07-11  01:29</p>
+  <p><span>Release Date:</span>2016-08-29  17:09</p>
+  <p><span>Update Date:</span>2017-05-06  21:05</p>
   <p>
-    <span>Original Link:</span><a href="/404.html" title="">http://tankcat2.com/404.html</a>
-    <span class="btn" data-clipboard-text="Master Copy: http://tankcat2.com/404.html　　Author: Tankcat" title="copy the article link">
+    <span>Original Link:</span><a href="/2016/08/29/map/" title="利用map简单实现数据聚合计算">http://tankcat2.com/2016/08/29/map/</a>
+    <span class="btn" data-clipboard-text="Master Copy: http://tankcat2.com/2016/08/29/map/　　Author: Tankcat" title="copy the article link">
         <i class="fa fa-clipboard"></i>
     </span>
   </p>
@@ -230,7 +307,7 @@
 
 </div>
 
-    <a data-url="http://tankcat2.com/404.html" data-id="cjagbn1440000pgkxymz9a36f" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://tankcat2.com/2016/08/29/map/" data-id="cjagbn1cu001opgkx7lgoqrw3" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -298,7 +375,7 @@
 
             
     
-        <a href="http://tankcat2.com/404.html#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://tankcat2.com/404.html">Comments</a>
+        <a href="http://tankcat2.com/2016/08/29/map/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://tankcat2.com/2016/08/29/map/">Comments</a>
     
 
         </footer>
@@ -306,6 +383,25 @@
     </div>
     
         
+<nav id="article-nav">
+    
+        <a href="/2016/08/30/vector/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    理解Clojure持久性Vector的实现（一）
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2016/08/29/some/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">关于clojure的some函数</div>
+        </a>
+    
+</nav>
+
 
     
 </article>
@@ -384,9 +480,9 @@
     <script>
     var disqus_config = function () {
         
-            this.page.url = 'http://tankcat2.com/404.html';
+            this.page.url = 'http://tankcat2.com/2016/08/29/map/';
         
-        this.page.identifier = '';
+        this.page.identifier = 'map';
     };
     (function() { 
         var d = document, s = d.createElement('script');  

@@ -5,7 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="css/comment.css">    
     <meta charset="utf-8">
     
-    <title>Tankcat</title>
+    <title>Leiningen安装 | Tankcat</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     
 
@@ -102,24 +102,108 @@
 					</div>
 			</aside>
 			
-					<section id="main"><article id="default-" class="article article-type-default" itemscope itemprop="blogPost">
+					<section id="main"><article id="post-lein" class="article article-type-post" itemscope itemprop="blogPost">
     
 	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
         
+        
+            <header class="article-header">
+				
+					<center>
+    
+        <h1 class="article-title" itemprop="name">
+            Leiningen安装
+        </h1>
+    
+
+					 
+						<div class="article-meta">
+							
+    <div class="article-date">    
+        <a href="/2016/07/18/lein/">
+            <time datetime="2016-07-18T05:09:31.000Z" itemprop="datePublished">2016-07-18</time>
+        </a>
+    </div>
+
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/环境部署/">环境部署</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/leiningen/">leiningen</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/leiningen/">leiningen</a>
+    </div>
+-->
+						</div>
+					
+					
+					
+						<span class="article-meta">
+							
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/环境部署/">环境部署</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/leiningen/">leiningen</a>
+			</span>
+		
+    </div>
+
+							
+						</span>
+						
+					
+					
+					</center>
+				
+            </header>
         
         
         <div class="article-entry" itemprop="articleBody">
         
 			
-            <html>
-    <head>
-         <meta charset="UTF-8">
-         <title>404</title>                                                                                                                                        
-    </head>
-    <body>
-         <script type="text/javascript" src="http://www.qq.com/404/search_children.js" charset="utf-8"></script>
-    </body>
-</html>
+				<br/>
+				 <blockquote style="font-size:120%;line-height:1.5em;color:#083a4e">
+					在Ubuntu系统下安装Leiningen
+				 </blockquote>
+			  
+            <p>Leiningen作为Clojure的项目创建和管理工具，在Ubuntu系统下的安装过程如下：<br><a id="more"></a></p>
+<blockquote>
+<ol>
+<li>Make sure you have a Java JDK version 6 or later.</li>
+<li>Download the lein script from the stable branch of this project.</li>
+<li>Place it on your $PATH. (~/bin is a good choice if it is on your path.)</li>
+<li>Set it to be executable. (chmod 755 ~/bin/lein)</li>
+<li>Run it.</li>
+</ol>
+</blockquote>
+<p>这段安装教程是摘录自<a href="https://github.com/technomancy/leiningen/blob/stable/README.md" target="_blank" rel="noopener">Leiningen</a>，翻译如下：</p>
+<ol>
+<li>安装Java JDK，确保其版本是6.0以及6.0之后的；</li>
+<li>下载<a href="https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein" target="_blank" rel="noopener">lein脚本</a></li>
+<li>在/bin目录下新建一个名为<code>lein</code>的文件，将上述脚本拷贝进去并保存；</li>
+<li><p>运行命令以下命令使得<code>lein</code>为可执行文件:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ chmod 755 ~/bin/lein</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行<code>lein</code>，下载leiningen-xxx-standalone.jar(xxx为版本)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ lein</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>由于网络连接的问题，下载过程中可能出现错误，比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">It&apos;s also possible that you&apos;re behind a firewall and haven&apos;t set HTTP_PROXY and HTTPS_PROXY.</span><br></pre></td></tr></table></figure></p>
+<p>解决方案：删除掉~/.lein目录后，执行<code>export HTTP_CLIENT=&quot;wget --no-check-certificate -O&quot;</code>，然后重新执行<code>lein</code>即可。</p>
 
 			
 			
@@ -128,13 +212,13 @@
 		
 		
 <div class="copyright">
-  <p><span>Title:</span><a href="/404.html"></a></p>
+  <p><span>Title:</span><a href="/2016/07/18/lein/">Leiningen安装</a></p>
   <p><span>Author:</span><a href="/" title="visit Tankcat 's personal blog">Tankcat</a></p>
-  <p><span>Release Date:</span>2017-11-26  13:25</p>
-  <p><span>Update Date:</span>2016-07-11  01:29</p>
+  <p><span>Release Date:</span>2016-07-18  13:09</p>
+  <p><span>Update Date:</span>2016-09-16  11:38</p>
   <p>
-    <span>Original Link:</span><a href="/404.html" title="">http://tankcat2.com/404.html</a>
-    <span class="btn" data-clipboard-text="Master Copy: http://tankcat2.com/404.html　　Author: Tankcat" title="copy the article link">
+    <span>Original Link:</span><a href="/2016/07/18/lein/" title="Leiningen安装">http://tankcat2.com/2016/07/18/lein/</a>
+    <span class="btn" data-clipboard-text="Master Copy: http://tankcat2.com/2016/07/18/lein/　　Author: Tankcat" title="copy the article link">
         <i class="fa fa-clipboard"></i>
     </span>
   </p>
@@ -230,7 +314,7 @@
 
 </div>
 
-    <a data-url="http://tankcat2.com/404.html" data-id="cjagbn1440000pgkxymz9a36f" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://tankcat2.com/2016/07/18/lein/" data-id="cjagbn1cs001ipgkxydrcmmnc" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -298,7 +382,7 @@
 
             
     
-        <a href="http://tankcat2.com/404.html#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://tankcat2.com/404.html">Comments</a>
+        <a href="http://tankcat2.com/2016/07/18/lein/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://tankcat2.com/2016/07/18/lein/">Comments</a>
     
 
         </footer>
@@ -306,6 +390,25 @@
     </div>
     
         
+<nav id="article-nav">
+    
+        <a href="/2016/08/23/sssj/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    Streaming Similarity Self-Join
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2016/07/16/storm component/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">Storm组件和拓扑结构</div>
+        </a>
+    
+</nav>
+
 
     
 </article>
@@ -384,9 +487,9 @@
     <script>
     var disqus_config = function () {
         
-            this.page.url = 'http://tankcat2.com/404.html';
+            this.page.url = 'http://tankcat2.com/2016/07/18/lein/';
         
-        this.page.identifier = '';
+        this.page.identifier = 'lein';
     };
     (function() { 
         var d = document, s = d.createElement('script');  

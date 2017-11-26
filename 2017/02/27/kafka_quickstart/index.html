@@ -5,7 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="css/comment.css">    
     <meta charset="utf-8">
     
-    <title>Tankcat</title>
+    <title>Kafka快速入门 | Tankcat</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     
 
@@ -102,24 +102,122 @@
 					</div>
 			</aside>
 			
-					<section id="main"><article id="default-" class="article article-type-default" itemscope itemprop="blogPost">
+					<section id="main"><article id="post-kafka_quickstart" class="article article-type-post" itemscope itemprop="blogPost">
     
 	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
         
+            
+	
+		<img src="http://7xwggp.com1.z0.glb.clouddn.com/kafka_diagram.png" class="article-banner" />
+	
+
+
+
+        
+        
+            <header class="article-header">
+				
+					<center>
+    
+        <h1 class="article-title" itemprop="name">
+            Kafka快速入门
+        </h1>
+    
+
+					 
+						<div class="article-meta">
+							
+    <div class="article-date">    
+        <a href="/2017/02/27/kafka_quickstart/">
+            <time datetime="2017-02-27T12:11:31.000Z" itemprop="datePublished">2017-02-27</time>
+        </a>
+    </div>
+
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Kafka文档/">Kafka文档</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/kafka/">kafka</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/kafka/">kafka</a>
+    </div>
+-->
+						</div>
+					
+					
+					
+						<span class="article-meta">
+							
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Kafka文档/">Kafka文档</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/kafka/">kafka</a>
+			</span>
+		
+    </div>
+
+							
+						</span>
+						
+					
+					
+					</center>
+				
+            </header>
         
         
         <div class="article-entry" itemprop="articleBody">
         
 			
-            <html>
-    <head>
-         <meta charset="UTF-8">
-         <title>404</title>                                                                                                                                        
-    </head>
-    <body>
-         <script type="text/javascript" src="http://www.qq.com/404/search_children.js" charset="utf-8"></script>
-    </body>
-</html>
+            <p>翻译自kafka documentation的quick start 部分。</p>
+<ol>
+<li><p>下载Zookeeper</p>
+<p>我使用的是<a href="http://mirrors.hust.edu.cn/apache/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz" target="_blank" rel="noopener">zookeeper-3.4.6</a>版本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -xvzf zookeeper-3.4.6.tgz</span><br><span class="line">cd zookeeper-3.4.6/conf</span><br></pre></td></tr></table></figure>
+<p>将<code>zoo_example.cfg</code>改名为<code>zoo.cfg</code>，并在<code>/etc/profile</code>中设置环境变量：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br><span class="line">export ZK_HOME=/home/admin/zookeeper-3.4.6</span><br><span class="line">export PATH=$PATH:$ZK_HOME/bin:$ZK_HOME/conf</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<a id="more"></a>
+<ol>
+<li><p>下载Kafka</p>
+<p>我使用的是<a href="https://www.apache.org/dyn/closer.cgi?path=/kafka/0.10.2.1/kafka_2.10-0.10.2.1.tgz" target="_blank" rel="noopener">kafka_2.10-0.10.2.1</a>版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -xvzf kafka_2.10-0.10.2.1</span><br><span class="line">cd kafka_2.10-0.10.2.1/config</span><br></pre></td></tr></table></figure>
+<p>接下来进行参数配置：<code>server.properties</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim server.properties</span><br><span class="line">...</span><br><span class="line"><span class="meta">#</span> 修改broker.id,全局唯一</span><br><span class="line"><span class="meta">#</span> 修改zookeeper.connect，形式为host:port，多个数据项用逗号分隔</span><br><span class="line">zookeeper.connect=192.168.115:2181</span><br><span class="line"><span class="meta">#</span> 设置话题的删除,默认值为false</span><br><span class="line">delete.topic.enable=true</span><br><span class="line"><span class="meta">#</span> 设置数据日志路径</span><br><span class="line">log.dirs=/home/admin/kafka_2.10-0.10.2.1/kafka-logs</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动</p>
+<p>Kafka使用Zookeeper，所以需要先启动Zookeeper，我没有使用Kafka内置的：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zkServer.sh start</span><br></pre></td></tr></table></figure>
+<p>接着启动Kafka:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-server-start.sh config/server.properties</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建topic</p>
+<p>使用下面的命令创建名为<code>single_node</code>的topic，副本数为1，分区数为1，命令执行结束后，<code>kafka-logs</code>路径下就会生成一个<code>single_node-0</code>的文件夹。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-topics.h --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic single_node</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>发布与消耗数据</p>
+<p>执行下面的命令创建producer进程，从标准输入中获取数据，并发送到Kafka集群中的single_node这个topic中，默认地，每一行将作为单独的一条信息发送出去。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-producer.sh --broker-list localhost:9092 --topic single_node</span><br><span class="line">wxt</span><br><span class="line">zf</span><br><span class="line">i love u</span><br></pre></td></tr></table></figure>
+<p>执行下面的命令创建consumer进程，消耗指定topic的数据，这里就是标准输出的数据：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic single_node --from-beginning</span><br><span class="line">wxt</span><br><span class="line">zf</span><br><span class="line">i love u</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>以上均是单机版的Kafka配置与使用。</p>
 
 			
 			
@@ -128,13 +226,13 @@
 		
 		
 <div class="copyright">
-  <p><span>Title:</span><a href="/404.html"></a></p>
+  <p><span>Title:</span><a href="/2017/02/27/kafka_quickstart/">Kafka快速入门</a></p>
   <p><span>Author:</span><a href="/" title="visit Tankcat 's personal blog">Tankcat</a></p>
-  <p><span>Release Date:</span>2017-11-26  13:25</p>
-  <p><span>Update Date:</span>2016-07-11  01:29</p>
+  <p><span>Release Date:</span>2017-02-27  20:11</p>
+  <p><span>Update Date:</span>2017-07-20  08:48</p>
   <p>
-    <span>Original Link:</span><a href="/404.html" title="">http://tankcat2.com/404.html</a>
-    <span class="btn" data-clipboard-text="Master Copy: http://tankcat2.com/404.html　　Author: Tankcat" title="copy the article link">
+    <span>Original Link:</span><a href="/2017/02/27/kafka_quickstart/" title="Kafka快速入门">http://tankcat2.com/2017/02/27/kafka_quickstart/</a>
+    <span class="btn" data-clipboard-text="Master Copy: http://tankcat2.com/2017/02/27/kafka_quickstart/　　Author: Tankcat" title="copy the article link">
         <i class="fa fa-clipboard"></i>
     </span>
   </p>
@@ -230,7 +328,7 @@
 
 </div>
 
-    <a data-url="http://tankcat2.com/404.html" data-id="cjagbn1440000pgkxymz9a36f" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://tankcat2.com/2017/02/27/kafka_quickstart/" data-id="cjagbn1cq001gpgkxxasjxl79" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -298,7 +396,7 @@
 
             
     
-        <a href="http://tankcat2.com/404.html#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://tankcat2.com/404.html">Comments</a>
+        <a href="http://tankcat2.com/2017/02/27/kafka_quickstart/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://tankcat2.com/2017/02/27/kafka_quickstart/">Comments</a>
     
 
         </footer>
@@ -306,6 +404,25 @@
     </div>
     
         
+<nav id="article-nav">
+    
+        <a href="/2017/02/27/evil/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    再见我的暴力女王
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2017/01/17/Robust and Skew-resistant Parallel Joins in Shared-Nothing Systems/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">Robust and Skew-resistant Parallel Joins in Shared-Nothing Systems</div>
+        </a>
+    
+</nav>
+
 
     
 </article>
@@ -384,9 +501,9 @@
     <script>
     var disqus_config = function () {
         
-            this.page.url = 'http://tankcat2.com/404.html';
+            this.page.url = 'http://tankcat2.com/2017/02/27/kafka_quickstart/';
         
-        this.page.identifier = '';
+        this.page.identifier = 'kafka_quickstart';
     };
     (function() { 
         var d = document, s = d.createElement('script');  

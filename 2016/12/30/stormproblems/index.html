@@ -5,7 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="css/comment.css">    
     <meta charset="utf-8">
     
-    <title>Tankcat</title>
+    <title>使用Storm遇到的问题以及解决方案 | Tankcat</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     
 
@@ -102,24 +102,98 @@
 					</div>
 			</aside>
 			
-					<section id="main"><article id="default-" class="article article-type-default" itemscope itemprop="blogPost">
+					<section id="main"><article id="post-stormproblems" class="article article-type-post" itemscope itemprop="blogPost">
     
 	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
         
+        
+            <header class="article-header">
+				
+					<center>
+    
+        <h1 class="article-title" itemprop="name">
+            使用Storm遇到的问题以及解决方案
+        </h1>
+    
+
+					 
+						<div class="article-meta">
+							
+    <div class="article-date">    
+        <a href="/2016/12/30/stormproblems/">
+            <time datetime="2016-12-30T05:45:31.000Z" itemprop="datePublished">2016-12-30</time>
+        </a>
+    </div>
+
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Storm学习之路/">Storm学习之路</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/Storm/">Storm</a>, <a class="tag-link" href="/tags/日志/">日志</a>, <a class="tag-link" href="/tags/环境配置/">环境配置</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Storm/">Storm</a>, <a class="tag-link" href="/tags/日志/">日志</a>, <a class="tag-link" href="/tags/环境配置/">环境配置</a>
+    </div>
+-->
+						</div>
+					
+					
+					
+						<span class="article-meta">
+							
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Storm学习之路/">Storm学习之路</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/Storm/">Storm</a>, <a class="tag-link" href="/tags/日志/">日志</a>, <a class="tag-link" href="/tags/环境配置/">环境配置</a>
+			</span>
+		
+    </div>
+
+							
+						</span>
+						
+					
+					
+					</center>
+				
+            </header>
         
         
         <div class="article-entry" itemprop="articleBody">
         
 			
-            <html>
-    <head>
-         <meta charset="UTF-8">
-         <title>404</title>                                                                                                                                        
-    </head>
-    <body>
-         <script type="text/javascript" src="http://www.qq.com/404/search_children.js" charset="utf-8"></script>
-    </body>
-</html>
+				<br/>
+				 <blockquote style="font-size:120%;line-height:1.5em;color:#083a4e">
+					本文是我在使用Storm的过程中遇到的各种问题以及对应的解决方案，有些问题可能无法给出理由，不定期更新.
+				 </blockquote>
+			  
+            <ol>
+<li>集群中有3台服务器执行 storm supervisor命令后自动退出，supervisor起不来，后来在 logs目录下的supervisor.log日志文件中查到以下报错：</li>
+</ol>
+<a id="more"></a>
+   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2016</span>-<span class="number">12</span>-<span class="number">30</span> <span class="number">12</span>:<span class="number">41</span>:<span class="number">17.269</span> b.s.event [ERROR] Error when processing event</span><br><span class="line">java.lang.RuntimeException: java.lang.RuntimeException: java.io.FileNotFoundException: File <span class="string">'/home/admin/stormdata/data/supervisor/localstate/1480504905565'</span> does not exist</span><br><span class="line">	at backtype.storm.utils.LocalState.partialSnapshot(LocalState.java:<span class="number">118</span>) ~[storm-core-<span class="number">0.10</span>.0.jar:<span class="number">0.10</span>.0]</span><br><span class="line">	at backtype.storm.utils.LocalState.get(LocalState.java:<span class="number">126</span>) ~[storm-core-<span class="number">0.10</span>.0.jar:<span class="number">0.10</span>.0]</span><br><span class="line">	at backtype.storm.local_state$ls_local_assignments.invoke(local_state.clj:<span class="number">83</span>) ~[storm-core-<span class="number">0.10</span>.0.jar:<span class="number">0.10</span>.0]</span><br><span class="line">	at backtype.storm.daemon.supervisor$sync_processes.invoke(supervisor.clj:<span class="number">321</span>) ~[storm-core-<span class="number">0.10</span>.0.jar:<span class="number">0.10</span>.0]</span><br><span class="line">	at clojure.lang.AFn.applyToHelper(AFn.java:<span class="number">154</span>) ~[clojure-<span class="number">1.6</span>.0.jar:?]</span><br><span class="line">	at clojure.lang.AFn.applyTo(AFn.java:<span class="number">144</span>) ~[clojure-<span class="number">1.6</span>.0.jar:?]</span><br><span class="line">	at clojure.core$apply.invoke(core.clj:<span class="number">626</span>) ~[clojure-<span class="number">1.6</span>.0.jar:?]</span><br><span class="line">	at clojure.core$partial$fn__4228.doInvoke(core.clj:<span class="number">2468</span>) ~[clojure-<span class="number">1.6</span>.0.jar:?]</span><br><span class="line">	at clojure.lang.RestFn.invoke(RestFn.java:<span class="number">397</span>) ~[clojure-<span class="number">1.6</span>.0.jar:?]</span><br><span class="line">	at backtype.storm.event$event_manager$fn__7258.invoke(event.clj:<span class="number">40</span>) [storm-core-<span class="number">0.10</span>.0.jar:<span class="number">0.10</span>.0]</span><br><span class="line">	at clojure.lang.AFn.run(AFn.java:<span class="number">22</span>) [clojure-<span class="number">1.6</span>.0.jar:?]</span><br><span class="line">	at java.lang.Thread.run(Thread.java:<span class="number">744</span>) [?:<span class="number">1.7</span>.0_45]</span><br></pre></td></tr></table></figure>
+<p>   找不到’/home/admin/stormdata/data/supervisor/localstate/1480504905565’这个文件夹，网上找了下原因，给出的答案是<strong>stop the server without previously stop the supervisor</strong>，就是说可能是由于不正常关机造成状态不一致，具体原因不知，解决方案是<strong>删除stormdata/data/supervisor整个目录即可</strong>.</p>
+<ol>
+<li><p>在集群环境下日志清理，自己写了一个脚本clear-log.sh，主要是删除apache-storm-XXX下的logs文件里的日志文件，如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">STORM_HOME=/home/admin/apache-storm-0.10.0　</span><br><span class="line">HOSTS_FILE=/home/admin/hosts.txt</span><br><span class="line">cat $HOSTS_FILE | while read line</span><br><span class="line">	do</span><br><span class="line">		ssh $line "rm -rf $STORM_HOME/logs/*" &lt; /dev/null</span><br><span class="line">	done</span><br><span class="line">echo "remove log files...done"</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>其中STORM_HOME是storm的安装路径，hosts.txt是集群中各个节点的地址，我自己的配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">admin@10.11.1.53</span><br><span class="line">admin@10.11.1.40</span><br><span class="line">admin@10.11.1.41</span><br><span class="line">admin@10.11.1.42</span><br><span class="line">admin@10.11.1.45</span><br><span class="line">admin@10.11.1.46</span><br><span class="line">admin@10.11.1.51</span><br><span class="line">admin@10.11.1.53</span><br><span class="line">admin@10.11.1.54</span><br><span class="line">admin@10.11.1.55</span><br><span class="line">admin@10.11.1.56</span><br><span class="line">admin@10.11.1.58</span><br><span class="line">admin@10.11.1.60</span><br><span class="line">admin@10.11.1.64</span><br></pre></td></tr></table></figure>
+<p>编辑完之后执行<code>chmod +x clear-log.sh</code>命令使得该文件获得可执行权限，再执行<code>./clear-log.sh</code>运行该脚本即可.</p>
 
 			
 			
@@ -128,13 +202,13 @@
 		
 		
 <div class="copyright">
-  <p><span>Title:</span><a href="/404.html"></a></p>
+  <p><span>Title:</span><a href="/2016/12/30/stormproblems/">使用Storm遇到的问题以及解决方案</a></p>
   <p><span>Author:</span><a href="/" title="visit Tankcat 's personal blog">Tankcat</a></p>
-  <p><span>Release Date:</span>2017-11-26  13:25</p>
-  <p><span>Update Date:</span>2016-07-11  01:29</p>
+  <p><span>Release Date:</span>2016-12-30  13:45</p>
+  <p><span>Update Date:</span>2017-01-17  20:32</p>
   <p>
-    <span>Original Link:</span><a href="/404.html" title="">http://tankcat2.com/404.html</a>
-    <span class="btn" data-clipboard-text="Master Copy: http://tankcat2.com/404.html　　Author: Tankcat" title="copy the article link">
+    <span>Original Link:</span><a href="/2016/12/30/stormproblems/" title="使用Storm遇到的问题以及解决方案">http://tankcat2.com/2016/12/30/stormproblems/</a>
+    <span class="btn" data-clipboard-text="Master Copy: http://tankcat2.com/2016/12/30/stormproblems/　　Author: Tankcat" title="copy the article link">
         <i class="fa fa-clipboard"></i>
     </span>
   </p>
@@ -230,7 +304,7 @@
 
 </div>
 
-    <a data-url="http://tankcat2.com/404.html" data-id="cjagbn1440000pgkxymz9a36f" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://tankcat2.com/2016/12/30/stormproblems/" data-id="cjagbn1d6002gpgkxvzk1a0vh" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -298,7 +372,7 @@
 
             
     
-        <a href="http://tankcat2.com/404.html#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://tankcat2.com/404.html">Comments</a>
+        <a href="http://tankcat2.com/2016/12/30/stormproblems/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://tankcat2.com/2016/12/30/stormproblems/">Comments</a>
     
 
         </footer>
@@ -306,6 +380,25 @@
     </div>
     
         
+<nav id="article-nav">
+    
+        <a href="/2017/01/17/Robust and Skew-resistant Parallel Joins in Shared-Nothing Systems/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    Robust and Skew-resistant Parallel Joins in Shared-Nothing Systems
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2016/10/26/knowledgebase/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">关于苏打绿的题库</div>
+        </a>
+    
+</nav>
+
 
     
 </article>
@@ -384,9 +477,9 @@
     <script>
     var disqus_config = function () {
         
-            this.page.url = 'http://tankcat2.com/404.html';
+            this.page.url = 'http://tankcat2.com/2016/12/30/stormproblems/';
         
-        this.page.identifier = '';
+        this.page.identifier = 'stormproblems';
     };
     (function() { 
         var d = document, s = d.createElement('script');  

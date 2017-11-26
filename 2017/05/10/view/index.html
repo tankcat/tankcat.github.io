@@ -5,7 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="css/comment.css">    
     <meta charset="utf-8">
     
-    <title>Tankcat</title>
+    <title>“视图”漫游 | Tankcat</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     
 
@@ -102,24 +102,110 @@
 					</div>
 			</aside>
 			
-					<section id="main"><article id="default-" class="article article-type-default" itemscope itemprop="blogPost">
+					<section id="main"><article id="post-view" class="article article-type-post" itemscope itemprop="blogPost">
     
 	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
         
+            
+	
+		<img src="http://7xwggp.com1.z0.glb.clouddn.com/materializedview.gif" class="article-banner" />
+	
+
+
+
+        
+        
+            <header class="article-header">
+				
+					<center>
+    
+        <h1 class="article-title" itemprop="name">
+            “视图”漫游
+        </h1>
+    
+
+					 
+						<div class="article-meta">
+							
+    <div class="article-date">    
+        <a href="/2017/05/10/view/">
+            <time datetime="2017-05-10T06:17:31.000Z" itemprop="datePublished">2017-05-10</time>
+        </a>
+    </div>
+
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/数据库/">数据库</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/物化视图/">物化视图</a>, <a class="tag-link" href="/tags/视图/">视图</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/物化视图/">物化视图</a>, <a class="tag-link" href="/tags/视图/">视图</a>
+    </div>
+-->
+						</div>
+					
+					
+					
+						<span class="article-meta">
+							
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/数据库/">数据库</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/物化视图/">物化视图</a>, <a class="tag-link" href="/tags/视图/">视图</a>
+			</span>
+		
+    </div>
+
+							
+						</span>
+						
+					
+					
+					</center>
+				
+            </header>
         
         
         <div class="article-entry" itemprop="articleBody">
         
 			
-            <html>
-    <head>
-         <meta charset="UTF-8">
-         <title>404</title>                                                                                                                                        
-    </head>
-    <body>
-         <script type="text/javascript" src="http://www.qq.com/404/search_children.js" charset="utf-8"></script>
-    </body>
-</html>
+            <p>百度百科里面有关视图(View)的定义是，“指数据库中的视图，是一个虚拟表，其内容由查询定义”.</p>
+<p>从用户的角度来看，一个视图是从一个<strong>特定的角度</strong>来查看数据库中的数据；</p>
+<p>从数据库系统内部来看，视图是存储在数据库中的SQL Select语句，从一个或者多个基本表(相对于虚表而言)中导出的，和基本表类似，视图也包含行和列，但是在物理上不以存储的数据值集的形式存在.下面给出一张图来解释这段话的意思.从图上我们可以看出，数据库并没有对视图的数据进行物理上的存储，存储的只是视图的定义，也就是响应的Select.</p>
+<a id="more"></a>
+<p><img src="http://7xwggp.com1.z0.glb.clouddn.com/view.jpg" alt=""></p>
+<p>从数据库系统外部来看，视图就如同一张基本表，对基本表能够进行的一般操作都可以应用在视图上，比如增删改查.</p>
+<p>那视图有优点呢？换句话说，<strong>为什么要使用视图呢？</strong>归纳起来有四点：</p>
+<ol>
+<li>简化负载查询.视图的定义是基于一个查询声明，这个查询声明可能关联了很多底层的表，可以使用视图向数据库的使用者或者外部程序隐藏复杂的底层表关系.</li>
+<li>限制特定用户的数据访问权.处于安全原因，视图可以隐藏一些数据，比如社会保险基金表，可以用视图只显示姓名，地址，不显示社会保险号和工资数等.</li>
+<li>支持列的动态计算.基本表一般都不支持这个功能，比如有一张<code>orders</code>订单表，包含产品数量<code>produce_num</code>与单价<code>produce_price_each</code>两个列，当需要查询总价时，就需要先查询出所有记录，再在代码中进行计算；而如果使用视图的话，只要在视图中添加一列<code>total_price(product_num*produce_price_each)</code>就可以直接查询出订单的总价了.</li>
+<li>兼容旧版本.假设需要对数据库进行重新设计以适应一个新的业务需求，可能需要删除一些旧表，创建一些新表，但是又不希望这些变动会影响到那些旧程序，此时，就可以使用视图来适配那些旧程序.这就像公共API一样，无论内部发生什么改变，不影响上层的使用.</li>
+</ol>
+<p>既然说视图也是一种SQL语句，<strong>那么它和查询的区别是什么呢？</strong>简单来说，有三点：</p>
+<ol>
+<li>存储上，视图存储是数据库设计的一部分，而查询则不是；</li>
+<li>更新限制上，因为视图来自于基本表，所以可间接地对基本表进行更新，但是存在诸多限制，比如不能在使用了group by语句的视图中插入值.</li>
+<li>排序结果上，通过查询，可以对一个基本表进行排序，而视图不可以.</li>
+</ol>
+<p>此外，经常对视图的增删改查还是会转换为对基本表的增删改查，会不会降低操作的效率呢？其实未必，尤其是对于多表关联，视图创建后数据库内部会作出相应处理，建立对应的查询路径，反而有利于查询的效率，<strong>这就涉及到物化视图的知识了</strong>.</p>
+<p><a href="https://en.wikipedia.org/wiki/Materialized_view" target="_blank" rel="noopener">维基百科里解释道，</a>物化视图(Materialized View)，也叫做快照，是包含了查询结果的数据库对象，可能是一个远程数据的本地副本，或者是一张表或连接结果的行或者列的子集，等.创建物化视图的过程有时候也被称作是物化，一种缓存查询结果的形式，类似于函数式编程中将函数值进行缓存，有时也称作是“预计算”，用来提高查询的性能与效率.</p>
+<p>在关系型数据库中，如果涉及到对基本视图的查找或修改，都会转化为与之对应的基本表的查找或修改.而物化视图采取不同的方法.查询的结果被缓存在一个实体表中，而不是一个视图里，<strong>实际存储着数据的</strong>，这个实体表会随着基本表的更新而更新. 这种方法利用额外的存储代价和允许部分数据过期的代价，使得查询时的数据访问更加高效.在数据仓库中，物化视图经常使用，尤其是代价较大的频繁基本表查询操作.</p>
+<p>和基本视图还有一点不同的是，在物化视图中，可以在任何一列上建立索引，相反，基本视图通常只能在与基本表相关的列上建立索引.</p>
 
 			
 			
@@ -128,13 +214,13 @@
 		
 		
 <div class="copyright">
-  <p><span>Title:</span><a href="/404.html"></a></p>
+  <p><span>Title:</span><a href="/2017/05/10/view/">“视图”漫游</a></p>
   <p><span>Author:</span><a href="/" title="visit Tankcat 's personal blog">Tankcat</a></p>
-  <p><span>Release Date:</span>2017-11-26  13:25</p>
-  <p><span>Update Date:</span>2016-07-11  01:29</p>
+  <p><span>Release Date:</span>2017-05-10  14:17</p>
+  <p><span>Update Date:</span>2017-07-20  08:47</p>
   <p>
-    <span>Original Link:</span><a href="/404.html" title="">http://tankcat2.com/404.html</a>
-    <span class="btn" data-clipboard-text="Master Copy: http://tankcat2.com/404.html　　Author: Tankcat" title="copy the article link">
+    <span>Original Link:</span><a href="/2017/05/10/view/" title="“视图”漫游">http://tankcat2.com/2017/05/10/view/</a>
+    <span class="btn" data-clipboard-text="Master Copy: http://tankcat2.com/2017/05/10/view/　　Author: Tankcat" title="copy the article link">
         <i class="fa fa-clipboard"></i>
     </span>
   </p>
@@ -230,7 +316,7 @@
 
 </div>
 
-    <a data-url="http://tankcat2.com/404.html" data-id="cjagbn1440000pgkxymz9a36f" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://tankcat2.com/2017/05/10/view/" data-id="cjagbn1d6002rpgkxiqj23q16" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -298,7 +384,7 @@
 
             
     
-        <a href="http://tankcat2.com/404.html#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://tankcat2.com/404.html">Comments</a>
+        <a href="http://tankcat2.com/2017/05/10/view/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://tankcat2.com/2017/05/10/view/">Comments</a>
     
 
         </footer>
@@ -306,6 +392,25 @@
     </div>
     
         
+<nav id="article-nav">
+    
+        <a href="/2017/05/11/compression/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    列存储中常见压缩技术
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2017/05/09/poet/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">近日爱读诗词</div>
+        </a>
+    
+</nav>
+
 
     
 </article>
@@ -384,9 +489,9 @@
     <script>
     var disqus_config = function () {
         
-            this.page.url = 'http://tankcat2.com/404.html';
+            this.page.url = 'http://tankcat2.com/2017/05/10/view/';
         
-        this.page.identifier = '';
+        this.page.identifier = 'view';
     };
     (function() { 
         var d = document, s = d.createElement('script');  

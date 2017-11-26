@@ -5,7 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="css/comment.css">    
     <meta charset="utf-8">
     
-    <title>Tankcat</title>
+    <title>关于clojure中的partial函数 | Tankcat</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     
 
@@ -102,24 +102,86 @@
 					</div>
 			</aside>
 			
-					<section id="main"><article id="default-" class="article article-type-default" itemscope itemprop="blogPost">
+					<section id="main"><article id="post-partial" class="article article-type-post" itemscope itemprop="blogPost">
     
 	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
         
+        
+            <header class="article-header">
+				
+					<center>
+    
+        <h1 class="article-title" itemprop="name">
+            关于clojure中的partial函数
+        </h1>
+    
+
+					 
+						<div class="article-meta">
+							
+    <div class="article-date">    
+        <a href="/2016/08/26/partial/">
+            <time datetime="2016-08-26T09:17:31.000Z" itemprop="datePublished">2016-08-26</time>
+        </a>
+    </div>
+
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/函数式编程/">函数式编程</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/clojure/">clojure</a>, <a class="tag-link" href="/tags/partial/">partial</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/clojure/">clojure</a>, <a class="tag-link" href="/tags/partial/">partial</a>
+    </div>
+-->
+						</div>
+					
+					
+					
+						<span class="article-meta">
+							
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/函数式编程/">函数式编程</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/clojure/">clojure</a>, <a class="tag-link" href="/tags/partial/">partial</a>
+			</span>
+		
+    </div>
+
+							
+						</span>
+						
+					
+					
+					</center>
+				
+            </header>
         
         
         <div class="article-entry" itemprop="articleBody">
         
 			
-            <html>
-    <head>
-         <meta charset="UTF-8">
-         <title>404</title>                                                                                                                                        
-    </head>
-    <body>
-         <script type="text/javascript" src="http://www.qq.com/404/search_children.js" charset="utf-8"></script>
-    </body>
-</html>
+            <p>这两天在读《clojure编程》，关于第二章的partial函数的讲解比较困惑，对书上的例子理解不是很透彻。于是谷歌，在<a href="http://clojuredocs.org/clojure.core/partial" target="_blank" rel="noopener">ClojureDocs论坛</a>中找到了相关的解释和示例，再结合书上的定义，才get到了里头的门路。这里稍作整理。<br><a id="more"></a></p>
+<blockquote>
+<p>(partial f) (partial f arg1) (partial f arg1 arg2) (partial f arg1 arg2 arg3) (partial f arg1 arg2 arg3 &amp; more)<br>Takes a function f and fewer than the normal arguments to f, and returns a fn that takes a variable number of additional args. When called, the returned function calls f with args + addition args.</p>
+</blockquote>
+<p>这是partial函数的定义，意思是预先为某个函数(f)加上个别参数，调用partial函数返回的也是一个函数(g)，等到这个函数(g)真正被调用的时候把剩下的参数补上即可。</p>
+<p>下面举几个例子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">user=&gt; (def hundred-times (partial * 100))</span><br><span class="line">#&apos;user/hundred-times</span><br><span class="line"></span><br><span class="line">user=&gt; (hundred-times 5)</span><br><span class="line">500</span><br><span class="line"></span><br><span class="line">user=&gt; (hundred-times 4 5 6)</span><br><span class="line">12000</span><br><span class="line"></span><br><span class="line">user=&gt; (defn fun-full [x y] (+ x y))</span><br><span class="line">#&apos;user/fun-full</span><br><span class="line"></span><br><span class="line">user=&gt; (def fun-half (partial fun-full 2))</span><br><span class="line">#&apos;user/fun-half</span><br><span class="line"></span><br><span class="line">user=&gt; (fun-half 3)</span><br><span class="line">5</span><br></pre></td></tr></table></figure></p>
+<p>回头看《clojure编程》中的解释<code>偏函数应用则是你把函数的一部分参数传给一个函数，这样创建一个新函数，这个函数需要的参数就是你没有传给那个函数的那些剩余参数</code>，就比较容易理解了。</p>
 
 			
 			
@@ -128,13 +190,13 @@
 		
 		
 <div class="copyright">
-  <p><span>Title:</span><a href="/404.html"></a></p>
+  <p><span>Title:</span><a href="/2016/08/26/partial/">关于clojure中的partial函数</a></p>
   <p><span>Author:</span><a href="/" title="visit Tankcat 's personal blog">Tankcat</a></p>
-  <p><span>Release Date:</span>2017-11-26  13:25</p>
-  <p><span>Update Date:</span>2016-07-11  01:29</p>
+  <p><span>Release Date:</span>2016-08-26  17:17</p>
+  <p><span>Update Date:</span>2017-05-06  21:06</p>
   <p>
-    <span>Original Link:</span><a href="/404.html" title="">http://tankcat2.com/404.html</a>
-    <span class="btn" data-clipboard-text="Master Copy: http://tankcat2.com/404.html　　Author: Tankcat" title="copy the article link">
+    <span>Original Link:</span><a href="/2016/08/26/partial/" title="关于clojure中的partial函数">http://tankcat2.com/2016/08/26/partial/</a>
+    <span class="btn" data-clipboard-text="Master Copy: http://tankcat2.com/2016/08/26/partial/　　Author: Tankcat" title="copy the article link">
         <i class="fa fa-clipboard"></i>
     </span>
   </p>
@@ -230,7 +292,7 @@
 
 </div>
 
-    <a data-url="http://tankcat2.com/404.html" data-id="cjagbn1440000pgkxymz9a36f" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://tankcat2.com/2016/08/26/partial/" data-id="cjagbn1cv001zpgkxt6hcqzdc" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -298,7 +360,7 @@
 
             
     
-        <a href="http://tankcat2.com/404.html#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://tankcat2.com/404.html">Comments</a>
+        <a href="http://tankcat2.com/2016/08/26/partial/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://tankcat2.com/2016/08/26/partial/">Comments</a>
     
 
         </footer>
@@ -306,6 +368,25 @@
     </div>
     
         
+<nav id="article-nav">
+    
+        <a href="/2016/08/27/blog/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    利用高阶函数构建简易日志系统
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2016/08/23/sssj/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">Streaming Similarity Self-Join</div>
+        </a>
+    
+</nav>
+
 
     
 </article>
@@ -384,9 +465,9 @@
     <script>
     var disqus_config = function () {
         
-            this.page.url = 'http://tankcat2.com/404.html';
+            this.page.url = 'http://tankcat2.com/2016/08/26/partial/';
         
-        this.page.identifier = '';
+        this.page.identifier = 'partial';
     };
     (function() { 
         var d = document, s = d.createElement('script');  

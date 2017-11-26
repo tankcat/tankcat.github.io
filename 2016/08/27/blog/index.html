@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+	<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="css/comment.css">    
+    <meta charset="utf-8">
+    
+    <title>利用高阶函数构建简易日志系统 | Tankcat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    
+
+    
+
+    
+        <link rel="shortcut icon" href="/css/images/favicon.ico" />
+    
+	
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/tagclouds.css">
+	<link rel="stylesheet" href="/css/font-awesome.css">
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/lightgallery/css/lightgallery.min.css">
+    
+    
+    
+    
+    
+
+
+	<script src="//cdn.bootcss.com/jquery/2.1.0/jquery.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <div id="container">
+        
+    <header id="header">
+    <div id="header-main" class="header-inner">
+			 <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/index.html">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archive</a>
+                
+                    <a class="main-nav-link" href="/categories">Category</a>
+                
+                    <a class="main-nav-link" href="/tags">Tag</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+                    <a class="main-nav-link" href="/favorite">Photos</a>
+                
+            </nav>
+            
+    </div> 
+	</div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/index.html">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archive</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Category</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tag</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                    <td><a class="main-nav-link" href="/favorite">Photos</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+
+
+
+			
+        <div class="outer">
+			<aside id="profile">
+					<div class="profile-inner">
+					</div>
+			</aside>
+			
+					<section id="main"><article id="post-blog" class="article article-type-post" itemscope itemprop="blogPost">
+    
+	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
+        
+        
+            <header class="article-header">
+				
+					<center>
+    
+        <h1 class="article-title" itemprop="name">
+            利用高阶函数构建简易日志系统
+        </h1>
+    
+
+					 
+						<div class="article-meta">
+							
+    <div class="article-date">    
+        <a href="/2016/08/27/blog/">
+            <time datetime="2016-08-27T12:11:31.000Z" itemprop="datePublished">2016-08-27</time>
+        </a>
+    </div>
+
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/函数式编程/">函数式编程</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/clojure/">clojure</a>, <a class="tag-link" href="/tags/high-order-function/">high-order function</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/clojure/">clojure</a>, <a class="tag-link" href="/tags/high-order-function/">high-order function</a>
+    </div>
+-->
+						</div>
+					
+					
+					
+						<span class="article-meta">
+							
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/函数式编程/">函数式编程</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/clojure/">clojure</a>, <a class="tag-link" href="/tags/high-order-function/">high-order function</a>
+			</span>
+		
+    </div>
+
+							
+						</span>
+						
+					
+					
+					</center>
+				
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+			
+				<br/>
+				 <blockquote style="font-size:120%;line-height:1.5em;color:#083a4e">
+					整理自《clojure编程》第二章关于高阶函数部分，以日志系统为实例介绍高阶函数的强大功能。
+				 </blockquote>
+			  
+            <p>日志对于任意大小的系统都是一个必备的组件，对于开发人员来说，是定位、分析软件故障时的重要依据；对于运维人员来说，是了解运行状态、系统状态的重要途径；对于业务需求来说，是获取统计业务相关数据的重要来源。对于日志系统进行配置通常也因为种种原因很烦人并且复杂。这里用高阶函数来实现一个日志系统。</p>
+<a id="more"></a>
+<h1 id="0-高阶函数"><a href="#0-高阶函数" class="headerlink" title="0 高阶函数"></a>0 高阶函数</h1><p>高阶函数(high-order functions，hof)是采取其他函数作为参数的函数。hof是一个重要的功能编程技术，在clojure中广泛使用。一旦你习惯把一个函数当做一个普通的值，那么会发现编写一个把函数作为返回值或者接受函数作为参数的高阶函数是很自然的事情。<br>下面是一个hof的例子：返回某个给定数字与它的参数的和</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">user=&gt;(defn adder [n]</span><br><span class="line">    (fn [x] (+ n x))</span><br><span class="line">)</span><br><span class="line">#&apos;user/adder</span><br><span class="line"></span><br><span class="line">((adder 5) 18)</span><br><span class="line">23</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第2行函数体部分定义了一个匿名函数，即函数adder的返回值是一个函数。</li>
+<li>第6行调用adder，运行过程中n赋值为5，x赋值为18，结果输出23。</li>
+</ul>
+<h1 id="1-打印到标准输出"><a href="#1-打印到标准输出" class="headerlink" title="1 打印到标准输出"></a>1 打印到标准输出</h1><p>我们都为使用<code>System.out.println</code>、<code>puts</code>或者<code>print</code>来打印日志感到羞愧——虽然有时候它们很方便，但是太原始了。为了改进这一点，从最简单的实现开始，实现一个高阶函数，返回值是一个可以把信息打印到任何作为参数传给高阶函数的writer的函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">user=&gt;(defn print-logger [writer]</span><br><span class="line">    #(binding [*out* writer]</span><br><span class="line">        (println %)</span><br><span class="line">     )</span><br><span class="line">)</span><br><span class="line">#&apos;user/print-logger</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第1行，高阶函数print-logger接受一个参数，这个参数可以是任何实现了<code>java.io.Writer</code>接口的类的一个实例，这个接口是写数据到某个输出设备的最基本的接口。</li>
+<li>第2行，使用函数字面量<code>#()</code>定义一个匿名函数，这个函数将标准输出<em>out</em>绑定到参数writer上。</li>
+<li>第3行，在执行print-logger时，会将其参数(待写入的数据)传给占位符%，并用<code>println</code>写入到标准输出。</li>
+</ul>
+<p>让我们看看它到底是如何工作的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user=&gt;((print-logger *out*) &quot;hello&quot;)</span><br><span class="line">#&apos;user/hello</span><br></pre></td></tr></table></figure></p>
+<p>print-logger总是返回一个接受单个参数的函数，这里我们传入一个字符串hello来调用它。</p>
+<h1 id="2-打印到内存"><a href="#2-打印到内存" class="headerlink" title="2 打印到内存"></a>2 打印到内存</h1><p>这里做个改动，不将数据直接输出到标准输出，而是写入到一个内存buffer。这里我们使用<code>java.io.StringWriter</code>，不是输出到一个设备，而是直接保存到内存中的一块区域。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">user=&gt;(def writer (java.io.StringWriter.))</span><br><span class="line">#&apos;user/writer</span><br><span class="line"></span><br><span class="line">user=&gt;(def retained-logger </span><br><span class="line">    (print-logger writer)</span><br><span class="line">)</span><br><span class="line">#&apos;user/retained-logger</span><br><span class="line"></span><br><span class="line">user=&gt;(retained-logger &quot;hello&quot;)</span><br><span class="line">nill</span><br><span class="line"></span><br><span class="line">user=&gt;(str writer)</span><br><span class="line">&quot;hello\n&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第1行，我们创建并保持<code>StringWriter</code>类的一个引用，创建引用是为了在后面调用print-logger之后检查数据是否真的被打印到内存中。</li>
+<li>第9行，调用日志函数。它不会打印任何内容到标准输出，因为数据被打印到我们提供的内存对象中了。</li>
+</ul>
+<h1 id="3-打印到文件"><a href="#3-打印到文件" class="headerlink" title="3 打印到文件"></a>3 打印到文件</h1><p>接下来，我们希望日志框架由能力把数据打印到一个文件中。上面定义的高阶函数print-logger允许我们很容易做到这一点：对于任意给定的writer,它都会返回一个函数，而这个返回的函数就会把消息打印到我们提供的writer。所以只要只要得到一个输出设备是我们指定文件的writer的引用，就搞定了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">user=&gt;(defn file-logger [file]</span><br><span class="line">    #(with-open [f (clojure.java.io/writer file :append true)]</span><br><span class="line">        ((print-logger f) %)</span><br><span class="line">    )</span><br><span class="line">)</span><br><span class="line">#&apos;user/file-logger</span><br><span class="line"></span><br><span class="line">user=&gt;((file-logger &quot;messages.log&quot;) &quot;hello&quot;)</span><br><span class="line">nill</span><br><span class="line"></span><br><span class="line">user=&gt;% more messages.log</span><br><span class="line">hello</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第1行，高阶函数file-logger接受单个参数file，需要记录的数据会被写入到这个文件里。由于<code>clojure.java.io/writer</code>的语义，这个file参数可以是具体的文件路径，也可以是<code>java.io.File</code>、<code>java.net.URL</code>或者<code>java.net.URI</code>类的一个对象。</li>
+<li>第2行，由file-logger创建的函数字面量返回一个指向file的writer，这个file以追加的模式打开，并且把这个writer在局部作用域命名为f。</li>
+<li>第3行，用创建的writer来调用print-logger，这会创建一个日志函数。要记住的是，函数本身就是值，所以我们不需要在上面先定义一个指向函数的引用，然后再调用它。</li>
+<li>第11行，输出测试结果。当然，还可以定义其他的日志高阶函数，比如定义一个打印到数据库的，打印到消息队列的，打印到其他存储介质的，这样我们可以根据需要来选择使用。</li>
+</ul>
+<h1 id="4-打印到多个输出"><a href="#4-打印到多个输出" class="headerlink" title="4 打印到多个输出"></a>4 打印到多个输出</h1><p>最后，如果想把一条日志打印到多个地方呢？这个逻辑不应该是日志函数考虑的。要实现这个，需要另一个不同的高阶函数，这个函数本身不做写日志的事情，而只是调用其他日志函数来写日志：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">user=&gt;(defn multi-logger [&amp; logger-fns]</span><br><span class="line">    #(doseq [f logger-fns]</span><br><span class="line">        (f %)</span><br><span class="line">    )</span><br><span class="line">)</span><br><span class="line">#&apos;user/multi-logger</span><br><span class="line"></span><br><span class="line">user=&gt;(def log (multi-logger</span><br><span class="line">                (print-logger *out*)</span><br><span class="line">                (file-logger &quot;message.log&quot;)</span><br><span class="line">               )</span><br><span class="line">)</span><br><span class="line">#&apos;user/log</span><br><span class="line"></span><br><span class="line">user=&gt;(log &quot;hello again&quot;)</span><br><span class="line">hello</span><br><span class="line">nill</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第1行，multi-logger接受任意多个日志函数。</li>
+<li>第2行，利用函数字面量返回的函数会遍历调用每一个函数打印日志。</li>
+</ul>
+<p>现在我们能把日志记录同时打印到多个地方去了。</p>
+
+			
+			
+		<br>
+		
+		
+		
+<div class="copyright">
+  <p><span>Title:</span><a href="/2016/08/27/blog/">利用高阶函数构建简易日志系统</a></p>
+  <p><span>Author:</span><a href="/" title="visit Tankcat 's personal blog">Tankcat</a></p>
+  <p><span>Release Date:</span>2016-08-27  20:11</p>
+  <p><span>Update Date:</span>2017-05-06  21:03</p>
+  <p>
+    <span>Original Link:</span><a href="/2016/08/27/blog/" title="利用高阶函数构建简易日志系统">http://tankcat2.com/2016/08/27/blog/</a>
+    <span class="btn" data-clipboard-text="Master Copy: http://tankcat2.com/2016/08/27/blog/　　Author: Tankcat" title="copy the article link">
+        <i class="fa fa-clipboard"></i>
+    </span>
+  </p>
+ <p><span>License Agreement:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="Mainland China (CC BY-NC-SA 3.0 CN)">"Signature-Non Commercial-Share Alike 3.0"</a>.
+ <br>
+ <br>
+ <span>Please retain the original link and author if reprinting.
+ </span>
+ </p>
+  <script src="/js/clipboard.min.js"></script>
+  <script> var clipboard = new Clipboard('.btn'); </script>
+</div>
+<style type="text/css">
+  .copyright p .btn {
+    margin-left: 1em;
+  }
+  .copyright:hover p .btn::after {
+    content: "Copy"
+  }
+  .copyright p .btn:hover {
+      color: gray;
+      cursor: pointer;
+    };
+</style>
+
+<br>
+<br>
+		<style type="text/css">
+		  .center {
+			  text-align: center;
+		  }
+		  .hidden {
+			  display: none;
+		  }
+		.donate_bar a.btn_donate{
+		  display: inline-block;
+		  width: 82px;
+		  height: 82px;
+		  background: url("http://7xsl28.com1.z0.glb.clouddn.com/btn_reward.gif") no-repeat;
+		  _background: url("http://7xsl28.com1.z0.glb.clouddn.com/btn_reward.gif") no-repeat;
+		  -webkit-transition: background 0s;
+		  -moz-transition: background 0s;
+		  -o-transition: background 0s;
+		  -ms-transition: background 0s;
+		  transition: background 0s;
+		}
+
+		.donate_bar a.btn_donate:hover{ background-position: 0px -82px;}
+		.donate_bar .donate_txt {
+		  display: block;
+		  color: #9d9d9d;
+		  font: 14px/2 "Microsoft Yahei";
+		}
+		.bold{ font-weight: bold; }
+	  </style>
+	  
+	  
+	  
+	  <div id="donate_module">
+		<div id="donate_board" class="donate_bar center">
+		打赏 | Buy me a coffee<br/><br/>
+		<a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}"></a>
+		  
+		
+		</div>
+		
+		<div id="QR" style="display: none;">
+			<br>
+		  <br>
+		
+		<a href="http://7xwggp.com1.z0.glb.clouddn.com/webwxgetmsgimg.jpg" title="用微信扫一扫哦~" class="fancybox" rel="article0">
+		  <img src="http://7xwggp.com1.z0.glb.clouddn.com/webwxgetmsgimg.jpg" title="微信打赏 Colin" height="250px" width="250px"/>
+		</a>
+		<br>
+		<center>
+		<span class="donate_txt">
+		  If you enjoy the blog, please feel free to donate~Thx for your support.
+		</span>
+	</center>
+	  </div>
+	  <br>
+	   
+	  </div>
+		
+				
+			
+        </div>
+		
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://tankcat2.com/2016/08/27/blog/" data-id="cjagbn1bx000apgkx9txqq8mb" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + encodedUrl + '" class="fa fa-qq article-share-qzone" target="_blank" title="Qzone"></a>',
+                            '<a href="http://service.weibo.com/share/share.php?url=' + encodedUrl + '" class="fa fa-weibo article-share-weibo" target="_blank" title="Weibo"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="http://tankcat2.com/2016/08/27/blog/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://tankcat2.com/2016/08/27/blog/">Comments</a>
+    
+
+        </footer>
+		
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2016/08/28/introduction/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    (一)Introduction
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2016/08/26/partial/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">关于clojure中的partial函数</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+
+
+	
+    
+    <section id="comments" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+</section>
+			
+			
+			
+        </div>
+
+			<div style="height:10px;pistion:absolute;bottom:0"></div>
+<footer id="footer" >
+    <div class="outer">
+		<div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        <div id="footer-info" class="inner">
+            &copy; 2017 <i class="fa fa-heart blink-slow"></i> Tankcat<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+		
+    </div>
+</footer>
+			
+    
+    <script>
+    var disqus_config = function () {
+        
+            this.page.url = 'http://tankcat2.com/2016/08/27/blog/';
+        
+        this.page.identifier = 'blog';
+    };
+    (function() { 
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'tankcat2' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+    
+        <script src="/vendor/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-share.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-video.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+	
+    </div>
+</body>
+
+</html>
