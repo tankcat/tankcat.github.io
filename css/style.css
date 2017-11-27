@@ -112,7 +112,7 @@ button::-moz-focus-inner {
 }
 html,
 body,
-#container {
+#containerr {
   height: 100%;
 }
 body {
@@ -175,10 +175,10 @@ code {
   -moz-background-size: 50px 50px;
   background-size: 50px 50px;
 }
-#container {
+#containerr {
   position: relative;
 }
-#container > .outer {
+#containerr > .outer {
   margin-bottom: 30px;
 }
 @media screen and (min-width: 1200px) {
