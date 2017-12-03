@@ -103,6 +103,121 @@
 			</aside>
 			
 					<section id="main">
+    <article id="post-kafka_quickstart" class="article article-type-post" itemscope itemprop="blogPost">
+    
+	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
+        
+            
+	
+		<a href="/2017/02/27/kafka_quickstart/" itemprop="url">
+            <img src="http://7xwggp.com1.z0.glb.clouddn.com/kafka_diagram.png" class="article-banner" />
+        </a>
+	
+
+
+
+        
+        
+            <header class="article-header">
+				
+					<center>
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/02/27/kafka_quickstart/">Kafka快速入门</a>
+        </h1>
+    
+
+					 
+						<div class="article-meta">
+							
+    <div class="article-date">    
+        <a href="/2017/02/27/kafka_quickstart/">
+            <time datetime="2017-02-27T12:11:31.000Z" itemprop="datePublished">2017-02-27</time>
+        </a>
+    </div>
+
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Techniques/">Techniques</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/Kafka/">Kafka</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Kafka/">Kafka</a>
+    </div>
+-->
+						</div>
+					
+					
+					
+					</center>
+				
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><p>翻译自kafka documentation的quick start 部分。</p>
+<ol>
+<li><p>下载Zookeeper</p>
+<p>我使用的是<a href="http://mirrors.hust.edu.cn/apache/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz" target="_blank" rel="noopener">zookeeper-3.4.6</a>版本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -xvzf zookeeper-3.4.6.tgz</span><br><span class="line">cd zookeeper-3.4.6/conf</span><br></pre></td></tr></table></figure>
+<p>将<code>zoo_example.cfg</code>改名为<code>zoo.cfg</code>，并在<code>/etc/profile</code>中设置环境变量：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br><span class="line">export ZK_HOME=/home/admin/zookeeper-3.4.6</span><br><span class="line">export PATH=$PATH:$ZK_HOME/bin:$ZK_HOME/conf</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下载Kafka</p>
+<p>我使用的是<a href="https://www.apache.org/dyn/closer.cgi?path=/kafka/0.10.2.1/kafka_2.10-0.10.2.1.tgz" target="_blank" rel="noopener">kafka_2.10-0.10.2.1</a>版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -xvzf kafka_2.10-0.10.2.1</span><br><span class="line">cd kafka_2.10-0.10.2.1/config</span><br></pre></td></tr></table></figure>
+<p>接下来进行参数配置：<code>server.properties</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim server.properties</span><br><span class="line">...</span><br><span class="line"><span class="meta">#</span> 修改broker.id,全局唯一</span><br><span class="line"><span class="meta">#</span> 修改zookeeper.connect，形式为host:port，多个数据项用逗号分隔</span><br><span class="line">zookeeper.connect=192.168.115:2181</span><br><span class="line"><span class="meta">#</span> 设置话题的删除,默认值为false</span><br><span class="line">delete.topic.enable=true</span><br><span class="line"><span class="meta">#</span> 设置数据日志路径</span><br><span class="line">log.dirs=/home/admin/kafka_2.10-0.10.2.1/kafka-logs</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动</p>
+<p>Kafka使用Zookeeper，所以需要先启动Zookeeper，我没有使用Kafka内置的：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zkServer.sh start</span><br></pre></td></tr></table></figure>
+<p>接着启动Kafka:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-server-start.sh config/server.properties</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建topic</p>
+<p>使用下面的命令创建名为<code>single_node</code>的topic，副本数为1，分区数为1，命令执行结束后，<code>kafka-logs</code>路径下就会生成一个<code>single_node-0</code>的文件夹。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-topics.h --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic single_node</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>发布与消耗数据</p>
+<p>执行下面的命令创建producer进程，从标准输入中获取数据，并发送到Kafka集群中的single_node这个topic中，默认地，每一行将作为单独的一条信息发送出去。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-producer.sh --broker-list localhost:9092 --topic single_node</span><br><span class="line">wxt</span><br><span class="line">zf</span><br><span class="line">i love u</span><br></pre></td></tr></table></figure>
+<p>执行下面的命令创建consumer进程，消耗指定topic的数据，这里就是标准输出的数据：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic single_node --from-beginning</span><br><span class="line">wxt</span><br><span class="line">zf</span><br><span class="line">i love u</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>以上均是单机版的Kafka配置与使用。</p></p>
+            <p class="article-more-link">
+               <a href="/2017/02/27/kafka_quickstart/#more">Read More</a>
+				
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Kafka/">Kafka</a>
+    </div>
+
+            </p>
+        
+        </div>
+		
+    </div>
+    
+</article>
+
+
+
+
+
     <article id="post-evil" class="article article-type-post" itemscope itemprop="blogPost">
     
 	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
@@ -514,96 +629,8 @@
 
 
 
-    <article id="post-jielun" class="article article-type-post" itemscope itemprop="blogPost">
-    
-	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
-        
-            
-	
-		<a href="/2016/10/23/jielun/" itemprop="url">
-            <img src="http://7xwggp.com1.z0.glb.clouddn.com/IMG_20161022_194019R.jpg" class="article-banner" />
-        </a>
-	
-
-
-
-        
-        
-            <header class="article-header">
-				
-					<center>
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2016/10/23/jielun/">遇见小公举</a>
-        </h1>
-    
-
-					 
-						<div class="article-meta">
-							
-    <div class="article-date">    
-        <a href="/2016/10/23/jielun/">
-            <time datetime="2016-10-23T13:21:31.000Z" itemprop="datePublished">2016-10-23</time>
-        </a>
-    </div>
-
-							<!--
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Jottings/">Jottings</a>
-		&nbsp;&nbsp;
-		
-			<span class="article-tag">
-				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/周杰伦/">周杰伦</a>
-			</span>
-		
-    </div>
--->
-							<!--
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/周杰伦/">周杰伦</a>
-    </div>
--->
-						</div>
-					
-					
-					
-					</center>
-				
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            <p><p>周杰伦是身边很多同龄人的偶像，他们应该从小学或者初中的时候就开始追他。同时期的还有蔡依林、张韶涵、林俊杰那些人，很奇怪当时我顶多是对他们的几首歌感兴趣，比如欧若拉，曹操，并没有萌生追星的概念。</p>
-<p>我记不得听周杰伦的第一首歌是什么。小学六年级的时候我妈同事的女儿买了一个MP3,需要分外安电池的那种，里面有两首杰伦的歌，一首发如雪，一首夜曲。我借过来听，很喜欢这两首歌的旋律，后来搜到了歌词，就经常买花花绿绿的本子抄写歌词。到了初中，很多我很不喜欢的男生疯狂地迷恋周杰伦，可能因为女孩子成熟得早，特别反感他们自以为帅气的非主流风格（还有一个原因是很多喜欢周杰伦的人同时喜欢着许嵩）。本来因为杰伦不清楚的发音，我对他是无感的，但是因为一些烦人的粉丝，对歌手本人也没什么好感。后来到了大学，某个逗比室友对此和我惊人的相似。初中的时候我可能更多的是在追日漫，喜欢主题曲，还记得初二家里买电脑之前，星空卫视每天晚上6点放犬夜叉，我就拿着复读机录那首change the world。</p>
-<p>到了高一，学校是明令禁止使用电子产品的，我用充饭卡的钱偷偷买了一个mp3,列了一个歌单让前桌的男生回家帮我下点歌，哪知道他全给我下的周杰伦。很幸运的是，他给我下的都是一些慢节奏情歌，最长的电影，给我一首歌的时间，甜甜的，说好的幸福呢，彩虹，七里香之类的。但也没有因为这些歌而粉上杰伦，还是听歌不看人的状态。</p>
-<p>后来的后来，杰伦当了好声音的导师，看了一两期，发现他其实很个很可爱的人。再到现在，他的新专辑床边故事，那首前世情人，告白气球和now you see me，让我感觉，这就是从前那个酷酷的杰伦呀，那种我以前不屑的风格原来这么奇妙。于是一点没犹豫地在网易云上买了数字专辑。<br>今天大老远从上海跑到合肥听周杰伦的演唱会，虽然位子很不好，看不到人也算了，屏幕也看不到；虽然室外的音响效果也有点让人失望，那些快歌基本听不清歌词；虽然排队很长，座位坐得很乱…但是那些我自己很熟悉的旋律响起的时候，所有的举动只剩下舞动荧光棒，跟着一起唱。<br>让我印象很最深刻的是点歌环节，点到的第三个女孩子，杰伦问她是和谁一起来的，她说她一个人来的。当时杰伦愣了一下，然后安慰她说，全场的观众都是她的朋友，都陪着她听唱歌。当时我特别想去拥抱那个女生。一个人去看演唱会，身边都是情侣或者闺蜜团。你的注意力本该只放在爱豆身上，可无法避免的，有些场景，有些歌词就是会触动你内心那块最柔软的地方。这种经历我体验过。<br>错过了可以有多一点杰伦的年少时光有些遗憾，但也很幸运，我开始路转粉了，未来的路，还可以相伴而行。💗💗💗</p>
-<p>ps:当然啦，如果能遇见一个喜欢人的一起去苏打绿的after summer，那么会更加幸运~~~<br></p>
-            <p class="article-more-link">
-               <a href="/2016/10/23/jielun/#more">Read More</a>
-				
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/周杰伦/">周杰伦</a>
-    </div>
-
-            </p>
-        
-        </div>
-		
-    </div>
-    
-</article>
-
-
-
-
-
     <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
+        <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/home.html">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
     </nav>
 </section>
 			
