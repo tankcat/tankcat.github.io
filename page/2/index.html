@@ -103,6 +103,85 @@
 			</aside>
 			
 					<section id="main">
+    <article id="post-ffmped" class="article article-type-post" itemscope itemprop="blogPost">
+    
+	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
+        
+        
+            <header class="article-header">
+				
+					<center>
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/11/22/ffmped/">视频导出音频小技能</a>
+        </h1>
+    
+
+					 
+						<div class="article-meta">
+							
+    <div class="article-date">    
+        <a href="/2017/11/22/ffmped/">
+            <time datetime="2017-11-22T02:44:51.000Z" itemprop="datePublished">2017-11-22</time>
+        </a>
+    </div>
+
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Skills/">Skills</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/ffmpeg/">ffmpeg</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/ffmpeg/">ffmpeg</a>
+    </div>
+-->
+						</div>
+					
+					
+					
+					</center>
+				
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><p>早上看到青峰发的新作品小视频，就想把它down下来，于是找到了一个很实用的chrome插件——video download helper。</p>
+<p>视频下载下来了，又想提取音频，这样上传到我的网易云网盘就能随时听啦。一开始不太想装国产的转换软件，发现了一个在线的转换平台——<a href="http://audio-extractor.net/cn/" target="_blank" rel="noopener">http://audio-extractor.net/cn/</a>，需要先上传视频，再点击转换，最后再下载音频。</p>
+<p>视频上传实在是太慢了！于是乎我又去知乎上搜搜看有没有大神提供一些轻量级的软件~果不其然，让我发现了FFmpeg的存在！<a href="http://ffmpeg.org/" target="_blank" rel="noopener">http://ffmpeg.org/ </a>这个是homepage，支持Linux/Windows/OS X。下载好压缩包后解压，然后把bin目录添加到环境变量中去就能愉快地使用啦~</p>
+<p>我是把MP4转换成MP3，在别人的博客里找到了下面的命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i video.mp4 -vn-acodec libmp3lame -ac 2 -qscale:a 4 -ar 48000audio.mp3</span><br></pre></td></tr></table></figure>
+<p>以上，谢谢阅读。</p></p>
+            <p class="article-more-link">
+               <a href="/2017/11/22/ffmped/#more">Read More</a>
+				
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/ffmpeg/">ffmpeg</a>
+    </div>
+
+            </p>
+        
+        </div>
+		
+    </div>
+    
+</article>
+
+
+
+
+
     <article id="post-gulou" class="article article-type-post" itemscope itemprop="blogPost">
     
 	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
@@ -432,103 +511,8 @@
 
 
 
-    <article id="post-compression" class="article article-type-post" itemscope itemprop="blogPost">
-    
-	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
-        
-            
-	
-		<a href="/2017/05/11/compression/" itemprop="url">
-            <img src="http://7xwggp.com1.z0.glb.clouddn.com/image4.png" class="article-banner" />
-        </a>
-	
-
-
-
-        
-        
-            <header class="article-header">
-				
-					<center>
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2017/05/11/compression/">列存储中常见压缩技术</a>
-        </h1>
-    
-
-					 
-						<div class="article-meta">
-							
-    <div class="article-date">    
-        <a href="/2017/05/11/compression/">
-            <time datetime="2017-05-11T05:40:00.000Z" itemprop="datePublished">2017-05-11</time>
-        </a>
-    </div>
-
-							<!--
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Techniques/">Techniques</a>
-		&nbsp;&nbsp;
-		
-			<span class="article-tag">
-				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/位向量/">位向量</a>, <a class="tag-link" href="/tags/压缩/">压缩</a>, <a class="tag-link" href="/tags/行程编码/">行程编码</a>, <a class="tag-link" href="/tags/词典编码/">词典编码</a>
-			</span>
-		
-    </div>
--->
-							<!--
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/位向量/">位向量</a>, <a class="tag-link" href="/tags/压缩/">压缩</a>, <a class="tag-link" href="/tags/行程编码/">行程编码</a>, <a class="tag-link" href="/tags/词典编码/">词典编码</a>
-    </div>
--->
-						</div>
-					
-					
-					
-					</center>
-				
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            <p><p>在列数据库中，实用面向列的压缩算法进行数据压缩，并且在处理数据时保持压缩的形式，即不通过解压来处理数据，很大程度上提升了查询性能.凭直觉就能知道，以列为存储形式的数据比以行为存储形式的数据更容易压缩.当处理的数据信息熵较低，即数据的局部性较高，那么压缩算法的性能越好.举个列子来说吧，现在有一张顾客表，包含了[姓名，电话，邮箱，传真]等属性.列存储使得所有的姓名存储在一起，所有的电话号码存储在一起.有一点可以确定的是，电话号码各自之间是要比周围其他属性的数值来得更加相似的.</p>
-<p><strong>压缩的优势具体是什么呢？</strong>总结起来呢有两点：</p>
-<ol>
-<li>减少I/O操作次数.如果数据被压缩了，那么其实一次I/O读取(磁盘到内存/CPU)实际对应的源数据是远远超过不使用压缩技术的读取.</li>
-<li>提高查询性能.如果查询执行器可以直接在压缩后的数据上进行操作，在进行具体的操作时不需要进行解压，而这个操作一般开销较大.</li>
-</ol>
-<p>列存储的压缩技术一般有消零和空格符算法(Null Supression)、Lerrpel-Ziv算法、词典编码算法(Dictionary Encoding)、行程编码算法(Run-length Encoding)、位向量算法(Bit-Vector Encoding)，其中较为常见的是后三种，接下来也重点介绍这三种.</p>
-<h3 id="行程编码-Run-length-Encoding"><a href="#行程编码-Run-length-Encoding" class="headerlink" title="行程编码 Run-length Encoding"></a>行程编码 Run-length Encoding</h3><p>行程编码的核心思想是将有序列中的相同元素转化成一个三元组&lt;属性值，该值第一次出现的位置，出现的次数&gt;,适用于有序的列或者可转为有序的列.下面给出一个具体的例子.下图给出一个身高的有序列，使用行程编码，可转化为两个三元组.为了便于管理，可以在三元组上构建索引.需要注意的是，该算法比较适合distinct值较少的列，因为如果列中不同的值较多，比如所有的值都不同，那么创建的三元组的数量就会很大，施展不出该算法的优势.</p>
-<p><img src="http://7xwggp.com1.z0.glb.clouddn.com/run_length.png" alt=""></p>
-<h3 id="位向量-Bit-Vector"><a href="#位向量-Bit-Vector" class="headerlink" title="位向量 Bit-Vector"></a>位向量 Bit-Vector</h3><p>位向量的核心思想是，将一个列中相同的值转为一个二元组&lt;属性值，在列中出现的位置的位图&gt;.下面给出一个简单的例子，图中给出的列是无序的，其中160这个值出现在第0、3、4、6个位置，162出现在第1、2、5个位置，则其位图的表示分别是1001101和0110010.使用该算法，整个列只要用两个简单的二元组就能表示出来.若列中distinct的值较少，则位图还可以用行程编码进行二次压缩.</p>
-<p><img src="http://7xwggp.com1.z0.glb.clouddn.com/bit_vector.png" alt=""></p>
-<h3 id="词典编码-Dictionary-Encoding"><a href="#词典编码-Dictionary-Encoding" class="headerlink" title="词典编码 Dictionary Encoding"></a>词典编码 Dictionary Encoding</h3><p>词典编码，顾名思义，主要针对的是字符串的压缩，核心思想是利用简短的编码代替列中某些重复出现的字符串，维护一个字符串与编码的映射，就可以快速确定编码所指代的字符串，这个映射也就是所谓的Dictionary.下面给出12年Google在VLDB论文<a href="http://dl.acm.org/citation.cfm?id=2350259&amp;CFID=761347277&amp;CFTOKEN=44019228" target="_blank" rel="noopener">Processing a trillion cells per mouse click</a>上有关这个算法的例子，将列search_string划分为三个块，每个块中都存在重复的字符串。首先创建一个全局的字典表global_dictionary，该表中包含了search_string中的所有distinct字符串，且每个字符串分配一个全局唯一的id.接着，为每个块也创建一个字典表chunk_dictionary，包含在该块中的所有distinct字符串，为每个字符串分配一个块范围内的id，并且将这个id与该字符串的全局id对应起来，通过这种二级字典表的方式，一个字符串就可以通过全局字典表映射到一个全局id，再通过块字典表映射到一个块id，这样快中就不用再存储真正的字符串了，而是字符串对应的块id，也就是图中的elements.例如要查找chunk 0中第4个element对应的字符串时，找到该element对应的块id是4，对应的全局id是12，再查找全局字典表可知，该element对应字符串”yellow pages”.同样该算法适用于列中distinct字符串较少的情况.</p></p>
-            <p class="article-more-link">
-               <a href="/2017/05/11/compression/#more">Read More</a>
-				
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/位向量/">位向量</a>, <a class="tag-link" href="/tags/压缩/">压缩</a>, <a class="tag-link" href="/tags/行程编码/">行程编码</a>, <a class="tag-link" href="/tags/词典编码/">词典编码</a>
-    </div>
-
-            </p>
-        
-        </div>
-		
-    </div>
-    
-</article>
-
-
-
-
-
     <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/home.html">&laquo; Prev</a><a class="page-number" href="/home.html">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+        <a class="extend prev" rel="prev" href="/home.html">&laquo; Prev</a><a class="page-number" href="/home.html">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
 </section>
 			
