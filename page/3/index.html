@@ -103,6 +103,98 @@
 			</aside>
 			
 					<section id="main">
+    <article id="post-KafkaSpout" class="article article-type-post" itemscope itemprop="blogPost">
+    
+	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
+        
+        
+            <header class="article-header">
+				
+					<center>
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/05/18/KafkaSpout/">Storm Kafka之KafkaSpout</a>
+        </h1>
+    
+
+					 
+						<div class="article-meta">
+							
+    <div class="article-date">    
+        <a href="/2017/05/18/KafkaSpout/">
+            <time datetime="2017-05-18T12:11:31.000Z" itemprop="datePublished">2017-05-18</time>
+        </a>
+    </div>
+
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Techniques/">Techniques</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/Kafka/">Kafka</a>, <a class="tag-link" href="/tags/Storm/">Storm</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Kafka/">Kafka</a>, <a class="tag-link" href="/tags/Storm/">Storm</a>
+    </div>
+-->
+						</div>
+					
+					
+					
+					</center>
+				
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><p><code>storm-kafka-XXX.jar</code>提供了核心Storm与Trident的组件Spout的代码实现，用于消费Kafka中存储的数据(0.8.x之后的版本)。本文只介绍核心Storm的KafkaSpout。</p>
+<p>对于核心Storm与Trident两个版本的Spout实现，提供了<code>BrokerHost</code>接口，跟踪Kafka broker host$\rightarrow$partition的映射，并提供<code>KafkaConfig</code>接口来控制Kafka相关的参数。下面就这以上两点进行讲解。</p>
+<h3 id="BrokerHost"><a href="#BrokerHost" class="headerlink" title="BrokerHost"></a>BrokerHost</h3><p>为了对Kafka spout进行初始化，我们需要创建一个<code>BrokerHost</code>的实例，Storm共提供了两种实现方式：</p>
+<ol>
+<li><p>ZkHosts。ZkHosts使用Zookeeper的实体对象，可动态地追踪Kafka broker$\rightarrow$partition之间的映射，通过调用下面两种函数创建ZkHosts:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ZkHosts</span><span class="params">(String brokerZkStr,String brokerZkPath)</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ZkHosts</span><span class="params">(String brokerZkStr)</span></span></span><br></pre></td></tr></table></figure>
+<p>其中，<code>brokerZkStr</code>是<code>ip:host</code>(主机:端口)，<code>brokerZkPath</code>是存放所有topic和partition信息的根目录，默认值为<code>\broker</code>。默认地，Zookepper每60秒刷新一次broker$\rightarrow$partition，通过<code>host:refreshFreqSecs</code>可以改变这个时间。</p>
+</li>
+<li><p>StaticHosts。这是另一个选择，不过broker$\rightarrow$partition之间的映射关系是静态的，创建这个类的实例之前，需要首选创建<code>GlobalPartitionInformation</code>类的实例，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Broker brokerForPartition0 = <span class="keyword">new</span> Broker(<span class="string">"localhost"</span>);<span class="comment">//localhost:9092,端口号默认为9092</span></span><br><span class="line">Broker brokerForPartition1 = <span class="keyword">new</span> Broker(<span class="string">"localhost"</span>,<span class="number">9092</span>);<span class="comment">//localhost:9092,显示地指定端口号</span></span><br><span class="line">Broker brokerForPartition2 = <span class="keyword">new</span> Broker(<span class="string">"localhost:9092"</span>);</span><br><span class="line">GlobalPartitionInformation partitionInfo = <span class="keyword">new</span> GlobalPartitionInformation();</span><br><span class="line">partitionInfo.addPartition(<span class="number">0</span>, brokerFroPartition0);<span class="comment">// partition0 到 brokerForPartition0的映射</span></span><br><span class="line">partitionInfo.addPartition(<span class="number">1</span>, brokerFroPartition1);</span><br><span class="line">partitionInfo.addPartition(<span class="number">2</span>, brokerFroPartition2);</span><br><span class="line">StaticHosts hosts = <span class="keyword">new</span> StaticHosts(partitionInfo);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="KafkaConfig"><a href="#KafkaConfig" class="headerlink" title="KafkaConfig"></a>KafkaConfig</h3><p>创建KafkaSpout需要的另一个参数是<code>KafaConfig</code>，通过调用以下两个函数进行对象创建：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">KafkaConfig</span><span class="params">(BrokerHosts host,String topic)</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">KafkaConfig</span><span class="params">(BrokerHosts host,String topic,String clientId)</span></span></span><br></pre></td></tr></table></figure>
+<p>其中，<code>host</code>可以为BrokerHost的任何一种实现，<code>topic</code>是一个topic的名称，<code>clientId</code>是一个可选择的参数，作为Zookeeper路径的一部分，存储spout当前数据读取的offset。</p>
+<p>目前，KafkaConfig有两种扩展形式，<code>SpoutcConfig</code>提供额外的Zookeeper连接的字段信息，用于控制KafkaSpout特定的行为。<code>zkRoot</code>用于存储consumer的offset，<code>id</code>用于唯一标识当前的spout。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">SpoutConfig</span><span class="params">(BrokerHosts hosts,String topic,String zkRoot,String id)</span></span></span><br></pre></td></tr></table></figure>
+<p>除了以上参数，SpoutConfig包括如下的字段值，用来控制KafkaSpout：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将当前的offset保存到Zookeeper的频率</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">long</span> stateUpdateIntervals = <span class="number">2000</span>;</span><br><span class="line"><span class="comment">//用于失效消息的重试策略</span></span><br><span class="line"><span class="keyword">public</span> String failedMsgRetryManagerClass = ExponentialBackofMsgRetryManager.class.getName();</span><br><span class="line"><span class="comment">//指数级别的back-off重试设置。在一个bolt调用OutputCollector.fail()后，用于重新设置的ExponentialBackoffMsgRetryManager。只有在ExponentialBackoffMsgRetryManager被使用时，才有效果。</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">long</span> retryInitialDetails = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">double</span> retryDelayMultiplier = <span class="number">1.0</span>;</span><br><span class="line"><span class="comment">//连续重试之间的最大延时</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">long</span> retryDelayMaxMs = <span class="number">60</span> * <span class="number">1000</span>;</span><br><span class="line"><span class="comment">//当retryLimit低于0时，不停地重新发送失效的消息</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">int</span> retryLimit = -<span class="number">1</span>;</span><br></pre></td></tr></table></figure></p>
+            <p class="article-more-link">
+               <a href="/2017/05/18/KafkaSpout/#more">Read More</a>
+				
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Kafka/">Kafka</a>, <a class="tag-link" href="/tags/Storm/">Storm</a>
+    </div>
+
+            </p>
+        
+        </div>
+		
+    </div>
+    
+</article>
+
+
+
+
+
     <article id="post-compression" class="article article-type-post" itemscope itemprop="blogPost">
     
 	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
@@ -524,93 +616,6 @@
 
 
 
-    <article id="post-daofeng" class="article article-type-post" itemscope itemprop="blogPost">
-    
-	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
-        
-            
-	
-		<a href="/2017/04/20/daofeng/" itemprop="url">
-            <img src="http://7xwggp.com1.z0.glb.clouddn.com/daofeng.png" class="article-banner" />
-        </a>
-	
-
-
-
-        
-        
-            <header class="article-header">
-				
-					<center>
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2017/04/20/daofeng/">&lt;刀锋&gt;观后感</a>
-        </h1>
-    
-
-					 
-						<div class="article-meta">
-							
-    <div class="article-date">    
-        <a href="/2017/04/20/daofeng/">
-            <time datetime="2017-04-20T12:11:31.000Z" itemprop="datePublished">2017-04-20</time>
-        </a>
-    </div>
-
-							<!--
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Jottings/">Jottings</a>
-		&nbsp;&nbsp;
-		
-			<span class="article-tag">
-				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/刀锋/">刀锋</a>, <a class="tag-link" href="/tags/毛姆/">毛姆</a>
-			</span>
-		
-    </div>
--->
-							<!--
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/刀锋/">刀锋</a>, <a class="tag-link" href="/tags/毛姆/">毛姆</a>
-    </div>
--->
-						</div>
-					
-					
-					
-					</center>
-				
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            <p><p>先摘抄一段刀锋里面我很喜欢的一段话，“For men and women are not only themselves; they are also the region in which they were born, the city apartment or the farm in which they learnt to walk, the games they played as children, the tales they overheard, the food they ate, the schools they attended, the sports they followed, the poets they read and the God they believed in. It is all these things that have made them what they are, and these are the things that you can’t come to know by hearsay, you can only know them if you have lived them. You can only know them if you are them.”</p>
-<p>“因为人不论男男女女，都不仅仅是他们自身；他们也是自己出生的乡土，学步的农场或城市公寓，儿时玩的游戏，私下听来的山海经，吃的饭食，上的学校，关心的运动，吟哦的诗章，和信仰的上帝。这一切东西把他们造成现在这样，而这些东西都不是道听途说就可以了解的，你非得和那些人生活过。要了解这些，你就得是这些。 ”</p>
-<p>无论中英文，都是一流的文字，解释了各种文化之间的冲突，以及冲突误解的永恒性。</p>
-<p>很少有外国作品上让我读得这么舒服，这完全归功于周旭良老师的翻译功底，整本书翻译地非常好，读起来如沐春风。书写得很平淡，但每个角色都很有意思，拉里最为迷人。很奇怪，刚开始看的时候我脑子里对拉里的想象，居然是血战钢锯岭里的戴斯蒙特，这里也仅是人物形象。拉里一直追寻的答案，等同于追求终极真理，而这个问题最终都会归结到理性与精神的绝对满足。真的很难以想象，拉里这样的人，现实中又有多少，他们的生活又是怎样的？这种绝对的内心的泰然平和，我生生世世估计也做不到吧。<br></p>
-            <p class="article-more-link">
-               <a href="/2017/04/20/daofeng/#more">Read More</a>
-				
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/刀锋/">刀锋</a>, <a class="tag-link" href="/tags/毛姆/">毛姆</a>
-    </div>
-
-            </p>
-        
-        </div>
-		
-    </div>
-    
-</article>
-
-
-
-
-
     <nav id="page-nav">
         <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/home.html">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
     </nav>
@@ -708,7 +713,24 @@ gitment.render('comments')
 <script src="/js/main.js"></script>
 
 	
-    </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 </body>
 
 </html>
