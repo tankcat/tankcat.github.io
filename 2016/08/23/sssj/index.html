@@ -1,4 +1,39 @@
-<!DOCTYPE html><html lang="en"><head><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css"><meta charset="utf-8"><title>Streaming Similarity Self-Join | Tankcat</title><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><link rel="shortcut icon" href="/css/images/favicon.ico"><link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css"><link rel="stylesheet" href="/vendor/open-sans/styles.css"><link rel="stylesheet" href="/vendor/source-code-pro/styles.css"><link rel="stylesheet" href="/css/comment.css"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/tagclouds.css"><link rel="stylesheet" href="/css/font-awesome.css"><script src="/vendor/jquery/2.1.3/jquery.min.js"></script><link rel="stylesheet" href="/vendor/lightgallery/css/lightgallery.min.css"><script src="//cdn.bootcss.com/jquery/2.1.0/jquery.min.js" type="text/javascript"></script><script type="text/x-mathjax-config">
+<!DOCTYPE html>
+<html lang=en>
+<head>
+	<!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css">   
+    <meta charset="utf-8">
+    
+    <title>Streaming Similarity Self-Join | Tankcat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    
+
+    
+
+    
+        <link rel="shortcut icon" href="/css/images/favicon.ico" />
+    
+	
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+	<link rel="stylesheet" href="/css/comment.css">
+    <link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/tagclouds.css">
+	<link rel="stylesheet" href="/css/font-awesome.css">
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/lightgallery/css/lightgallery.min.css">
+    
+    
+    
+    
+    
+
+
+	<script src="//cdn.bootcss.com/jquery/2.1.0/jquery.min.js" type="text/javascript"></script>
+	<script type="text/x-mathjax-config">
       MathJax.Hub.Config({
         tex2jax: {
           inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
@@ -6,20 +41,568 @@
           skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
         }
       });
-    </script><script type="text/x-mathjax-config">
+    </script>
+
+    <script type="text/x-mathjax-config">
       MathJax.Hub.Queue(function() {
         var all = MathJax.Hub.getAllJax(), i;
         for (i=0; i < all.length; i += 1) {
           all[i].SourceElement().parentNode.className += ' has-jax';
         }
       });
-    </script><script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></head><body><div id="containerr"><header id="header" style="padding-top:15px"><div id="header-main" class="header-inner"><div class="outer"><a href="/" id="logo"><i class="logo"></i></a><nav id="main-nav"> <a class="main-nav-link" href="/index.html">Home</a> <a class="main-nav-link" href="/archives">Archive</a> <a class="main-nav-link" href="/categories">Category</a> <a class="main-nav-link" href="/tags">Tag</a> <a class="main-nav-link" href="/about">About</a> <a class="main-nav-link" href="/favorite">Photos</a></nav></div></div><div id="main-nav-mobile" class="header-sub header-inner"><table class="menu outer"><tr><td><a class="main-nav-link" href="/index.html">Home</a></td><td><a class="main-nav-link" href="/archives">Archive</a></td><td><a class="main-nav-link" href="/categories">Category</a></td><td><a class="main-nav-link" href="/tags">Tag</a></td><td><a class="main-nav-link" href="/about">About</a></td><td><a class="main-nav-link" href="/favorite">Photos</a></td><td><div class="search-form"> <input type="text" class="ins-search-input search-form-input" placeholder="Search"></div></td></tr></table></div></header><div class="outer"><aside id="profile"><div class="profile-inner"></div></aside><section id="main"><article id="post-sssj" class="article article-type-post" itemscope itemprop="blogPost"><div class="article-inner" style="border-radius:1.5px;box-shadow:10px 10px 5px #ccc"> <img src="http://7xwggp.com1.z0.glb.clouddn.com/005yXe3qgw1f4tv3vh6eyj30zk0grjtj.jpg" class="article-banner"><header class="article-header"><center><h1 class="article-title" itemprop="name"> Streaming Similarity Self-Join</h1><div class="article-meta"><div class="article-date"> <a href="/2016/08/23/sssj/"><time datetime="2016-08-23T05:45:31.000Z" itemprop="datePublished">2016-08-23</time></a></div></div><span class="article-meta"><div class="article-category"><i class="fa fa-folder"></i> <a class="article-category-link" href="/categories/Papers/">Papers</a> &nbsp;&nbsp;<span class="article-tag"><i class="fa fa-tag"></i> <a class="tag-link" href="/tags/Stream/">Stream</a></span></div></span></center></header><div class="article-entry" itemprop="articleBody"><br><blockquote style="font-size:120%;line-height:1.5em;color:#083a4e"> 这是一篇关于数据流相似性连接处理的论文翻译，与此相关的两篇主要的文章分别是Bayardo的“Scaling-Up-All-Pairs-Similarity-Search”和Anastasiu的“L2AP-Fast-Cosine-Similarity-Search-with-Prefix-L2-Form-Bounds”.</blockquote><p><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script></p><h1 id="Abstract-摘要"><a href="#Abstract-摘要" class="headerlink" title="Abstract 摘要"></a>Abstract 摘要</h1><p>在数据流环境下，系统处理的数据是源源不断流进的数据项。本文研究的问题是，数据流相似性的连接处理(SSSJ)，即在数据流中找出所有的两两数据项对，它们的相似度超过一个给定的阈值。解决这个问题最简单的构想是能拥有无限大的内存空间，但目前来讲，这是不能获得的。因此为了解决这个问题，本文提出了一个概念，<code>时间依赖的相似性</code>，两个数据项到达的时间间隔越大，它们的相似度越低。<br>在此概念的基础上，本文设计两种算法框架：① 微批次处理(MiniBatch,简称MB)，使用目前已有的基于索引的过滤技术；② 流处理(Streaming,简称STR),在索引的基础上增加时间过滤，并在算法中集成一种新的基于时间的边界处理。除此之外，本文基于L2AP的索引设计一种新的适用于数据流环境的索引算法，即L2。</p><h1 id="Introduction-介绍"><a href="#Introduction-介绍" class="headerlink" title="Introduction 介绍"></a>Introduction 介绍</h1><p>在数据库和数据挖掘领域，相关性自连接处理被广泛研究，其应用场景较为广泛，包括剽窃检测、查询优化、协同过滤、重复网页的检测与去除等。若使用暴力解法，其复杂度是\(O(n^2)\)。在现实应用中，数据项常以高维稀疏向量的形式呈现，那么相似度的计算即为余弦相似值的计算。为了方便处理，可以将向量归一化，则进一步将问题转换为两个向量的点积。目前解决相似度自连接的算法主要依赖于基于倒排索引的删减技术以及一些数值界限。<br>计算相似度自连接，不仅适用于静态的数据集，在数据流领域也同样适用。这里举例两个现实应用，在数据流环境下进行相似度自连接处理。</p><ul><li>趋势监测。社交平台，譬如Twitter，趋势监测算法识别频率陡增的主题标签。更细粒度的趋势监测算法也会识别微博集合。这些集合中的数据项出现的频率增加，并且同时出现某些相同的标签。对于该趋势监测算法，在数据流环境下找出相似的微博十分重要。</li><li>近似重复项过滤。同样，在社交平台，譬如Twitter，当某个事件发生时，用户们可能会接收到与该事件相关的近似重复的多条微博。这些微博通常连续地出现。因此，将这些近似重复的微博进行过滤或者分组有利于提高用户体验。</li></ul><p>但问题是，关于数据流环境下的相似度自连接处理的研究并不多。这是由于缺乏无限内存：不能将先到来数据项随意删除，因为该数据项可能与未来到的数据项相似。<br>本文引入一个时间因子来解决内存问题。我们设定，只有在到达的时间间隔在指定范围内，两个数据项才有可能相似。我们定义时间依赖的相似性：基于内容的点积与时间因子的乘积，该时间因子会随着时间间隔的增加呈现指数级减小。由于时间因子的存在，当某些数据项的到达时间超出一定范围，我们可以将这些数据项删除。下图表达了这个idea。<br></p><div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20160823155752.png" alt="时序图"></div><p></p><p>如上图所示，标记有时间戳的文档以数据流的形式源源不断到达。时间轴上方的文档包含相似的内容，标记为红色。在所有两两相似的文档对中，我们只关心到达时间相近的文档对。因此，图中所有的4-选-2的文档对里，只有两对文档被选中(用蓝色箭头标记)。<br>与已有的相似性自连接处理算法类似，本文的算法也依赖于索引技术。已有的算法使用不同类型的<code>索引过滤</code>，以减少通过索引返回的潜在配对项数量。按照这种语义，我们定义<code>时间过滤</code>来，与时间依赖的相似性进行关联，以便将旧的索引项从索引列表中删除。<br>本文提出了两种算法框架来解决数据流的相似性自连接处理，均依赖于时间过滤。MB框架使用现成的索引技术，在运行过程中以流水线的方式创建两个索引，随着时间的推移丢弃旧索引。STR框架对现有的索引技术进行调整，将时间过滤的因素内嵌到其中。此外，本文结合已有的索引技术AP和L2AP，设计了一种可处理流式数据的索引算法L2,它存在以下四点优势：</p><ol><li>有效减少潜在相似数据项的配对数量；</li><li>不需要收集数据流的统计信息；</li><li>使用轻量级的索引维持；</li><li>当数据项变“旧”时，可以迅速丢弃。</li></ol><a id="more"></a><h1 id="Related-Work-相关工作"><a href="#Related-Work-相关工作" class="headerlink" title="Related Work 相关工作"></a>Related Work 相关工作</h1><p>关于数据流上的相似性自连接，已有的研究很少。与之相关的主要就是相似性自连接，这个课题的研究相对广泛，由Chaudhuri等人首次在文献<a href="http://dc-pubs.dbs.uni-leipzig.de/files/Chaudhuri2006APrimitiveOperatorfor.pdf" target="_blank" rel="noopener">A primitive operator for similarity joins in data cleaning</a>中提出，此后涌现出大量相关算法研究，与本文最为相关的是由谷歌的<a href="http://www.bayardo.org/" target="_blank" rel="noopener">Bayardo</a>提出的AP算法(<a href="http://xueshu.baidu.com/s?wd=Scaling+up+all+pairs+similarity+search&amp;tn=SE_baiduxueshu_c1gjeupa&amp;cl=3&amp;ie=utf-8&amp;bs=paperuri%3A%2873ddc60c1b15ed764cce351d98ddd682%29&amp;f=8&amp;rsv_bp=1&amp;rsv_sug2=1&amp;sc_f_para=sc_tasktype%3D%7BfirstSimpleSearch%7D&amp;rsv_n=2" target="_blank" rel="noopener">Scaling up all pairs similarity search</a>)以及<a href="http://davidanastasiu.net/" target="_blank" rel="noopener">Anastasiu</a>与Karpis提出的L2AP算法(<a href="http://xueshu.baidu.com/s?wd=+L2AP%3A+Fast+Cosine+Similarity+Search+With+Prefix+L-2+Norm+Bounds&amp;tn=SE_baiduxueshu_c1gjeupa&amp;cl=3&amp;ie=utf-8&amp;bs=Scaling+up+all+pairs+similarity+search&amp;f=8&amp;rsv_bp=1&amp;rsv_sug2=0&amp;sc_f_para=sc_tasktype%3D%7BfirstSimpleSearch%7D&amp;rsv_n=2" target="_blank" rel="noopener">L2AP: Fast Cosine Similarity Search With Prefix \(L_2\) Norm Bounds</a>)。有关这两个算法，下文会进行阐述。</p><h1 id="Problem-Statement-问题陈述"><a href="#Problem-Statement-问题陈述" class="headerlink" title="Problem Statement 问题陈述"></a>Problem Statement 问题陈述</h1><p>我们定义数据项是m维的行向量，向量中的元素是实数值。我们定义\(sim(x,y)\)为计算向量\(x\)和向量\(y\)相似性的函数，并设定所有的向量均被归一化为单位向量，即\(||x||_2=||x||=\sqrt{\sum_{j=1}^{m}x_j^2}=1\)。则数据项的相似度计算可以简化为两个向量的点积，如下公式所示。$$sim(x,y)=dot(x,y)=xy^T=\\sum_{j=1}^{m}=x_j\\cdot y_j$$其中，\(x_j\)是向量\(x\)的第\(j\)个元素。在现实应用中，维数m通常较高，并且向量较为稀疏(向量中数值为0的元素相当多)。因此通常使用\((j,x[j])\)的集合来表示一个向量\(x\),并有\(x[j]&gt;0,j=1…m\)。<br>在非数据流环境下，我们指定一个向量数据集\(D=\\{x_1,…,x_n\\}\)，同L2AP论文一致，我们使用\(x^{’}=x^{’}_p = &lt; x_1,…,x_p,0,…,0 &gt; \)来表示向量\(x\)的前缀，并使用\(vm_x\)来表示其中向量\(x\)所有元素的最大值，使用\(\sum_{x}=\sum_{j}x_j\)表示向量\(x\)所有元素之和，使用\(|x|\)来表示向量\(x\)的大小或者非零元素的个数（注意与向量的长度\(||x||\)之间的区别），使用\(m_j\)表示集合\(D\)中所有向量第\(j\)个元素的最大值，所有的\(m_j\)组合成向量\(m\)。<br>在标准的<code>all-pairs 相似查询</code>问题(相似性自连接)中，给定一个向量集合和一个相似度阈值\(\theta\),目标是找出所有的向量对\((x,y)\)满足\(sim(x,y)\geq\theta\)。在数据流环境下，每一个数据项被标记有其到达时间\(t(x)\)，则数据流可以表示为\(S = &lt; …,(x_i,t(x_i)),(x_{i+1},t(x_{j+1})),… &gt; \)。因此，我们在定义两个向量的相似度时不仅要考虑点积，还要考虑它们到达的时间之差\(\triangle t_{xy}=|t(x)-t(y)|\)。则给定两个标有时间戳的向量\(x\)和\(y\),则它们的时间依赖相似度为$$sim_{\triangle t}(x,y)=dot(x,y)\cdot e^{-\lambda|t(x)-t(y)|}$$ 其中\(\lambda\)是一个时间衰减参数。当\(\triangle t_{xy}=0\)或者\(\lambda=0\)时，时间依赖相似性回归到标准的相似性计算；当\(\triangle t_{xy}\)趋于无穷大时，相似度为0。综上，我们可以给出SSSJ的问题定义，如下所示。</p><blockquote><p>给定具有时间戳的向量流\(S\)，相似性阈值\(\theta\)以及时间衰减因子\(\lambda\),输出所有的向量对\(x,y)\)，满足\(sim(x,y)\geq\theta\)。</p></blockquote><p>此外，根据向量的第二范式可知，\(dot(x,y)\leq 1\),则有$$sim_{\triangle t}(x,y)=dot(x,y)\cdot e^{-\lambda|t(x)-t(y)|}\leq e^{-\lambda|t(x)-t(y)|}$$ 因此，\(\triangle t_{xy}\geq \lambda ^{-1}log \theta ^{-1}\)表明\(sim_{\triangle t}(x,y)&lt;\theta\)，意味着对于给定的向量，不可能与在$$\Gamma=\lambda ^{-1}log \theta ^{-1}$$ 个时间单位之前到达的向量相似。相应地，我们可以将“比\(\Gamma\)旧”的向量删除，并称\(\Gamma\)为<code>时间期限</code>。</p><h1 id="Overview-of-the-Approach-方法的高层次概述"><a href="#Overview-of-the-Approach-方法的高层次概述" class="headerlink" title="Overview of the Approach 方法的高层次概述"></a>Overview of the Approach 方法的高层次概述</h1><p>本文提出了两个算法框架，MB-IDX和STR-IDX，其中IDX是在静态数据集上解决all-pairs相似查询问题的索引技术。为了使算法框架的阐述更加清晰，我们首先回顾一下该索引技术的概述。<br>所有的索引技术均是基于<code>倒排索引</code>设计的，为m个列表的集合\(I = \\{I_1,I_2,…,I_m\\}\)，每一个列表\(I_j\)由序列对\((\iota (x),x_j)\)组成，其中\(x_j\)是向量\(x\)中第\(j\)个元素，且\(x_j \neq 0\)；\(\iota (x)\)是指向向量\(x\)的引用。<br>所有的索引技术均是在检索相似对的同时逐个创建索引的。具体来讲，初始化时定义一个空索引，迭代地处理数据集\(D\)中的向量。对于每一个最新处理的向量\(x\)，我们从索引中检索已经存在的且与\(x\)相似的向量\(y\)，输出相似对\((x,y)\)。接着，将向量\(x\)中某些不为0的元素插入到索引中。创建索引与检索相似对的过程可以归纳为以下三个步骤：</p><ol><li>index construction(IC)：向索引列表\(I\)中增加新的向量；</li><li>candidate generation(CG)：使用索引列表来生成潜在的相似配对项；</li><li>candidate verification(CV)：计算所有潜在配对项之间的相似度，输出超过阈值的数据对。</li></ol><p>针对这三项步骤，本文提出了三个原语操作，分为是：</p><ol><li>\((I,P) \leftarrow IndConstr-IDX(D,\theta)\)：给定向量数据集\(D\)，相似度阈值\(\theta\)，IndConstr-IDX返回结果集\(P=\\{(x,y)\\}\)；同时，IndConstr-IDX创建索引列表\(I\)。</li><li>\(C \leftarrow CandGen-IDX(I,x,\theta)\)：给定索引列表\(I\)，向量\(x\)和相似度阈值\(\theta\)，CandGen-IDX返回与向量\(x\)潜在配对的向量集合\(C=\\{y\\}\)。</li><li>\(P \leftarrow CandVer-IDX(I,x,C,\theta)\)：给定索引列表\(I\)，向量\(x\)，潜在向量集合\(C\)和相似度阈值\(\theta\)，CandVer-IDX返回符合要求的相似度配对项集合\(P=\\{(x,y)\\}\)。</li></ol><p>MB-IDX与STR-IDX均依赖于IDX索引，并通过增加时间过滤因子使得该索引适用于数据流环境。这两个算法框架的区别在于时间过滤因子是如何在索引中调整与设置的。MB-IDX将IDX视为黑盒，使用时间过滤因子来创建IDX的独立实例对象，并在其失效时进行丢弃；相反地，STR-IDX直接应用时间过滤因子，适时地调整索引。<br>关于STR-IDX的处理过程会在下文进行阐述，这里先介绍MB-IDX的处理过程。MB-IDX在时间间隔\(\Gamma\)内运行，在第\(k\)个时间间隔里，从数据流中读取向量，并将它们缓存在\(W\)中。在这个时间间隔的末尾，调用IndConstr-IDX来检索\(W\)中所有的相似对，并对\(W\)创建索引列表\(I\)。在第\(k+1\)个时间间隔内，重置缓存\(W\)，重新从数据流中读取向量。此时MB-IDX针对最新读取的向量\(x\)查询索引列表\(I\)，找出前一个时间间隔到达的并与\(x\)相似的向量。相似对的计算通过调用CandGen-IDX和CandVer-IDX实现。在第\(k+1\)个时间间隔的末尾，重置索引列表\(I\)，并在该时间间隔到达的所有向量之间查询出相似对。下图给出MB-IDX的伪代码。<br></p><div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160824110519.png" alt="算法1MB-IDX"></div><p></p><h1 id="Filtering-Framework-过滤框架"><a href="#Filtering-Framework-过滤框架" class="headerlink" title="Filtering Framework 过滤框架"></a>Filtering Framework 过滤框架</h1><p>对于每一种索引机制，我们描述它的三个基本原语(IC,CG,CV)，并讨论如何对其进行调整以适用于数据流(见下文的STR-IDX算法)。为了使文章自成一体，接下来的每一种索引，我们先展示其在静态数据集上的操作过程，然后再阐述在MB的使用和STR框架中的调整。</p><h2 id="Inverted-Index-倒排索引"><a href="#Inverted-Index-倒排索引" class="headerlink" title="Inverted Index 倒排索引"></a>Inverted Index 倒排索引</h2><p>最简单的是不包含“优化删减索引项”的倒排索引。在所有的索引机制中，最直观的是如果两个向量相似，则它们必须至少有一个共同的坐标。因此两个相似的向量可在某些索引列表\(I_j\)中存在。在IC操作中，对于每一个新读取的向量\(x\)，需要将所有的坐标元素插入到索引中。在CG操作中，我们只用索引列表\(I\)检索与向量\(x\)相似的潜在向量。特别地，这些潜在向量\(y\)所在的索引列表中必定存在向量\(x\)的非0坐标元素。在CV操作中，输出相似度大于阈值的。</p><h3 id="MB-framework-MB-INV"><a href="#MB-framework-MB-INV" class="headerlink" title="MB framework(MB-INV)"></a>MB framework(MB-INV)</h3><p>三个操作IndConstr-INV、CandGen-INV和CandVer-INV直接按照上述的过程实现，这里就不细节讨论。</p><h3 id="STR-framework-STR-INV"><a href="#STR-framework-STR-INV" class="headerlink" title="STR framework(STR-INV)"></a>STR framework(STR-INV)</h3><p>关于INV索引的阐述是用于解决静态数据集的相似自连接问题的，这里我们考虑流式数据的相关性自连接。我们在将向量\(x\)的坐标元素按照向量的到达顺序插入到索引列表中。则索引列表\(I_j\)按照时间戳\(t(x)\)对索引项\((\iota (x),x_j)\)进行排序。在列表中就时间维持顺序较为容易。则我们也按照相同的顺序处理数据，每次操作时只需要将向量的坐标元素插入到列表的尾部即可。</p><h2 id="All-pairs-Indexing-Scheme-all-pairs索引机制"><a href="#All-pairs-Indexing-Scheme-all-pairs索引机制" class="headerlink" title="All-pairs Indexing Scheme all-pairs索引机制"></a>All-pairs Indexing Scheme all-pairs索引机制</h2><p>Bayard在INV的基础上作出了改进，提出了AP算法，减少了索引列表的大小：无需对向量\(x\)中的所有坐标元素建立索引，只需要保证索引列表中存在至少一个向量\(y\)的坐标元素与\(x\)的相同。类似于INV，AP在处理一个向量时逐步建立索引列表。如以下算法InConstr-AP所示，处理向量\(x\)时，按照事先预先指定的顺序扫描。这里维护了一个pscore变量，用于表示向量\(x\)的前缀与数据集中任意一个变量相似度的上界。AP使用向量\(m\)，即数据集的所有维的最大坐标元素值组成的向量，来计算这个上界。只要pscore小于阈值\(\theta\)，则目前扫描到的向量\(x\)坐标值可以不加入索引列表，并且不用担心造成相似配对的遗失。一旦pscore超过阈值，则将向量\(x\)的剩余坐标值全部添加进索引中，而前缀\(x^{’}\)则添加进未加索引集合R中。<br></p><div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/icap.png" alt="算法2ic-AP"></div><br>潜在配对项的生成算法如以下CandGen-AP所示，为与向量\(x\)相似的向量\(y\)的大小（非0元素个数）指定一个下界\(sz_1\)。如果向量\(y\)的大小小于这个下界，则该向量不可能与向量\(x\)相似，如算法第7行所示。此外，还维护了一个变量\(rs_1\),用于指定向量\(x\)和向量\(y\)相似度的上界。当该上界小于阈值时，停止将新的向量加入潜在配对项映射表C中，如算法第8行所示。映射表C存储了潜在配对的向量以及已扫描的部分点积值。<br><div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/cgap.png" alt="算法3cg-AP"></div><br> 最后，判别最终符合要求的相似配对项操作如算法CandVer-AP所示，使用已计算的部分相似度(C中存储的值)与没有加入索引的前缀计算得到最终的相似度。<br><div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/cvap.png" alt="算法4cv-AP"></div><br>由于数据流形式的AP算法，包括MB和STR，性能均较低，所以这里我们不深入讨论。<p></p><h2 id="L2-based-Indexing-Scheme-L2AP索引机制"><a href="#L2-based-Indexing-Scheme-L2AP索引机制" class="headerlink" title="L2-based Indexing Scheme L2AP索引机制"></a>L2-based Indexing Scheme L2AP索引机制</h2><p>L2AP是由Anastasiu和Karypis两人提出的、目前最优的解决all-pairs相似性自连接的算法。该算法在AP的基础上使用了更为严密的\(l_2-bound\)界限，不仅可以减少索引列表的大小，还可以减少潜在配对项的数量和fully-computed similarity的数量。L2AP主要借助<code>柯西不等式</code>，得到\(dot(x,y) \leq ||x|| \cdot ||y||\)。这个不等式同样适用于向量的前缀。我们假设向量已归一化，即\(||y||=1\),则有$$dot(x^{’},y) \leq ||x^{’}|| \cdot ||y|| \leq ||x^{’}||$$ 另外，当对向量\(x\)建立索引时，L2AP对pscore的值进行存储，以\(\iota (x)\)为键将pscore保存在映射表Q中，见算法第15行；同时，L2AP也存储了向量\(x\)前缀的长度，如算法第16行所示的索引列表中的三元数据项。Q和\(||x_j||\)这两个额外信息均存储在倒排表中，在算法CendVer-L2AP中用于减少潜在的配对向量数量。<br></p><div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/icl2ap.png" alt="算法2IC-L2AP"></div><br>在算法CendVer-L2AP中，给定一个向量\(x\),我们从后往前扫描它的元素，并累计它后缀的相似值。我们定义一个变量remsore，用于维护向量\(x\)的剩余部分的相似值。remscore结合AP中的\(rs_1\)和使用存储在倒排表中的\(||y_j^{’}||\)的\(rs_2\),表示当前处理向量的前缀与倒排索引中的任意一个向量之间相似度的上界。关于L2AP算法的更多细节可以参考原论文。<br><div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/cgl2ap.png" alt="算法3CG-L2AP"></div><br><div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/cvl2ap.png" alt="算法4Cv-L2AP"></div><p></p><h2 id="Improved-L2-Based-Indexing-Scheme-改进的L2索引机制"><a href="#Improved-L2-Based-Indexing-Scheme-改进的L2索引机制" class="headerlink" title="Improved L2-Based Indexing Scheme 改进的L2索引机制"></a>Improved L2-Based Indexing Scheme 改进的L2索引机制</h2><p>本文在L2AP的基础上进行调整，提出了适用于数据流环境的L2算法。L2AP结合了许多不同的界限：从算法AP中继承的界限(比如IC中的\(b_1\)和CG中的\(rs_1\))，新提出的基于\(l_2\)范式的界限(比如IC中的\(b_2\)和CG中的\(rs_2\))。我们可以观察到基于\(l_2\)范式的界限比AP中的界限更为有效，在大多情况下更为严密，此结论可在Anastasiu和Karypis的论文实验部分得到验证。除此之外，AP算法在索引中使用到了静态数据的统计信息，而L2AP算法只依赖于当前被建立索引的向量。这表明在使用\(l_2\)范式的界限时，不需要维持向量\(m(t)\)，因此也不需要重新建立索引。因此L2算法只使用\(l_2\)范式的界限，丢弃AP中的界限。<br></p><div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/icl2.png" alt="算法2IC-l2"></div><br><div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/cgl2.png" alt="算法3CG-L2"></div><br><div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/cvl2.png" alt="算法4Cv-L2"></div><br>为了阐述在数据流环境下的运行，我们需要引入额外的符号定义。首先此处的输入数据是以向量的数据流\(S\)，其次最重要的变动是向量\(m\)，它的坐标元素将随着时间的推移发生改变。以下三个操作是STR框架下的L2算法使用，主回路是IndConstr-L2-STR算法。<br><div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/icl2.png" alt="算法6IC-l2-str"></div><br><div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/cgl2str.png" alt="算法7CG-L2-str"></div><br><div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/cvl2str.png" alt="算法8Cv-L2-str"></div><p></p><br><div class="copyright"><p><span>Title:</span><a href="/2016/08/23/sssj/">Streaming Similarity Self-Join</a></p><p><span>Author:</span><a href="/" title="visit Tankcat 's personal blog">Tankcat</a></p><p><span>Release Date:</span>2016-08-23 13:45</p><p><span>Update Date:</span>2017-11-27 21:15</p><p> <span>Original Link:</span><a href="/2016/08/23/sssj/" title="Streaming Similarity Self-Join">http://tankcat2.com/2016/08/23/sssj/</a><span class="btn" data-clipboard-text="Master Copy: http://tankcat2.com/2016/08/23/sssj/　　Author: Tankcat" title="copy the article link"><i class="fa fa-clipboard"></i></span></p><p><span>License Agreement:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="Mainland China (CC BY-NC-SA 3.0 CN)">"Signature-Non Commercial-Share Alike 3.0"</a>.<br><br> <span>Please retain the original link and author if reprinting.</span></p><script src="/js/clipboard.min.js"></script><script>var clipboard=new Clipboard(".btn")</script></div><style type="text/css">.copyright p .btn{margin-left:1em}.copyright:hover p .btn::after{content:"Copy"}.copyright p .btn:hover{color:gray;cursor:pointer}</style><br><br><style type="text/css">.center{text-align:center}.hidden{display:none}.donate_bar a.btn_donate{display:inline-block;width:82px;height:82px;background:url(http://7xsl28.com1.z0.glb.clouddn.com/btn_reward.gif) no-repeat;-webkit-transition:background 0s;-moz-transition:background 0s;-o-transition:background 0s;-ms-transition:background 0s;transition:background 0s}.donate_bar a.btn_donate:hover{background-position:0 -82px}.donate_bar .donate_txt{display:block;color:#9d9d9d;font:14px/2 "Microsoft Yahei"}.bold{font-weight:700}</style><div id="donate_module"><div id="donate_board" class="donate_bar center"> 打赏 | Buy me a coffee<br><br><a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏" onclick='var qr=document.getElementById("QR");"none"===qr.style.display?qr.style.display="block":qr.style.display="none"'></a></div><div id="QR" style="display:none"><br><br> <a href="http://7xwggp.com1.z0.glb.clouddn.com/wechatdonate.jpg" title="用微信扫一扫哦~" class="fancybox" rel="article0"><img src="http://7xwggp.com1.z0.glb.clouddn.com/wechatdonate.jpg" title="微信打赏 Colin" height="250px" width="250px"></a><br><center> <span class="donate_txt">If you enjoy the blog, please feel free to donate~Thx for your support.</span></center></div><br></div></div><footer class="article-footer"><div class="share-container"></div><a data-url="http://tankcat2.com/2016/08/23/sssj/" data-id="cjb3e9qv5001yd0kxiybvtqxy" class="article-share-link"><i class="fa fa-share"></i> Share</a><script>!function(e){"undefined"!=typeof __SHARE_BUTTON_BINDED__&&__SHARE_BUTTON_BINDED__||(__SHARE_BUTTON_BINDED__=!0,e("body").on("click",function(){e(".article-share-box.on").removeClass("on")}).on("click",".article-share-link",function(a){a.stopPropagation();var t,i=e(this),o=i.attr("data-url"),r=encodeURIComponent(o),s="article-share-box-"+i.attr("data-id"),n=i.offset();if(e("#"+s).length){if((t=e("#"+s)).hasClass("on"))return void t.removeClass("on")}else{var l=['<div id="'+s+'" class="article-share-box">','<input class="article-share-input" value="'+o+'">','<div class="article-share-links">','<a href="https://twitter.com/intent/tweet?url='+r+'" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>','<a href="https://www.facebook.com/sharer.php?u='+r+'" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>','<a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+r+'" class="fa fa-qq article-share-qzone" target="_blank" title="Qzone"></a>','<a href="http://service.weibo.com/share/share.php?url='+r+'" class="fa fa-weibo article-share-weibo" target="_blank" title="Weibo"></a>',"</div>","</div>"].join("");t=e(l),e("body").append(t)}e(".article-share-box.on").hide(),t.css({top:n.top+25,left:n.left}).addClass("on")}).on("click",".article-share-box",function(e){e.stopPropagation()}).on("click",".article-share-box-input",function(){e(this).select()}).on("click",".article-share-box-link",function(e){e.preventDefault(),e.stopPropagation(),window.open(this.href,"article-share-box-window-"+Date.now(),"width=500,height=450")}))}(jQuery)</script> <a href="http://tankcat2.com/2016/08/23/sssj/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://tankcat2.com/2016/08/23/sssj/">Comments</a></footer></div><nav id="article-nav"> <a href="/2016/10/17/sodagreen/" id="article-nav-newer" class="article-nav-link-wrap"><strong class="article-nav-caption">Newer</strong><div class="article-nav-title"> My Favorite Band</div></a> <a href="/2016/07/18/lein/" id="article-nav-older" class="article-nav-link-wrap"><strong class="article-nav-caption">Older</strong><div class="article-nav-title">Leiningen安装</div></a></nav></article><section id="comments" style="border-radius:1.5px;box-shadow:10px 10px 5px #ccc"><div id="container"></div><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"><script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script><script>var gitment=new Gitment({id:"http://tankcat2.com/2016/08/23/sssj/",owner:"tankcat",repo:"tankcat.github.io",oauth:{client_id:"60fb85b01453b027d1f5",client_secret:"4d0e75031ae53e76418d288b34897a8718481fd2"}});gitment.render("comments")</script></section></section></div><div style="height:10px;pistion:absolute;bottom:0"></div><footer id="footer"><div class="outer"><div id="search-form-wrap"><form class="search-form"> <input type="text" class="ins-search-input search-form-input" placeholder="Search"> <button type="submit" class="search-form-submit"></button></form><div class="ins-search"><div class="ins-search-mask"></div><div class="ins-search-container"><div class="ins-input-wrapper"> <input type="text" class="ins-search-input" placeholder="Type something..."><span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span></div><div class="ins-section-wrapper"><div class="ins-section-container"></div></div></div></div><script>window.INSIGHT_CONFIG={TRANSLATION:{POSTS:"Posts",PAGES:"Pages",CATEGORIES:"Categories",TAGS:"Tags",UNTITLED:"(Untitled)"},ROOT_URL:"/",CONTENT_URL:"/content.json"}</script><script src="/js/insight.js"></script></div><div id="footer-info" class="inner"> &copy; 2017<i class="fa fa-heart blink-slow"></i> Tankcat<br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a></div></div></footer><div id="container"></div><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"><script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script><script>var gitment=new Gitment({id:"http://tankcat2.com/2016/08/23/sssj/",owner:"tankcat",repo:"tankcat.github.io",oauth:{client_id:"60fb85b01453b027d1f5",client_secret:"4d0e75031ae53e76418d288b34897a8718481fd2"}});gitment.render("comments")</script><script src="/vendor/lightgallery/js/lightgallery.min.js"></script><script src="/vendor/lightgallery/js/lg-thumbnail.min.js"></script><script src="/vendor/lightgallery/js/lg-pager.min.js"></script><script src="/vendor/lightgallery/js/lg-autoplay.min.js"></script><script src="/vendor/lightgallery/js/lg-fullscreen.min.js"></script><script src="/vendor/lightgallery/js/lg-zoom.min.js"></script><script src="/vendor/lightgallery/js/lg-hash.min.js"></script><script src="/vendor/lightgallery/js/lg-share.min.js"></script><script src="/vendor/lightgallery/js/lg-video.min.js"></script><script src="/js/main.js"></script></div><script type="text/x-mathjax-config">
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+</head>
+
+
+<body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="containerr">
+        
+    <header id="header" style="padding-top:15px">
+    <div id="header-main" class="header-inner">
+			
+			 <div class="outer">
+
+				<a href="/" id="logo">
+					<i class="logo"></i>
+	
+				</a>
+				<nav id="main-nav">
+					
+						<a class="main-nav-link" href="/index.html">Home</a>
+					
+						<a class="main-nav-link" href="/archives">Archive</a>
+					
+						<a class="main-nav-link" href="/categories">Category</a>
+					
+						<a class="main-nav-link" href="/tags">Tag</a>
+					
+						<a class="main-nav-link" href="/about">About</a>
+					
+						<a class="main-nav-link" href="/favorite">Photos</a>
+					
+				</nav>
+			</div> 
+	</div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/index.html">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archive</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Category</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tag</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                    <td><a class="main-nav-link" href="/favorite">Photos</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+
+
+
+			
+        <div class="outer">
+			<aside id="profile">
+					<div class="profile-inner">
+					</div>
+			</aside>
+			
+					<section id="main"><article id="post-sssj" class="article article-type-post" itemscope itemprop="blogPost">
+    
+	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
+        
+            
+	
+		<img src="http://7xwggp.com1.z0.glb.clouddn.com/005yXe3qgw1f4tv3vh6eyj30zk0grjtj.jpg" class="article-banner" />
+	
+
+
+
+        
+        
+            <header class="article-header">
+				
+					<center>
+    
+        <h1 class="article-title" itemprop="name">
+            Streaming Similarity Self-Join
+        </h1>
+    
+
+					 
+						<div class="article-meta">
+							
+    <div class="article-date">    
+        <a href="/2016/08/23/sssj/">
+            <time datetime="2016-08-23T05:45:31.000Z" itemprop="datePublished">2016-08-23</time>
+        </a>
+    </div>
+
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Papers/">Papers</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/Stream/">Stream</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Stream/">Stream</a>
+    </div>
+-->
+						</div>
+					
+					
+					
+						<span class="article-meta">
+							
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Papers/">Papers</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/Stream/">Stream</a>
+			</span>
+		
+    </div>
+
+							
+						</span>
+						
+					
+					
+					</center>
+				
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+			
+				<br/>
+				 <blockquote style="font-size:120%;line-height:1.5em;color:#083a4e">
+					这是一篇关于数据流相似性连接处理的论文翻译，与此相关的两篇主要的文章分别是Bayardo的“Scaling-Up-All-Pairs-Similarity-Search”和Anastasiu的“L2AP-Fast-Cosine-Similarity-Search-with-Prefix-L2-Form-Bounds”.
+				 </blockquote>
+			  
+            <p><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script></p>
+<h1 id="Abstract-摘要"><a href="#Abstract-摘要" class="headerlink" title="Abstract 摘要"></a>Abstract 摘要</h1><p>在数据流环境下，系统处理的数据是源源不断流进的数据项。本文研究的问题是，数据流相似性的连接处理(SSSJ)，即在数据流中找出所有的两两数据项对，它们的相似度超过一个给定的阈值。解决这个问题最简单的构想是能拥有无限大的内存空间，但目前来讲，这是不能获得的。因此为了解决这个问题，本文提出了一个概念，<code>时间依赖的相似性</code>，两个数据项到达的时间间隔越大，它们的相似度越低。<br>在此概念的基础上，本文设计两种算法框架：① 微批次处理(MiniBatch,简称MB)，使用目前已有的基于索引的过滤技术；② 流处理(Streaming,简称STR),在索引的基础上增加时间过滤，并在算法中集成一种新的基于时间的边界处理。除此之外，本文基于L2AP的索引设计一种新的适用于数据流环境的索引算法，即L2。</p>
+<h1 id="Introduction-介绍"><a href="#Introduction-介绍" class="headerlink" title="Introduction 介绍"></a>Introduction 介绍</h1><p>在数据库和数据挖掘领域，相关性自连接处理被广泛研究，其应用场景较为广泛，包括剽窃检测、查询优化、协同过滤、重复网页的检测与去除等。若使用暴力解法，其复杂度是\(O(n^2)\)。在现实应用中，数据项常以高维稀疏向量的形式呈现，那么相似度的计算即为余弦相似值的计算。为了方便处理，可以将向量归一化，则进一步将问题转换为两个向量的点积。目前解决相似度自连接的算法主要依赖于基于倒排索引的删减技术以及一些数值界限。<br>计算相似度自连接，不仅适用于静态的数据集，在数据流领域也同样适用。这里举例两个现实应用，在数据流环境下进行相似度自连接处理。</p>
+<ul>
+<li>趋势监测。社交平台，譬如Twitter，趋势监测算法识别频率陡增的主题标签。更细粒度的趋势监测算法也会识别微博集合。这些集合中的数据项出现的频率增加，并且同时出现某些相同的标签。对于该趋势监测算法，在数据流环境下找出相似的微博十分重要。</li>
+<li>近似重复项过滤。同样，在社交平台，譬如Twitter，当某个事件发生时，用户们可能会接收到与该事件相关的近似重复的多条微博。这些微博通常连续地出现。因此，将这些近似重复的微博进行过滤或者分组有利于提高用户体验。</li>
+</ul>
+<p>但问题是，关于数据流环境下的相似度自连接处理的研究并不多。这是由于缺乏无限内存：不能将先到来数据项随意删除，因为该数据项可能与未来到的数据项相似。<br>本文引入一个时间因子来解决内存问题。我们设定，只有在到达的时间间隔在指定范围内，两个数据项才有可能相似。我们定义时间依赖的相似性：基于内容的点积与时间因子的乘积，该时间因子会随着时间间隔的增加呈现指数级减小。由于时间因子的存在，当某些数据项的到达时间超出一定范围，我们可以将这些数据项删除。下图表达了这个idea。<br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20160823155752.png" alt="时序图"> </div></p>
+<p>如上图所示，标记有时间戳的文档以数据流的形式源源不断到达。时间轴上方的文档包含相似的内容，标记为红色。在所有两两相似的文档对中，我们只关心到达时间相近的文档对。因此，图中所有的4-选-2的文档对里，只有两对文档被选中(用蓝色箭头标记)。<br>与已有的相似性自连接处理算法类似，本文的算法也依赖于索引技术。已有的算法使用不同类型的<code>索引过滤</code>，以减少通过索引返回的潜在配对项数量。按照这种语义，我们定义<code>时间过滤</code>来，与时间依赖的相似性进行关联，以便将旧的索引项从索引列表中删除。<br>本文提出了两种算法框架来解决数据流的相似性自连接处理，均依赖于时间过滤。MB框架使用现成的索引技术，在运行过程中以流水线的方式创建两个索引，随着时间的推移丢弃旧索引。STR框架对现有的索引技术进行调整，将时间过滤的因素内嵌到其中。此外，本文结合已有的索引技术AP和L2AP，设计了一种可处理流式数据的索引算法L2,它存在以下四点优势：</p>
+<ol>
+<li>有效减少潜在相似数据项的配对数量；</li>
+<li>不需要收集数据流的统计信息；</li>
+<li>使用轻量级的索引维持；</li>
+<li>当数据项变“旧”时，可以迅速丢弃。</li>
+</ol>
+<a id="more"></a>
+<h1 id="Related-Work-相关工作"><a href="#Related-Work-相关工作" class="headerlink" title="Related Work 相关工作"></a>Related Work 相关工作</h1><p>关于数据流上的相似性自连接，已有的研究很少。与之相关的主要就是相似性自连接，这个课题的研究相对广泛，由Chaudhuri等人首次在文献<a href="http://dc-pubs.dbs.uni-leipzig.de/files/Chaudhuri2006APrimitiveOperatorfor.pdf" target="_blank" rel="noopener">A primitive operator for similarity joins in data cleaning</a>中提出，此后涌现出大量相关算法研究，与本文最为相关的是由谷歌的<a href="http://www.bayardo.org/" target="_blank" rel="noopener">Bayardo</a>提出的AP算法(<a href="http://xueshu.baidu.com/s?wd=Scaling+up+all+pairs+similarity+search&amp;tn=SE_baiduxueshu_c1gjeupa&amp;cl=3&amp;ie=utf-8&amp;bs=paperuri%3A%2873ddc60c1b15ed764cce351d98ddd682%29&amp;f=8&amp;rsv_bp=1&amp;rsv_sug2=1&amp;sc_f_para=sc_tasktype%3D%7BfirstSimpleSearch%7D&amp;rsv_n=2" target="_blank" rel="noopener">Scaling up all pairs similarity search</a>)以及<a href="http://davidanastasiu.net/" target="_blank" rel="noopener">Anastasiu</a>与Karpis提出的L2AP算法(<a href="http://xueshu.baidu.com/s?wd=+L2AP%3A+Fast+Cosine+Similarity+Search+With+Prefix+L-2+Norm+Bounds&amp;tn=SE_baiduxueshu_c1gjeupa&amp;cl=3&amp;ie=utf-8&amp;bs=Scaling+up+all+pairs+similarity+search&amp;f=8&amp;rsv_bp=1&amp;rsv_sug2=0&amp;sc_f_para=sc_tasktype%3D%7BfirstSimpleSearch%7D&amp;rsv_n=2" target="_blank" rel="noopener">L2AP: Fast Cosine Similarity Search With Prefix \(L_2\) Norm Bounds</a>)。有关这两个算法，下文会进行阐述。</p>
+<h1 id="Problem-Statement-问题陈述"><a href="#Problem-Statement-问题陈述" class="headerlink" title="Problem Statement 问题陈述"></a>Problem Statement 问题陈述</h1><p>我们定义数据项是m维的行向量，向量中的元素是实数值。我们定义\(sim(x,y)\)为计算向量\(x\)和向量\(y\)相似性的函数，并设定所有的向量均被归一化为单位向量，即\(||x||_2=||x||=\sqrt{\sum_{j=1}^{m}x_j^2}=1\)。则数据项的相似度计算可以简化为两个向量的点积，如下公式所示。$$sim(x,y)=dot(x,y)=xy^T=\\sum_{j=1}^{m}=x_j\\cdot y_j$$其中，\(x_j\)是向量\(x\)的第\(j\)个元素。在现实应用中，维数m通常较高，并且向量较为稀疏(向量中数值为0的元素相当多)。因此通常使用\((j,x[j])\)的集合来表示一个向量\(x\),并有\(x[j]&gt;0,j=1…m\)。<br>在非数据流环境下，我们指定一个向量数据集\(D=\\{x_1,…,x_n\\}\)，同L2AP论文一致，我们使用\(x^{’}=x^{’}_p = &lt; x_1,…,x_p,0,…,0 &gt; \)来表示向量\(x\)的前缀，并使用\(vm_x\)来表示其中向量\(x\)所有元素的最大值，使用\(\sum_{x}=\sum_{j}x_j\)表示向量\(x\)所有元素之和，使用\(|x|\)来表示向量\(x\)的大小或者非零元素的个数（注意与向量的长度\(||x||\)之间的区别），使用\(m_j\)表示集合\(D\)中所有向量第\(j\)个元素的最大值，所有的\(m_j\)组合成向量\(m\)。<br>在标准的<code>all-pairs 相似查询</code>问题(相似性自连接)中，给定一个向量集合和一个相似度阈值\(\theta\),目标是找出所有的向量对\((x,y)\)满足\(sim(x,y)\geq\theta\)。在数据流环境下，每一个数据项被标记有其到达时间\(t(x)\)，则数据流可以表示为\(S = &lt; …,(x_i,t(x_i)),(x_{i+1},t(x_{j+1})),… &gt; \)。因此，我们在定义两个向量的相似度时不仅要考虑点积，还要考虑它们到达的时间之差\(\triangle t_{xy}=|t(x)-t(y)|\)。则给定两个标有时间戳的向量\(x\)和\(y\),则它们的时间依赖相似度为$$sim_{\triangle t}(x,y)=dot(x,y)\cdot e^{-\lambda|t(x)-t(y)|}$$ 其中\(\lambda\)是一个时间衰减参数。当\(\triangle t_{xy}=0\)或者\(\lambda=0\)时，时间依赖相似性回归到标准的相似性计算；当\(\triangle t_{xy}\)趋于无穷大时，相似度为0。综上，我们可以给出SSSJ的问题定义，如下所示。</p>
+<blockquote>
+<p>给定具有时间戳的向量流\(S\)，相似性阈值\(\theta\)以及时间衰减因子\(\lambda\),输出所有的向量对\(x,y)\)，满足\(sim(x,y)\geq\theta\)。</p>
+</blockquote>
+<p>此外，根据向量的第二范式可知，\(dot(x,y)\leq 1\),则有$$sim_{\triangle t}(x,y)=dot(x,y)\cdot e^{-\lambda|t(x)-t(y)|}\leq e^{-\lambda|t(x)-t(y)|}$$ 因此，\(\triangle t_{xy}\geq \lambda ^{-1}log \theta ^{-1}\)表明\(sim_{\triangle t}(x,y)&lt;\theta\)，意味着对于给定的向量，不可能与在$$\Gamma=\lambda ^{-1}log \theta ^{-1}$$ 个时间单位之前到达的向量相似。相应地，我们可以将“比\(\Gamma\)旧”的向量删除，并称\(\Gamma\)为<code>时间期限</code>。</p>
+<h1 id="Overview-of-the-Approach-方法的高层次概述"><a href="#Overview-of-the-Approach-方法的高层次概述" class="headerlink" title="Overview of the Approach 方法的高层次概述"></a>Overview of the Approach 方法的高层次概述</h1><p>本文提出了两个算法框架，MB-IDX和STR-IDX，其中IDX是在静态数据集上解决all-pairs相似查询问题的索引技术。为了使算法框架的阐述更加清晰，我们首先回顾一下该索引技术的概述。<br>所有的索引技术均是基于<code>倒排索引</code>设计的，为m个列表的集合\(I = \\{I_1,I_2,…,I_m\\}\)，每一个列表\(I_j\)由序列对\((\iota (x),x_j)\)组成，其中\(x_j\)是向量\(x\)中第\(j\)个元素，且\(x_j \neq 0\)；\(\iota (x)\)是指向向量\(x\)的引用。<br>所有的索引技术均是在检索相似对的同时逐个创建索引的。具体来讲，初始化时定义一个空索引，迭代地处理数据集\(D\)中的向量。对于每一个最新处理的向量\(x\)，我们从索引中检索已经存在的且与\(x\)相似的向量\(y\)，输出相似对\((x,y)\)。接着，将向量\(x\)中某些不为0的元素插入到索引中。创建索引与检索相似对的过程可以归纳为以下三个步骤：</p>
+<ol>
+<li>index construction(IC)：向索引列表\(I\)中增加新的向量；</li>
+<li>candidate generation(CG)：使用索引列表来生成潜在的相似配对项；</li>
+<li>candidate verification(CV)：计算所有潜在配对项之间的相似度，输出超过阈值的数据对。</li>
+</ol>
+<p>针对这三项步骤，本文提出了三个原语操作，分为是：</p>
+<ol>
+<li>\((I,P) \leftarrow IndConstr-IDX(D,\theta)\)：给定向量数据集\(D\)，相似度阈值\(\theta\)，IndConstr-IDX返回结果集\(P=\\{(x,y)\\}\)；同时，IndConstr-IDX创建索引列表\(I\)。</li>
+<li>\(C \leftarrow CandGen-IDX(I,x,\theta)\)：给定索引列表\(I\)，向量\(x\)和相似度阈值\(\theta\)，CandGen-IDX返回与向量\(x\)潜在配对的向量集合\(C=\\{y\\}\)。</li>
+<li>\(P \leftarrow CandVer-IDX(I,x,C,\theta)\)：给定索引列表\(I\)，向量\(x\)，潜在向量集合\(C\)和相似度阈值\(\theta\)，CandVer-IDX返回符合要求的相似度配对项集合\(P=\\{(x,y)\\}\)。</li>
+</ol>
+<p>MB-IDX与STR-IDX均依赖于IDX索引，并通过增加时间过滤因子使得该索引适用于数据流环境。这两个算法框架的区别在于时间过滤因子是如何在索引中调整与设置的。MB-IDX将IDX视为黑盒，使用时间过滤因子来创建IDX的独立实例对象，并在其失效时进行丢弃；相反地，STR-IDX直接应用时间过滤因子，适时地调整索引。<br>关于STR-IDX的处理过程会在下文进行阐述，这里先介绍MB-IDX的处理过程。MB-IDX在时间间隔\(\Gamma\)内运行，在第\(k\)个时间间隔里，从数据流中读取向量，并将它们缓存在\(W\)中。在这个时间间隔的末尾，调用IndConstr-IDX来检索\(W\)中所有的相似对，并对\(W\)创建索引列表\(I\)。在第\(k+1\)个时间间隔内，重置缓存\(W\)，重新从数据流中读取向量。此时MB-IDX针对最新读取的向量\(x\)查询索引列表\(I\)，找出前一个时间间隔到达的并与\(x\)相似的向量。相似对的计算通过调用CandGen-IDX和CandVer-IDX实现。在第\(k+1\)个时间间隔的末尾，重置索引列表\(I\)，并在该时间间隔到达的所有向量之间查询出相似对。下图给出MB-IDX的伪代码。<br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160824110519.png" alt="算法1MB-IDX"> </div></p>
+<h1 id="Filtering-Framework-过滤框架"><a href="#Filtering-Framework-过滤框架" class="headerlink" title="Filtering Framework 过滤框架"></a>Filtering Framework 过滤框架</h1><p>对于每一种索引机制，我们描述它的三个基本原语(IC,CG,CV)，并讨论如何对其进行调整以适用于数据流(见下文的STR-IDX算法)。为了使文章自成一体，接下来的每一种索引，我们先展示其在静态数据集上的操作过程，然后再阐述在MB的使用和STR框架中的调整。</p>
+<h2 id="Inverted-Index-倒排索引"><a href="#Inverted-Index-倒排索引" class="headerlink" title="Inverted Index 倒排索引"></a>Inverted Index 倒排索引</h2><p>最简单的是不包含“优化删减索引项”的倒排索引。在所有的索引机制中，最直观的是如果两个向量相似，则它们必须至少有一个共同的坐标。因此两个相似的向量可在某些索引列表\(I_j\)中存在。在IC操作中，对于每一个新读取的向量\(x\)，需要将所有的坐标元素插入到索引中。在CG操作中，我们只用索引列表\(I\)检索与向量\(x\)相似的潜在向量。特别地，这些潜在向量\(y\)所在的索引列表中必定存在向量\(x\)的非0坐标元素。在CV操作中，输出相似度大于阈值的。</p>
+<h3 id="MB-framework-MB-INV"><a href="#MB-framework-MB-INV" class="headerlink" title="MB framework(MB-INV)"></a>MB framework(MB-INV)</h3><p>三个操作IndConstr-INV、CandGen-INV和CandVer-INV直接按照上述的过程实现，这里就不细节讨论。</p>
+<h3 id="STR-framework-STR-INV"><a href="#STR-framework-STR-INV" class="headerlink" title="STR framework(STR-INV)"></a>STR framework(STR-INV)</h3><p>关于INV索引的阐述是用于解决静态数据集的相似自连接问题的，这里我们考虑流式数据的相关性自连接。我们在将向量\(x\)的坐标元素按照向量的到达顺序插入到索引列表中。则索引列表\(I_j\)按照时间戳\(t(x)\)对索引项\((\iota (x),x_j)\)进行排序。在列表中就时间维持顺序较为容易。则我们也按照相同的顺序处理数据，每次操作时只需要将向量的坐标元素插入到列表的尾部即可。</p>
+<h2 id="All-pairs-Indexing-Scheme-all-pairs索引机制"><a href="#All-pairs-Indexing-Scheme-all-pairs索引机制" class="headerlink" title="All-pairs Indexing Scheme all-pairs索引机制"></a>All-pairs Indexing Scheme all-pairs索引机制</h2><p>Bayard在INV的基础上作出了改进，提出了AP算法，减少了索引列表的大小：无需对向量\(x\)中的所有坐标元素建立索引，只需要保证索引列表中存在至少一个向量\(y\)的坐标元素与\(x\)的相同。类似于INV，AP在处理一个向量时逐步建立索引列表。如以下算法InConstr-AP所示，处理向量\(x\)时，按照事先预先指定的顺序扫描。这里维护了一个pscore变量，用于表示向量\(x\)的前缀与数据集中任意一个变量相似度的上界。AP使用向量\(m\)，即数据集的所有维的最大坐标元素值组成的向量，来计算这个上界。只要pscore小于阈值\(\theta\)，则目前扫描到的向量\(x\)坐标值可以不加入索引列表，并且不用担心造成相似配对的遗失。一旦pscore超过阈值，则将向量\(x\)的剩余坐标值全部添加进索引中，而前缀\(x^{’}\)则添加进未加索引集合R中。<br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/icap.png" alt="算法2ic-AP"> </div><br>潜在配对项的生成算法如以下CandGen-AP所示，为与向量\(x\)相似的向量\(y\)的大小（非0元素个数）指定一个下界\(sz_1\)。如果向量\(y\)的大小小于这个下界，则该向量不可能与向量\(x\)相似，如算法第7行所示。此外，还维护了一个变量\(rs_1\),用于指定向量\(x\)和向量\(y\)相似度的上界。当该上界小于阈值时，停止将新的向量加入潜在配对项映射表C中，如算法第8行所示。映射表C存储了潜在配对的向量以及已扫描的部分点积值。<br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/cgap.png" alt="算法3cg-AP"> </div><br> 最后，判别最终符合要求的相似配对项操作如算法CandVer-AP所示，使用已计算的部分相似度(C中存储的值)与没有加入索引的前缀计算得到最终的相似度。<br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/cvap.png" alt="算法4cv-AP"> </div><br>由于数据流形式的AP算法，包括MB和STR，性能均较低，所以这里我们不深入讨论。</p>
+<h2 id="L2-based-Indexing-Scheme-L2AP索引机制"><a href="#L2-based-Indexing-Scheme-L2AP索引机制" class="headerlink" title="L2-based Indexing Scheme L2AP索引机制"></a>L2-based Indexing Scheme L2AP索引机制</h2><p>L2AP是由Anastasiu和Karypis两人提出的、目前最优的解决all-pairs相似性自连接的算法。该算法在AP的基础上使用了更为严密的\(l_2-bound\)界限，不仅可以减少索引列表的大小，还可以减少潜在配对项的数量和fully-computed similarity的数量。L2AP主要借助<code>柯西不等式</code>，得到\(dot(x,y) \leq ||x|| \cdot ||y||\)。这个不等式同样适用于向量的前缀。我们假设向量已归一化，即\(||y||=1\),则有$$dot(x^{’},y) \leq ||x^{’}|| \cdot ||y|| \leq ||x^{’}||$$ 另外，当对向量\(x\)建立索引时，L2AP对pscore的值进行存储，以\(\iota (x)\)为键将pscore保存在映射表Q中，见算法第15行；同时，L2AP也存储了向量\(x\)前缀的长度，如算法第16行所示的索引列表中的三元数据项。Q和\(||x_j||\)这两个额外信息均存储在倒排表中，在算法CendVer-L2AP中用于减少潜在的配对向量数量。<br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/icl2ap.png" alt="算法2IC-L2AP"> </div><br>在算法CendVer-L2AP中，给定一个向量\(x\),我们从后往前扫描它的元素，并累计它后缀的相似值。我们定义一个变量remsore，用于维护向量\(x\)的剩余部分的相似值。remscore结合AP中的\(rs_1\)和使用存储在倒排表中的\(||y_j^{’}||\)的\(rs_2\),表示当前处理向量的前缀与倒排索引中的任意一个向量之间相似度的上界。关于L2AP算法的更多细节可以参考原论文。<br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/cgl2ap.png" alt="算法3CG-L2AP"> </div><br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/cvl2ap.png" alt="算法4Cv-L2AP"> </div></p>
+<h2 id="Improved-L2-Based-Indexing-Scheme-改进的L2索引机制"><a href="#Improved-L2-Based-Indexing-Scheme-改进的L2索引机制" class="headerlink" title="Improved L2-Based Indexing Scheme 改进的L2索引机制"></a>Improved L2-Based Indexing Scheme 改进的L2索引机制</h2><p>本文在L2AP的基础上进行调整，提出了适用于数据流环境的L2算法。L2AP结合了许多不同的界限：从算法AP中继承的界限(比如IC中的\(b_1\)和CG中的\(rs_1\))，新提出的基于\(l_2\)范式的界限(比如IC中的\(b_2\)和CG中的\(rs_2\))。我们可以观察到基于\(l_2\)范式的界限比AP中的界限更为有效，在大多情况下更为严密，此结论可在Anastasiu和Karypis的论文实验部分得到验证。除此之外，AP算法在索引中使用到了静态数据的统计信息，而L2AP算法只依赖于当前被建立索引的向量。这表明在使用\(l_2\)范式的界限时，不需要维持向量\(m(t)\)，因此也不需要重新建立索引。因此L2算法只使用\(l_2\)范式的界限，丢弃AP中的界限。<br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/icl2.png" alt="算法2IC-l2"> </div><br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/cgl2.png" alt="算法3CG-L2"> </div><br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/cvl2.png" alt="算法4Cv-L2"> </div><br>为了阐述在数据流环境下的运行，我们需要引入额外的符号定义。首先此处的输入数据是以向量的数据流\(S\)，其次最重要的变动是向量\(m\)，它的坐标元素将随着时间的推移发生改变。以下三个操作是STR框架下的L2算法使用，主回路是IndConstr-L2-STR算法。<br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/icl2.png" alt="算法6IC-l2-str"> </div><br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/cgl2str.png" alt="算法7CG-L2-str"> </div><br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/cvl2str.png" alt="算法8Cv-L2-str"> </div> </p>
+
+			
+			
+		<br>
+		
+		
+		
+<div class="copyright">
+  <p><span>Title:</span><a href="/2016/08/23/sssj/">Streaming Similarity Self-Join</a></p>
+  <p><span>Author:</span><a href="/" title="visit Tankcat 's personal blog">Tankcat</a></p>
+  <p><span>Release Date:</span>2016-08-23  13:45</p>
+  <p><span>Update Date:</span>2017-11-27  21:15</p>
+  <p>
+    <span>Original Link:</span><a href="/2016/08/23/sssj/" title="Streaming Similarity Self-Join">http://tankcat2.com/2016/08/23/sssj/</a>
+    <span class="btn" data-clipboard-text="Master Copy: http://tankcat2.com/2016/08/23/sssj/　　Author: Tankcat" title="copy the article link">
+        <i class="fa fa-clipboard"></i>
+    </span>
+  </p>
+ <p><span>License Agreement:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="Mainland China (CC BY-NC-SA 3.0 CN)">"Signature-Non Commercial-Share Alike 3.0"</a>.
+ <br>
+ <br>
+ <span>Please retain the original link and author if reprinting.
+ </span>
+ </p>
+  <script src="/js/clipboard.min.js"></script>
+  <script> var clipboard = new Clipboard('.btn'); </script>
+</div>
+<style type="text/css">
+  .copyright p .btn {
+    margin-left: 1em;
+  }
+  .copyright:hover p .btn::after {
+    content: "Copy"
+  }
+  .copyright p .btn:hover {
+      color: gray;
+      cursor: pointer;
+    };
+</style>
+
+<br>
+<br>
+		<style type="text/css">
+		  .center {
+			  text-align: center;
+		  }
+		  .hidden {
+			  display: none;
+		  }
+		.donate_bar a.btn_donate{
+		  display: inline-block;
+		  width: 82px;
+		  height: 82px;
+		  background: url("http://7xsl28.com1.z0.glb.clouddn.com/btn_reward.gif") no-repeat;
+		  _background: url("http://7xsl28.com1.z0.glb.clouddn.com/btn_reward.gif") no-repeat;
+		  -webkit-transition: background 0s;
+		  -moz-transition: background 0s;
+		  -o-transition: background 0s;
+		  -ms-transition: background 0s;
+		  transition: background 0s;
+		}
+
+		.donate_bar a.btn_donate:hover{ background-position: 0px -82px;}
+		.donate_bar .donate_txt {
+		  display: block;
+		  color: #9d9d9d;
+		  font: 14px/2 "Microsoft Yahei";
+		}
+		.bold{ font-weight: bold; }
+	  </style>
+	  
+	  
+	  
+	  <div id="donate_module">
+		<div id="donate_board" class="donate_bar center">
+		打赏 | Buy me a coffee<br/><br/>
+		<a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}"></a>
+		  
+		
+		</div>
+		
+		<div id="QR" style="display: none;">
+			<br>
+		  <br>
+		
+		<a href="http://7xwggp.com1.z0.glb.clouddn.com/wechatdonate.jpg" title="用微信扫一扫哦~" class="fancybox" rel="article0">
+		  <img src="http://7xwggp.com1.z0.glb.clouddn.com/wechatdonate.jpg" title="微信打赏 Colin" height="250px" width="250px"/>
+		</a>
+		<br>
+		<center>
+		<span class="donate_txt">
+		  If you enjoy the blog, please feel free to donate~Thx for your support.
+		</span>
+	</center>
+	  </div>
+	  <br>
+	   
+	  </div>
+		
+				
+			
+        </div>
+		
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://tankcat2.com/2016/08/23/sssj/" data-id="cjb3iq9z800296okx6yhpf6wg" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + encodedUrl + '" class="fa fa-qq article-share-qzone" target="_blank" title="Qzone"></a>',
+                            '<a href="http://service.weibo.com/share/share.php?url=' + encodedUrl + '" class="fa fa-weibo article-share-weibo" target="_blank" title="Weibo"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="http://tankcat2.com/2016/08/23/sssj/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://tankcat2.com/2016/08/23/sssj/">Comments</a>
+    
+
+        </footer>
+		
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2016/10/17/sodagreen/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    My Favorite Band
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2016/07/18/lein/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">Leiningen安装</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+
+
+	
+    
+    <section id="comments" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
+    
+        
+<div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+
+<script>
+
+var gitment = new Gitment({
+  id: 'http://tankcat2.com/2016/08/23/sssj/',
+  owner: 'tankcat',
+  repo: 'tankcat.github.io',
+  oauth: {
+    client_id: '60fb85b01453b027d1f5',
+    client_secret: '4d0e75031ae53e76418d288b34897a8718481fd2',
+  },
+})
+gitment.render('comments')
+</script>
+
+    
+    </section>
+
+
+</section>
+			
+			
+			
+        </div>
+
+			<div style="height:10px;pistion:absolute;bottom:0"></div>
+<footer id="footer" >
+    <div class="outer">
+		<div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        <div id="footer-info" class="inner">
+            &copy; 2017 <i class="fa fa-heart blink-slow"></i> Tankcat<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+		
+    </div>
+</footer>
+			
+    
+<div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+
+<script>
+
+var gitment = new Gitment({
+  id: 'http://tankcat2.com/2016/08/23/sssj/',
+  owner: 'tankcat',
+  repo: 'tankcat.github.io',
+  oauth: {
+    client_id: '60fb85b01453b027d1f5',
+    client_secret: '4d0e75031ae53e76418d288b34897a8718481fd2',
+  },
+})
+gitment.render('comments')
+</script>
+
+
+
+    
+        <script src="/vendor/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-share.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-video.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+	
+    </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
   MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
-</script><script type="text/x-mathjax-config">
+</script>
+
+<script type="text/x-mathjax-config">
   MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
       all[i].SourceElement().parentNode.className += ' has-jax';
     }
   });
-</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"></script></body></html>
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+
+</html>
