@@ -61,30 +61,6 @@
   </entry>
   
   <entry>
-    <title>十二月的第二周</title>
-    <link href="http://tankcat2.com/2017/12/12/diary1210/"/>
-    <id>http://tankcat2.com/2017/12/12/diary1210/</id>
-    <published>2017-12-12T10:49:48.622Z</published>
-    <updated>2017-12-12T10:52:06.808Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="被各种杂事扰乱的工作日"><a href="#被各种杂事扰乱的工作日" class="headerlink" title="被各种杂事扰乱的工作日"></a>被各种杂事扰乱的工作日</h3><p>结束了上周五组会上的简陋survey，这周的工作日就不打算继续读新的paper了，给自己定了下面几个需要完成的目标：</p><ul><li style="list-style: none"><input type="checkbox" checked> 明珠这周讨论班要将讨论班，再读08年的CRB，把checkpoint的过程梳理一遍；</li><li style="list-style: none"><input type="checkbox" checked> Demo文章初稿，和蒋程交涉好前端需要做的；</li><li style="list-style: none"><input type="checkbox" checked> 关注NVMe；</li><li style="list-style: none"><input type="checkbox" checked> 思考并设计survey的维度；</li><li style="list-style: none"><input type="checkbox" checked> 开始学习Algorithm Specialization课程的学习</li></ul><p>周一一早来老板便交代了要开始准备1月初的Demo投稿，因为这个工作的后端实现是和房叔一起做的，已经出了两篇paper了，前端明珠之前实现了一个相对简单的版本，所以论文写起来应该不费事，所以上午先搞了注册的事情。今年有点懵逼啊，按照Demo track给的submission链接注册好个人信息了之后发现没有任何提交paper信息的按钮？？？最后只在Research track板块里给的链接找到了能投稿的地方，占了一个坑。paper的名字也是随意起的。正式写之前先找了几篇已经发表的demo paper看了看，页数限制，就简单安排了一下论文框架。然后抽出了之前工作的关键技术，简要介绍了一番。画系统架构图废了点时间，虽然以前的图也能用，但是太Low了，还是要好好设计一下，毕竟中了的话还能去土澳浪一波~下午三四点的时候在大众点评上选中了两家轰趴馆，晚上约了欢欢去“实地考察”了一番，第一家新开的，环境很不错但是价格不低；第二家环境一般价格也不是很低。回来之后和实验室的小伙伴讨论了一下，大家觉得场地费平摊下来人均不低，所以当天晚上没有确定结果。</p><p>周二早上6点半就起床了，因为天气预报说有太阳，于是洗漱之前把床单被单拿到楼下洗衣房洗，洗漱收拾好把被子和洗好的床被单拿出去晒。上午就继续写demo。中午回去发现晒被子的地方没有阳光了，所以就转移场地，拿到宿舍西边楼道的窗台上晒了。下午抽空继续商讨轰趴馆的选择。由于现在是黄金档，就近的几家价格都不便宜，大家因为价格原因不太愿意去，有的同学甚至建议直接组织出去唱歌然后举个餐就算了事了。但是毕竟有的人不喜欢唱歌啊，这样他们参与不进来，所以迟迟出不了结果。最后学姐让步了，她说她和小龙愿意承担1000块，算作是她毕业请吃饭。我把情况和大家说明了一下，可能是觉得学姐都让步到这个程度了，所以最终确定了还去轰趴。几个学弟还是很好说话的，他们本来也建议去轰趴，也不是很在乎钱的问题。轰趴馆就选的第一家，和店家确定之后交了五百押金，这事就算是安定了。晚饭期间去操场跑了三公里，快走了一公里。</p><p>周三是最忙的一天了。早上化了妆出门，以为下午颁奖典礼需要上台。上午本来打算把CRB好好再看一遍的，老板一个消息发过来要帮她买一桶羽毛球。一开始以为大活那边有得卖，哪知道体育器材店没有开门。遇到一个保安大叔，他说校门那边的体育馆有得卖，我就急匆匆地跑过去，发现就剩几只了，没有成桶卖的。然后又跑到校外的联华超市，被告知又没有！最后只能寄希望于教育超市了，如果在没有只能让老板自己淘宝了。万幸，教超有得卖。买到手的时候内心mmp，为啥一开始不先去教超呢，明明离得最近……买完已经10点半了，迅速回宿舍补了妆，然后去河东食堂吃了午饭，就去停车场等校车去闵行路。颁奖典礼一直开到下午三点多，根本用不着我们上台，事先确定好了学生代表上台领奖。返程路上看完了行尸走肉这周新更，全程高度紧张，片尾又留悬念，看完更饿了。到了学校之后赶紧去全家买了一个鸡肉卷饼。晚饭之前迅速浏览了一遍CRB，弄清楚了一些基本概念，比如COW、WAL。晚上我们FToS小分队三人继续了这周的小讨论班，帮明珠解答了论文中看不懂的疑惑，我自己也顺带加深一遍理解。</p><a id="more"></a><p>周四也是不消停的一天。这天的原计划是把CRB没看完的看完，再关注一下NVMe，顺带复习一下存储技术的基础知识，于是把去年翁老师的课件翻出来又刷了一遍。中途想起来还没问教务老师，转博要提交的材料到底有哪些，邮件上也没说明。跑过去问清楚了，缺的材料不少，专家推荐信还缺一份，于是加了老金的微信，老金当天去北京出差了，晚上还抽时间帮我填好了材料，感动。这天上午男票还犯傻，想骗我说521，被我识破，这个小插曲我写在前一篇日记里了。晚上去参加了三位同学的转预备党员小会。</p><p>周五上午继续学习NVMe。这天没什么特别的事情，下午讨论班也顺利进行了。除了将论文，李学长和老师还一起帮我梳理了后面利用NVMe可以考虑的研究点，跟李学长要了几篇文章，下周看看。晚上整理轰趴需要准备的食材、娱乐项目清单整理出来，在实验室群里说明了一下各项事宜。</p><p>PS：每天早上来实验室刷完单词之后花四十分钟左右的时间学习算法课程，并整理笔记，笔记以及相关的学习资料我挂在github上了<a href="https://github.com/tankcat/algorithm-specialization-notes" target="_blank" rel="noopener">algorithm-specialization-notes</a>，看视频的时候也想锻炼自己的英语，所以放的是英文字幕，希望自己以后能脱离字幕看视频吧。除了这个，这周把饮食健身打卡也从豆瓣小组的帖子转移到github上了<a href="https://github.com/tankcat/diet-record" target="_blank" rel="noopener">diet-record</a>，因为这样本地编辑起来更加方便。</p><h3 id="日程满满的周六周日"><a href="#日程满满的周六周日" class="headerlink" title="日程满满的周六周日"></a>日程满满的周六周日</h3><p>这次周六周日日程安排得满满当当：周六中午和原来313的两个学姐、一个学弟(欢欢、妍虹和高竹)一起去避风塘吃饭，周六晚上约了小慧去吃上周抽中的一家霸王餐；周日要组织实验室的小伙伴们一起去轰趴。</p><p>周六早上晚起了一会儿，发现牛油果再放就要坏了，于是打奶昔的时候顺便给早来实验室的一个学弟也做了一杯。学习好算法视频，写好周报，收拾了一下就出门去环球港的避风塘占座了。记得三四年前和本科室友们第一次在南京马群吃避风塘的时候，觉得超级好吃，今天发现质量严重下降，点心太甜菜太咸，连云吞面的汤也是，烧鹅肉质一点也不新鲜。席间学弟学姐们讲了不少工作上的事情。饭后他们三人去Coco各自买了奶茶，后来转战到宝珠奶酪，我又买了一杯牛油果雪酿，这次喝得比较慢，看着它慢慢融化，喝到最后越来越美味~在宝珠奶酪待了很久，听学弟说互联网的加班很辛苦，最近这段时间他经常加班到晚上十一二点才回家，说工作了之后才发现，真的比在学校辛苦太多，在学校就算老师给了deadline，其实没有按时交出结果也不是大问题，但是工作上很不一样，没有人会设身处地地为你想，没有结果就等于没做。想想自己决定转博，也不乏逃避找工作这一因素。聊完之后就在环球港逛了逛衣服，中午让老妈资助了五百，去买了上周相中的那件粉色卫衣。因为中午吃得太饱，下午又喝了一大杯雪酿，晚饭就没吃，回宿舍锻炼了半小时的HIIT。洗完澡回到实验室把临时不去轰趴吃午饭的人记录一下，确定了周日早上去菜市场采购的人员和时间点。安排好所有事情之后又看了会算法视频。</p><p>周日早上6点30起来，洗漱完撸了一个简易妆，然后就和采购小分队去买菜了。从枣阳路门出去，到光复西路左转，穿过强家角桥，发现了好多家崇明蔬菜市场，按照周五晚上定的食材清单采购完，就骑了单车去轰趴馆。由于时间还早，交接的人还没到，我们五个人就先在新客来大食堂坐了一会儿，给大家买了大肉包当早饭吃，后来直接在店里买了一些打包饭盒和一次性筷子。进了轰趴馆后，分配好洗菜任务，就继续和其中一个学弟去环球港买了点零食、主食和酱料。还买了一瓶牛奶，因为今天带了自己的电炖锅，给大家做了奶茶喝~陆陆续续人到了，中午就涮起火锅吃，16个人围着一个小吧台、两口锅还是有点挤的，不过吃得还算开心，口味还不错，嘿嘿，自夸一下。吃完大家就开始游戏了：有玩狼人杀的，有打桌球的，有打麻将的，有玩街机的，还有唱K的。这家KTV效果还是不错的，今天唱得很尽兴，哲神和韩易唱歌都超级厉害，周杰伦、陈奕迅的每首歌都唱的很6~很开心今天和哲神合唱了青峰和Ella的《你被写在我的歌里》，也很开心他们俩唱双截棍，我、小慧还有卷积在旁边附和，真心嗨爆了，可爱又迷人~再有就是后来祝翔加入，一起唱霍元甲~唱到一半累了，出去和鹏鑫打了两局桌球，平手~只要不让我设计那种可以反弹折射的角度打法，我还是可以的哈哈。晚上就把中午没吃掉的饺子煮了，由于锅不大，两大袋饺子足足分了四次才煮完。怕不够吃，还点了三个达美乐披萨，土豆味的一如既往地好吃~吃完饭又继续进去唱K，一直到最后，大家合影留念。这是我第一次主动组织大家聚会，我这个人吧喜欢简单，所以安排事情的时候就可能没有考虑很全面，反思一下，以后说话态度也要和善一点~总之，大家玩得还算尽兴，也辛苦起早陪我一起买菜得小慧、杨康、蒋程和汤路明，辛苦可人给大家拍照，也辛苦参与和支持的每一位小伙伴~</p>]]></content>
-    
-    <summary type="html">
-    
-      一周的流水线，只是记录，文笔很差。
-    
-    </summary>
-    
-      <category term="Jottings" scheme="http://tankcat2.com/categories/Jottings/"/>
-    
-    
-      <category term="周记" scheme="http://tankcat2.com/tags/%E5%91%A8%E8%AE%B0/"/>
-    
-      <category term="自省" scheme="http://tankcat2.com/tags/%E8%87%AA%E7%9C%81/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Algorithm专项课程—Course 1 Introduction</title>
     <link href="http://tankcat2.com/2017/12/11/Course1/"/>
     <id>http://tankcat2.com/2017/12/11/Course1/</id>
@@ -103,6 +79,30 @@
     
     
       <category term="Algorithm Specialization" scheme="http://tankcat2.com/tags/Algorithm-Specialization/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>十二月的第二周</title>
+    <link href="http://tankcat2.com/2017/12/10/diary1210/"/>
+    <id>http://tankcat2.com/2017/12/10/diary1210/</id>
+    <published>2017-12-10T14:51:00.000Z</published>
+    <updated>2017-12-12T11:18:20.329Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="被各种杂事扰乱的工作日"><a href="#被各种杂事扰乱的工作日" class="headerlink" title="被各种杂事扰乱的工作日"></a>被各种杂事扰乱的工作日</h3><p>结束了上周五组会上的简陋survey，这周的工作日就不打算继续读新的paper了，给自己定了下面几个需要完成的目标：</p><ul><li style="list-style: none"><input type="checkbox" checked> 明珠这周讨论班要将讨论班，再读08年的CRB，把checkpoint的过程梳理一遍；</li><li style="list-style: none"><input type="checkbox" checked> Demo文章初稿，和蒋程交涉好前端需要做的；</li><li style="list-style: none"><input type="checkbox" checked> 关注NVMe；</li><li style="list-style: none"><input type="checkbox" checked> 思考并设计survey的维度；</li><li style="list-style: none"><input type="checkbox" checked> 开始学习Algorithm Specialization课程的学习</li></ul><p>周一一早来老板便交代了要开始准备1月初的Demo投稿，因为这个工作的后端实现是和房叔一起做的，已经出了两篇paper了，前端明珠之前实现了一个相对简单的版本，所以论文写起来应该不费事，所以上午先搞了注册的事情。今年有点懵逼啊，按照Demo track给的submission链接注册好个人信息了之后发现没有任何提交paper信息的按钮？？？最后只在Research track板块里给的链接找到了能投稿的地方，占了一个坑。paper的名字也是随意起的。正式写之前先找了几篇已经发表的demo paper看了看，页数限制，就简单安排了一下论文框架。然后抽出了之前工作的关键技术，简要介绍了一番。画系统架构图废了点时间，虽然以前的图也能用，但是太Low了，还是要好好设计一下，毕竟中了的话还能去土澳浪一波~下午三四点的时候在大众点评上选中了两家轰趴馆，晚上约了欢欢去“实地考察”了一番，第一家新开的，环境很不错但是价格不低；第二家环境一般价格也不是很低。回来之后和实验室的小伙伴讨论了一下，大家觉得场地费平摊下来人均不低，所以当天晚上没有确定结果。</p><p>周二早上6点半就起床了，因为天气预报说有太阳，于是洗漱之前把床单被单拿到楼下洗衣房洗，洗漱收拾好把被子和洗好的床被单拿出去晒。上午就继续写demo。中午回去发现晒被子的地方没有阳光了，所以就转移场地，拿到宿舍西边楼道的窗台上晒了。下午抽空继续商讨轰趴馆的选择。由于现在是黄金档，就近的几家价格都不便宜，大家因为价格原因不太愿意去，有的同学甚至建议直接组织出去唱歌然后举个餐就算了事了。但是毕竟有的人不喜欢唱歌啊，这样他们参与不进来，所以迟迟出不了结果。最后学姐让步了，她说她和小龙愿意承担1000块，算作是她毕业请吃饭。我把情况和大家说明了一下，可能是觉得学姐都让步到这个程度了，所以最终确定了还去轰趴。几个学弟还是很好说话的，他们本来也建议去轰趴，也不是很在乎钱的问题。轰趴馆就选的第一家，和店家确定之后交了五百押金，这事就算是安定了。晚饭期间去操场跑了三公里，快走了一公里。</p><p>周三是最忙的一天了。早上化了妆出门，以为下午颁奖典礼需要上台。上午本来打算把CRB好好再看一遍的，老板一个消息发过来要帮她买一桶羽毛球。一开始以为大活那边有得卖，哪知道体育器材店没有开门。遇到一个保安大叔，他说校门那边的体育馆有得卖，我就急匆匆地跑过去，发现就剩几只了，没有成桶卖的。然后又跑到校外的联华超市，被告知又没有！最后只能寄希望于教育超市了，如果在没有只能让老板自己淘宝了。万幸，教超有得卖。买到手的时候内心mmp，为啥一开始不先去教超呢，明明离得最近……买完已经10点半了，迅速回宿舍补了妆，然后去河东食堂吃了午饭，就去停车场等校车去闵行路。颁奖典礼一直开到下午三点多，根本用不着我们上台，事先确定好了学生代表上台领奖。返程路上看完了行尸走肉这周新更，全程高度紧张，片尾又留悬念，看完更饿了。到了学校之后赶紧去全家买了一个鸡肉卷饼。晚饭之前迅速浏览了一遍CRB，弄清楚了一些基本概念，比如COW、WAL。晚上我们FToS小分队三人继续了这周的小讨论班，帮明珠解答了论文中看不懂的疑惑，我自己也顺带加深一遍理解。</p><a id="more"></a><p>周四也是不消停的一天。这天的原计划是把CRB没看完的看完，再关注一下NVMe，顺带复习一下存储技术的基础知识，于是把去年翁老师的课件翻出来又刷了一遍。中途想起来还没问教务老师，转博要提交的材料到底有哪些，邮件上也没说明。跑过去问清楚了，缺的材料不少，专家推荐信还缺一份，于是加了老金的微信，老金当天去北京出差了，晚上还抽时间帮我填好了材料，感动。这天上午男票还犯傻，想骗我说521，被我识破，这个小插曲我写在前一篇日记里了。晚上去参加了三位同学的转预备党员小会。</p><p>周五上午继续学习NVMe。这天没什么特别的事情，下午讨论班也顺利进行了。除了将论文，李学长和老师还一起帮我梳理了后面利用NVMe可以考虑的研究点，跟李学长要了几篇文章，下周看看。晚上整理轰趴需要准备的食材、娱乐项目清单整理出来，在实验室群里说明了一下各项事宜。</p><p>PS：每天早上来实验室刷完单词之后花四十分钟左右的时间学习算法课程，并整理笔记，笔记以及相关的学习资料我挂在github上了<a href="https://github.com/tankcat/algorithm-specialization-notes" target="_blank" rel="noopener">algorithm-specialization-notes</a>，看视频的时候也想锻炼自己的英语，所以放的是英文字幕，希望自己以后能脱离字幕看视频吧。除了这个，这周把饮食健身打卡也从豆瓣小组的帖子转移到github上了<a href="https://github.com/tankcat/diet-record" target="_blank" rel="noopener">diet-record</a>，因为这样本地编辑起来更加方便。</p><h3 id="日程满满的周六周日"><a href="#日程满满的周六周日" class="headerlink" title="日程满满的周六周日"></a>日程满满的周六周日</h3><p>这次周六周日日程安排得满满当当：周六中午和原来313的两个学姐、一个学弟(欢欢、妍虹和高竹)一起去避风塘吃饭，周六晚上约了小慧去吃上周抽中的一家霸王餐；周日要组织实验室的小伙伴们一起去轰趴。</p><p>周六早上晚起了一会儿，发现牛油果再放就要坏了，于是打奶昔的时候顺便给早来实验室的一个学弟也做了一杯。学习好算法视频，写好周报，收拾了一下就出门去环球港的避风塘占座了。记得三四年前和本科室友们第一次在南京马群吃避风塘的时候，觉得超级好吃，今天发现质量严重下降，点心太甜菜太咸，连云吞面的汤也是，烧鹅肉质一点也不新鲜。席间学弟学姐们讲了不少工作上的事情。饭后他们三人去Coco各自买了奶茶，后来转战到宝珠奶酪，我又买了一杯牛油果雪酿，这次喝得比较慢，看着它慢慢融化，喝到最后越来越美味~在宝珠奶酪待了很久，听学弟说互联网的加班很辛苦，最近这段时间他经常加班到晚上十一二点才回家，说工作了之后才发现，真的比在学校辛苦太多，在学校就算老师给了deadline，其实没有按时交出结果也不是大问题，但是工作上很不一样，没有人会设身处地地为你想，没有结果就等于没做。想想自己决定转博，也不乏逃避找工作这一因素。聊完之后就在环球港逛了逛衣服，中午让老妈资助了五百，去买了上周相中的那件粉色卫衣。因为中午吃得太饱，下午又喝了一大杯雪酿，晚饭就没吃，回宿舍锻炼了半小时的HIIT。洗完澡回到实验室把临时不去轰趴吃午饭的人记录一下，确定了周日早上去菜市场采购的人员和时间点。安排好所有事情之后又看了会算法视频。</p><p>周日早上6点30起来，洗漱完撸了一个简易妆，然后就和采购小分队去买菜了。从枣阳路门出去，到光复西路左转，穿过强家角桥，发现了好多家崇明蔬菜市场，按照周五晚上定的食材清单采购完，就骑了单车去轰趴馆。由于时间还早，交接的人还没到，我们五个人就先在新客来大食堂坐了一会儿，给大家买了大肉包当早饭吃，后来直接在店里买了一些打包饭盒和一次性筷子。进了轰趴馆后，分配好洗菜任务，就继续和其中一个学弟去环球港买了点零食、主食和酱料。还买了一瓶牛奶，因为今天带了自己的电炖锅，给大家做了奶茶喝~陆陆续续人到了，中午就涮起火锅吃，16个人围着一个小吧台、两口锅还是有点挤的，不过吃得还算开心，口味还不错，嘿嘿，自夸一下。吃完大家就开始游戏了：有玩狼人杀的，有打桌球的，有打麻将的，有玩街机的，还有唱K的。这家KTV效果还是不错的，今天唱得很尽兴，哲神和韩易唱歌都超级厉害，周杰伦、陈奕迅的每首歌都唱的很6~很开心今天和哲神合唱了青峰和Ella的《你被写在我的歌里》，也很开心他们俩唱双截棍，我、小慧还有卷积在旁边附和，真心嗨爆了，可爱又迷人~再有就是后来祝翔加入，一起唱霍元甲~唱到一半累了，出去和鹏鑫打了两局桌球，平手~只要不让我设计那种可以反弹折射的角度打法，我还是可以的哈哈。晚上就把中午没吃掉的饺子煮了，由于锅不大，两大袋饺子足足分了四次才煮完。怕不够吃，还点了三个达美乐披萨，土豆味的一如既往地好吃~吃完饭又继续进去唱K，一直到最后，大家合影留念。这是我第一次主动组织大家聚会，我这个人吧喜欢简单，所以安排事情的时候就可能没有考虑很全面，反思一下，以后说话态度也要和善一点~总之，大家玩得还算尽兴，也辛苦起早陪我一起买菜得小慧、杨康、蒋程和汤路明，辛苦可人给大家拍照，也辛苦参与和支持的每一位小伙伴~</p>]]></content>
+    
+    <summary type="html">
+    
+      一周的流水线，只是记录，文笔很差。
+    
+    </summary>
+    
+      <category term="Jottings" scheme="http://tankcat2.com/categories/Jottings/"/>
+    
+    
+      <category term="周记" scheme="http://tankcat2.com/tags/%E5%91%A8%E8%AE%B0/"/>
+    
+      <category term="自省" scheme="http://tankcat2.com/tags/%E8%87%AA%E7%9C%81/"/>
     
   </entry>
   
@@ -619,29 +619,55 @@
   </entry>
   
   <entry>
-    <title>再见我的暴力女王</title>
-    <link href="http://tankcat2.com/2017/02/27/evil/"/>
-    <id>http://tankcat2.com/2017/02/27/evil/</id>
+    <title>Kafka快速入门</title>
+    <link href="http://tankcat2.com/2017/02/27/kafka_quickstart/"/>
+    <id>http://tankcat2.com/2017/02/27/kafka_quickstart/</id>
     <published>2017-02-27T12:11:31.000Z</published>
-    <updated>2017-11-27T13:24:27.371Z</updated>
+    <updated>2017-11-27T13:21:45.075Z</updated>
     
-    <content type="html"><![CDATA[<p>初二的时候，老妈同事的儿子来我家排练吹笛子，给我讲了生化危机3，当时没记住名字；</p><p>后来在家里的电脑上翻到了，还是没字幕英文版的，就这样看完了；</p><p>到了高二，周末回家，把第一部第二部给补完了，没看过瘾，导致后来第二部反复拿出来看，可能看了有十多遍了，里面的角色很鲜明，很喜欢吉尔，喜欢短发帅气的她；</p><p>没过多久，第四部就上映了，在网上看过一遍之后才去老文化馆那边的电影院再看一遍，记得那次的3D眼睛还是硬纸片做的；第五部也是在网上看的枪版，越来越没趣。</p><p>今天，和实验室的小伙伴一起看了终章，看完有点失落，追了这么多年的欧美暴力女王，就这么结束了。我不说这是情怀，有点装逼，但可能也是因为生化3，开始了我喜欢丧尸类型片子之路。等网上出了终章的未删减版，我要再刷一波。</p><p>最后，刚刚在知乎上看到“如何评价生化危机6”里面有个回答说，我觉得最大的彩蛋是我旁边的哥们儿看到女主骑着摩托绝尘而去的时候，突然说了一句，她真该进复联。。。</p><a id="more"></a>]]></content>
+    <content type="html"><![CDATA[<p>翻译自kafka documentation的quick start 部分。</p><ol><li><p>下载Zookeeper</p><p>我使用的是<a href="http://mirrors.hust.edu.cn/apache/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz" target="_blank" rel="noopener">zookeeper-3.4.6</a>版本</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -xvzf zookeeper-3.4.6.tgz</span><br><span class="line">cd zookeeper-3.4.6/conf</span><br></pre></td></tr></table></figure><p>将<code>zoo_example.cfg</code>改名为<code>zoo.cfg</code>，并在<code>/etc/profile</code>中设置环境变量：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br><span class="line">export ZK_HOME=/home/admin/zookeeper-3.4.6</span><br><span class="line">export PATH=$PATH:$ZK_HOME/bin:$ZK_HOME/conf</span><br></pre></td></tr></table></figure></li><li><p>下载Kafka</p><p>我使用的是<a href="https://www.apache.org/dyn/closer.cgi?path=/kafka/0.10.2.1/kafka_2.10-0.10.2.1.tgz" target="_blank" rel="noopener">kafka_2.10-0.10.2.1</a>版本</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -xvzf kafka_2.10-0.10.2.1</span><br><span class="line">cd kafka_2.10-0.10.2.1/config</span><br></pre></td></tr></table></figure><p>接下来进行参数配置：<code>server.properties</code></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim server.properties</span><br><span class="line">...</span><br><span class="line"><span class="meta">#</span> 修改broker.id,全局唯一</span><br><span class="line"><span class="meta">#</span> 修改zookeeper.connect，形式为host:port，多个数据项用逗号分隔</span><br><span class="line">zookeeper.connect=192.168.115:2181</span><br><span class="line"><span class="meta">#</span> 设置话题的删除,默认值为false</span><br><span class="line">delete.topic.enable=true</span><br><span class="line"><span class="meta">#</span> 设置数据日志路径</span><br><span class="line">log.dirs=/home/admin/kafka_2.10-0.10.2.1/kafka-logs</span><br></pre></td></tr></table></figure></li><li><p>启动</p><p>Kafka使用Zookeeper，所以需要先启动Zookeeper，我没有使用Kafka内置的：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zkServer.sh start</span><br></pre></td></tr></table></figure><p>接着启动Kafka:</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-server-start.sh config/server.properties</span><br></pre></td></tr></table></figure></li><li><p>创建topic</p><p>使用下面的命令创建名为<code>single_node</code>的topic，副本数为1，分区数为1，命令执行结束后，<code>kafka-logs</code>路径下就会生成一个<code>single_node-0</code>的文件夹。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-topics.h --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic single_node</span><br></pre></td></tr></table></figure></li><li><p>发布与消耗数据</p><p>执行下面的命令创建producer进程，从标准输入中获取数据，并发送到Kafka集群中的single_node这个topic中，默认地，每一行将作为单独的一条信息发送出去。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-producer.sh --broker-list localhost:9092 --topic single_node</span><br><span class="line">wxt</span><br><span class="line">zf</span><br><span class="line">i love u</span><br></pre></td></tr></table></figure><p>执行下面的命令创建consumer进程，消耗指定topic的数据，这里就是标准输出的数据：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic single_node --from-beginning</span><br><span class="line">wxt</span><br><span class="line">zf</span><br><span class="line">i love u</span><br></pre></td></tr></table></figure></li></ol><p>以上均是单机版的Kafka配置与使用。</p><a id="more"></a>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;初二的时候，老妈同事的儿子来我家排练吹笛子，给我讲了生化危机3，当时没记住名字；&lt;/p&gt;
-&lt;p&gt;后来在家里的电脑上翻到了，还是没字幕英文版的，就这样看完了；&lt;/p&gt;
-&lt;p&gt;到了高二，周末回家，把第一部第二部给补完了，没看过瘾，导致后来第二部反复拿出来看，可能看了有十多遍了，里面的角色很鲜明，很喜欢吉尔，喜欢短发帅气的她；&lt;/p&gt;
-&lt;p&gt;没过多久，第四部就上映了，在网上看过一遍之后才去老文化馆那边的电影院再看一遍，记得那次的3D眼睛还是硬纸片做的；第五部也是在网上看的枪版，越来越没趣。&lt;/p&gt;
-&lt;p&gt;今天，和实验室的小伙伴一起看了终章，看完有点失落，追了这么多年的欧美暴力女王，就这么结束了。我不说这是情怀，有点装逼，但可能也是因为生化3，开始了我喜欢丧尸类型片子之路。等网上出了终章的未删减版，我要再刷一波。&lt;/p&gt;
-&lt;p&gt;最后，刚刚在知乎上看到“如何评价生化危机6”里面有个回答说，我觉得最大的彩蛋是我旁边的哥们儿看到女主骑着摩托绝尘而去的时候，突然说了一句，她真该进复联。。。&lt;/p&gt;
+      &lt;p&gt;翻译自kafka documentation的quick start 部分。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;下载Zookeeper&lt;/p&gt;
+&lt;p&gt;我使用的是&lt;a href=&quot;http://mirrors.hust.edu.cn/apache/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;zookeeper-3.4.6&lt;/a&gt;版本&lt;/p&gt;
+&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;tar -xvzf zookeeper-3.4.6.tgz&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cd zookeeper-3.4.6/conf&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;将&lt;code&gt;zoo_example.cfg&lt;/code&gt;改名为&lt;code&gt;zoo.cfg&lt;/code&gt;，并在&lt;code&gt;/etc/profile&lt;/code&gt;中设置环境变量：&lt;/p&gt;
+&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;vim /etc/profile&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export ZK_HOME=/home/admin/zookeeper-3.4.6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export PATH=$PATH:$ZK_HOME/bin:$ZK_HOME/conf&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;下载Kafka&lt;/p&gt;
+&lt;p&gt;我使用的是&lt;a href=&quot;https://www.apache.org/dyn/closer.cgi?path=/kafka/0.10.2.1/kafka_2.10-0.10.2.1.tgz&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;kafka_2.10-0.10.2.1&lt;/a&gt;版本&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;tar -xvzf kafka_2.10-0.10.2.1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cd kafka_2.10-0.10.2.1/config&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;接下来进行参数配置：&lt;code&gt;server.properties&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;vim server.properties&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;#&lt;/span&gt; 修改broker.id,全局唯一&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;#&lt;/span&gt; 修改zookeeper.connect，形式为host:port，多个数据项用逗号分隔&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;zookeeper.connect=192.168.115:2181&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;#&lt;/span&gt; 设置话题的删除,默认值为false&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;delete.topic.enable=true&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;#&lt;/span&gt; 设置数据日志路径&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;log.dirs=/home/admin/kafka_2.10-0.10.2.1/kafka-logs&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;启动&lt;/p&gt;
+&lt;p&gt;Kafka使用Zookeeper，所以需要先启动Zookeeper，我没有使用Kafka内置的：&lt;/p&gt;
+&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;zkServer.sh start&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;接着启动Kafka:&lt;/p&gt;
+&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;bin/kafka-server-start.sh config/server.properties&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;创建topic&lt;/p&gt;
+&lt;p&gt;使用下面的命令创建名为&lt;code&gt;single_node&lt;/code&gt;的topic，副本数为1，分区数为1，命令执行结束后，&lt;code&gt;kafka-logs&lt;/code&gt;路径下就会生成一个&lt;code&gt;single_node-0&lt;/code&gt;的文件夹。&lt;/p&gt;
+&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;bin/kafka-topics.h --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic single_node&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;发布与消耗数据&lt;/p&gt;
+&lt;p&gt;执行下面的命令创建producer进程，从标准输入中获取数据，并发送到Kafka集群中的single_node这个topic中，默认地，每一行将作为单独的一条信息发送出去。&lt;/p&gt;
+&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;bin/kafka-console-producer.sh --broker-list localhost:9092 --topic single_node&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;wxt&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;zf&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;i love u&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;执行下面的命令创建consumer进程，消耗指定topic的数据，这里就是标准输出的数据：&lt;/p&gt;
+&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic single_node --from-beginning&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;wxt&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;zf&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;i love u&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;以上均是单机版的Kafka配置与使用。&lt;/p&gt;
     
     </summary>
     
-      <category term="Reviews" scheme="http://tankcat2.com/categories/Reviews/"/>
+      <category term="Techniques" scheme="http://tankcat2.com/categories/Techniques/"/>
     
     
-      <category term="生化危机" scheme="http://tankcat2.com/tags/%E7%94%9F%E5%8C%96%E5%8D%B1%E6%9C%BA/"/>
+      <category term="Kafka" scheme="http://tankcat2.com/tags/Kafka/"/>
     
   </entry>
   

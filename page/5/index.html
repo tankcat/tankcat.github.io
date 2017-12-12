@@ -125,14 +125,14 @@
 			</aside>
 			
 					<section id="main">
-    <article id="post-kafka_quickstart" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-evil" class="article article-type-post" itemscope itemprop="blogPost">
     
 	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
         
             
 	
-		<a href="/2017/02/27/kafka_quickstart/" itemprop="url">
-            <img src="http://7xwggp.com1.z0.glb.clouddn.com/kafka_diagram.png" class="article-banner" />
+		<a href="/2017/02/27/evil/" itemprop="url">
+            <img src="http://7xwggp.com1.z0.glb.clouddn.com/alice.jpg" class="article-banner" />
         </a>
 	
 
@@ -145,7 +145,7 @@
 					<center>
     
         <h1 itemprop="name">
-            <a class="article-title" href="/2017/02/27/kafka_quickstart/">Kafka快速入门</a>
+            <a class="article-title" href="/2017/02/27/evil/">再见我的暴力女王</a>
         </h1>
     
 
@@ -153,30 +153,12 @@
 						<div class="article-meta">
 							
     <div class="article-date">    
-        <a href="/2017/02/27/kafka_quickstart/">
+        <a href="/2017/02/27/evil/">
             <time datetime="2017-02-27T12:11:31.000Z" itemprop="datePublished">2017-02-27</time>
         </a>
     </div>
 
-							<!--
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Techniques/">Techniques</a>
-		&nbsp;&nbsp;
-		
-			<span class="article-tag">
-				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/Kafka/">Kafka</a>
-			</span>
-		
-    </div>
--->
-							<!--
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Kafka/">Kafka</a>
-    </div>
--->
+							
 						</div>
 					
 					
@@ -188,44 +170,18 @@
         
         <div class="article-entry" itemprop="articleBody">
         
-            <p><p>翻译自kafka documentation的quick start 部分。</p>
-<ol>
-<li><p>下载Zookeeper</p>
-<p>我使用的是<a href="http://mirrors.hust.edu.cn/apache/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz" target="_blank" rel="noopener">zookeeper-3.4.6</a>版本</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -xvzf zookeeper-3.4.6.tgz</span><br><span class="line">cd zookeeper-3.4.6/conf</span><br></pre></td></tr></table></figure>
-<p>将<code>zoo_example.cfg</code>改名为<code>zoo.cfg</code>，并在<code>/etc/profile</code>中设置环境变量：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br><span class="line">export ZK_HOME=/home/admin/zookeeper-3.4.6</span><br><span class="line">export PATH=$PATH:$ZK_HOME/bin:$ZK_HOME/conf</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>下载Kafka</p>
-<p>我使用的是<a href="https://www.apache.org/dyn/closer.cgi?path=/kafka/0.10.2.1/kafka_2.10-0.10.2.1.tgz" target="_blank" rel="noopener">kafka_2.10-0.10.2.1</a>版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -xvzf kafka_2.10-0.10.2.1</span><br><span class="line">cd kafka_2.10-0.10.2.1/config</span><br></pre></td></tr></table></figure>
-<p>接下来进行参数配置：<code>server.properties</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim server.properties</span><br><span class="line">...</span><br><span class="line"><span class="meta">#</span> 修改broker.id,全局唯一</span><br><span class="line"><span class="meta">#</span> 修改zookeeper.connect，形式为host:port，多个数据项用逗号分隔</span><br><span class="line">zookeeper.connect=192.168.115:2181</span><br><span class="line"><span class="meta">#</span> 设置话题的删除,默认值为false</span><br><span class="line">delete.topic.enable=true</span><br><span class="line"><span class="meta">#</span> 设置数据日志路径</span><br><span class="line">log.dirs=/home/admin/kafka_2.10-0.10.2.1/kafka-logs</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动</p>
-<p>Kafka使用Zookeeper，所以需要先启动Zookeeper，我没有使用Kafka内置的：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zkServer.sh start</span><br></pre></td></tr></table></figure>
-<p>接着启动Kafka:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-server-start.sh config/server.properties</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建topic</p>
-<p>使用下面的命令创建名为<code>single_node</code>的topic，副本数为1，分区数为1，命令执行结束后，<code>kafka-logs</code>路径下就会生成一个<code>single_node-0</code>的文件夹。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-topics.h --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic single_node</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>发布与消耗数据</p>
-<p>执行下面的命令创建producer进程，从标准输入中获取数据，并发送到Kafka集群中的single_node这个topic中，默认地，每一行将作为单独的一条信息发送出去。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-producer.sh --broker-list localhost:9092 --topic single_node</span><br><span class="line">wxt</span><br><span class="line">zf</span><br><span class="line">i love u</span><br></pre></td></tr></table></figure>
-<p>执行下面的命令创建consumer进程，消耗指定topic的数据，这里就是标准输出的数据：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic single_node --from-beginning</span><br><span class="line">wxt</span><br><span class="line">zf</span><br><span class="line">i love u</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>以上均是单机版的Kafka配置与使用。</p></p>
+            <p><p>初二的时候，老妈同事的儿子来我家排练吹笛子，给我讲了生化危机3，当时没记住名字；</p>
+<p>后来在家里的电脑上翻到了，还是没字幕英文版的，就这样看完了；</p>
+<p>到了高二，周末回家，把第一部第二部给补完了，没看过瘾，导致后来第二部反复拿出来看，可能看了有十多遍了，里面的角色很鲜明，很喜欢吉尔，喜欢短发帅气的她；</p>
+<p>没过多久，第四部就上映了，在网上看过一遍之后才去老文化馆那边的电影院再看一遍，记得那次的3D眼睛还是硬纸片做的；第五部也是在网上看的枪版，越来越没趣。</p>
+<p>今天，和实验室的小伙伴一起看了终章，看完有点失落，追了这么多年的欧美暴力女王，就这么结束了。我不说这是情怀，有点装逼，但可能也是因为生化3，开始了我喜欢丧尸类型片子之路。等网上出了终章的未删减版，我要再刷一波。</p>
+<p>最后，刚刚在知乎上看到“如何评价生化危机6”里面有个回答说，我觉得最大的彩蛋是我旁边的哥们儿看到女主骑着摩托绝尘而去的时候，突然说了一句，她真该进复联。。。</p></p>
             <p class="article-more-link">
-               <a href="/2017/02/27/kafka_quickstart/#more">Read More</a>
+               <a href="/2017/02/27/evil/#more">Read More</a>
 				
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Kafka/">Kafka</a>
+        <a class="tag-link" href="/tags/生化危机/">生化危机</a>
     </div>
 
             </p>
@@ -263,25 +219,7 @@
         </a>
     </div>
 
-							<!--
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Papers/">Papers</a>
-		&nbsp;&nbsp;
-		
-			<span class="article-tag">
-				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/Join/">Join</a>
-			</span>
-		
-    </div>
--->
-							<!--
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Join/">Join</a>
-    </div>
--->
+							
 						</div>
 					
 					
@@ -434,25 +372,7 @@
         </a>
     </div>
 
-							<!--
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Techniques/">Techniques</a>
-		&nbsp;&nbsp;
-		
-			<span class="article-tag">
-				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/Storm/">Storm</a>
-			</span>
-		
-    </div>
--->
-							<!--
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Storm/">Storm</a>
-    </div>
--->
+							
 						</div>
 					
 					
@@ -511,25 +431,7 @@
         </a>
     </div>
 
-							<!--
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Jottings/">Jottings</a>
-		&nbsp;&nbsp;
-		
-			<span class="article-tag">
-				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/苏打绿/">苏打绿</a>
-			</span>
-		
-    </div>
--->
-							<!--
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/苏打绿/">苏打绿</a>
-    </div>
--->
+							
 						</div>
 					
 					
@@ -595,25 +497,6 @@
         </a>
     </div>
 
-							<!--
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Jottings/">Jottings</a>
-		&nbsp;&nbsp;
-		
-			<span class="article-tag">
-				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/周杰伦/">周杰伦</a>
-			</span>
-		
-    </div>
--->
-							<!--
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/周杰伦/">周杰伦</a>
-    </div>
--->
 						</div>
 					
 					
