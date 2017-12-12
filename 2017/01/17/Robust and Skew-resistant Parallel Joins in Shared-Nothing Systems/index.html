@@ -32,8 +32,13 @@
     
 
 
-	<script src="//cdn.bootcss.com/jquery/2.1.0/jquery.min.js" type="text/javascript"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+	<script src="//cdn.bootcss.com/jquery/2.1.0/jquery.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+	<script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script><script type="text/javascript" src="path-to-mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
 </head>
+
 
 <body>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="containerr">
@@ -179,7 +184,7 @@
 <li><p><strong>hash-based</strong> 基于哈希，如下图所示，分为四个步骤：</p>
 <ol>
 <li>partition划分，将原先每个节点上存储的$R_i$和$S_i$按照连接属性键的哈希值进行划分，比如图中，将第一个节点(大的实线矩形)中的$R_1$和$S_1$分别划分为k个子集；</li>
-<li>distribution分发，根据连接属性键的哈希值，将上面的子集分发到另外一个空闲节点上，比如图中，将每个节点中的第k个子集$R<em>{ik}$ 和 $S</em>{ik}$ 同时分发到一个空闲节点上，那么这个空闲节点存储的数据为$R<em>k=\bigcup</em>{i=1}^{n}R_{ik}$,$S<em>k=\bigcup</em>{i=1}^{n}S_{ik}$;</li>
+<li>distribution分发，根据连接属性键的哈希值，将上面的子集分发到另外一个空闲节点上，比如图中，将每个节点中的第k个子集$R_{ik}$ 和 $S_{ik}$ 同时分发到一个空闲节点上，那么这个空闲节点存储的数据为$R_k=\bigcup_{i=1}^{n}R_{ik}$,$S_k=\bigcup_{i=1}^{n}S_{ik}$;</li>
 <li>build构建，在空闲节点中，对数据集$R_k$进行扫描，并对它构建一个存储在内存中的哈希表；</li>
 <li>prob检测，在空闲节点中，对数据集$S_k$进行遍历，判断每一条数据的键值是否存在于上面构建的哈希表中，并输出连接结果.</li>
 </ol>
@@ -187,7 +192,7 @@
 </li>
 <li><p><strong>duplication-based</strong> 基于副本，如下图所示，分为三个步骤：</p>
 <ol>
-<li>duplication复制，针对每个节点，将其中存储的数据集$R_i$广播到其他所有并行节点上(不是空余节点)，这样在广播操作结束后，所有节点上的数据集$R<em>k=\bigcup</em>{i=1}^{n}R_i=R$即为全集R；</li>
+<li>duplication复制，针对每个节点，将其中存储的数据集$R_i$广播到其他所有并行节点上(不是空余节点)，这样在广播操作结束后，所有节点上的数据集$R_k=\bigcup_{i=1}^{n}R_i=R$即为全集R；</li>
 <li>build构建，构建哈希表，与hash-based相似；</li>
 <li>prob检测，遍历另外一个数据集，输出连接结果，与hash-based相似.</li>
 </ol>
@@ -197,7 +202,7 @@
 <h2 id="PRPD连接算法"><a href="#PRPD连接算法" class="headerlink" title="PRPD连接算法"></a>PRPD连接算法</h2><ol>
 <li><p>PRPD定义：partial redistribution &amp; partition duplication，即将hash-based和duplication-based相结合.</p>
 </li>
-<li><p>处理流程，如下图所示：处理数据集R和S的连接，假设R是均匀分布，S是倾斜分布. 将每个节点中存储的S划分为两部分，$S<em>{loc}$是倾斜数据子集，$S</em>{redis}$是剩余的非倾斜数据子集.前者保留才原节点中不动，后者需要根据连接键值重新分发到一个空余节点中，类似与hash-based中的distribution操作. 同样，将每个节点中存储的R划分为两部分，$R<em>{dup}$是与$S</em>{loc}$连接键值相同的数据子集，$R<em>{redis}$是剩余的数据子集. 前者需要广播到其余所有的原节点中，类似于duplication-based中的duplication操作，后者需要根据连接键值重新分发到空余节点中，按照hash-based的最后两步，与$S</em>{redis}$进行连接.</p>
+<li><p>处理流程，如下图所示：处理数据集R和S的连接，假设R是均匀分布，S是倾斜分布. 将每个节点中存储的S划分为两部分，$S_{loc}$是倾斜数据子集，$S_{redis}$是剩余的非倾斜数据子集.前者保留才原节点中不动，后者需要根据连接键值重新分发到一个空余节点中，类似与hash-based中的distribution操作. 同样，将每个节点中存储的R划分为两部分，$R_{dup}$是与$S_{loc}$连接键值相同的数据子集，$R_{redis}$是剩余的数据子集. 前者需要广播到其余所有的原节点中，类似于duplication-based中的duplication操作，后者需要根据连接键值重新分发到空余节点中，按照hash-based的最后两步，与$S_{redis}$进行连接.</p>
 <p><img src="http://7xwggp.com1.z0.glb.clouddn.com/PRPD.jpg" alt="PRPD"></p>
 </li>
 <li><p>存在的问题：</p>
@@ -215,7 +220,7 @@
 <ol>
 <li>类似于hash-based中的第1,2两步，将各个节点中的数据集$R_i$按照连接属性的哈希值进行切分，再将元组分发到各自对应的空闲计算节点中(图中的红色虚线);</li>
 <li>对各个节点中的数据集$S_i$在属性b上做投影操作得到$\pi_b(S_i)$，根据哈希值将这些属性b的unique key分发到计算节点中；</li>
-<li>每个计算节点k收到数据集S的key 子集$\pi<em>b(S</em>{ik})$，和数据集R的子集$R<em>k=\bigcup</em>{i=1}^nR_{ik}$，对这两个子集做连接操作，将能连接上的R元组回发到各自的原节点i上(图中的③号线)；</li>
+<li>每个计算节点k收到数据集S的key 子集$\pi_b(S_{ik})$，和数据集R的子集$R_k=\bigcup_{i=1}^nR_{ik}$，对这两个子集做连接操作，将能连接上的R元组回发到各自的原节点i上(图中的③号线)；</li>
 <li>各个原节点接收到retrieval返回的R集元组，与本地存储的S集元组做最后实际的连接操作，输出结果.</li>
 </ol>
 <p><img src="http://7xwggp.com1.z0.glb.clouddn.com/semijoin.png" alt="semijoin"></p>
@@ -250,7 +255,7 @@
 </li>
 <li><p>Push query keys，将各个节点i上存储的数据集$S_i$划分为两部分，低数据倾斜部分$S_i^{‘}$和高数据倾斜部分$h_i$. 根据连接属性b的哈希值，同时将$S_i^{‘}$的元组和$h_i$的投影unique key集合$\pi_b(h)$重新分发到对应的计算节点上(图中紫色虚线②)；</p>
 </li>
-<li>Return queried values，在每个计算节点k上，与hash-based的第3步类似，对集合$R<em>k=\bigcup</em>{i=1}^{n}R<em>{ik}$建立哈希表，(1). 对接收到的集合$\bigcup</em>{i=1}^{n}S_{ik}^{’}$进行遍历，并查找哈希表，直接输出连接结果；(2). 对接收到的key集合$\pi<em>b(h</em>{ik})$也遍历并查找路由表，如果没有匹配的key，则将retrieval的value置为null，若有匹配的key，则返回对应R的value.所有返回的value和节点k接收到key的顺序一致，并返回发送到原节点i；</li>
+<li>Return queried values，在每个计算节点k上，与hash-based的第3步类似，对集合$R_k=\bigcup_{i=1}^{n}R_{ik}$建立哈希表，(1). 对接收到的集合$\bigcup_{i=1}^{n}S_{ik}^{’}$进行遍历，并查找哈希表，直接输出连接结果；(2). 对接收到的key集合$\pi_b(h_{ik})$也遍历并查找路由表，如果没有匹配的key，则将retrieval的value置为null，若有匹配的key，则返回对应R的value.所有返回的value和节点k接收到key的顺序一致，并返回发送到原节点i；</li>
 <li>Result lookup，接收到计算节点返回的value集合之后，在原节点中遍历value，并和本地存储的数据集S的高倾斜部分h进行连接，输出连接结果：若value为null，则继续扫描下一个；若不为空，则必定存在一个R和S的元组能连接上. 因此，最终的连接结果是第3步骤的部分结果$\bigcup$第4部分的连接结果.</li>
 </ol>
 <p><img src="http://7xwggp.com1.z0.glb.clouddn.com/PRPQ.png" alt="PRPQ"></p>
@@ -433,7 +438,7 @@
 
 </div>
 
-    <a data-url="http://tankcat2.com/2017/01/17/Robust and Skew-resistant Parallel Joins in Shared-Nothing Systems/" data-id="cjb30lg4p0009nskxxwvg7kj2" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://tankcat2.com/2017/01/17/Robust and Skew-resistant Parallel Joins in Shared-Nothing Systems/" data-id="cjb3d0sro000ac8kxwpyhyuac" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -511,11 +516,11 @@
         
 <nav id="article-nav">
     
-        <a href="/2017/02/27/kafka_quickstart/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/2017/02/27/evil/" id="article-nav-newer" class="article-nav-link-wrap">
             <strong class="article-nav-caption">Newer</strong>
             <div class="article-nav-title">
                 
-                    Kafka快速入门
+                    再见我的暴力女王
                 
             </div>
         </a>
