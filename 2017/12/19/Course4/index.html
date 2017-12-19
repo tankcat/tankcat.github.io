@@ -4,7 +4,7 @@
 	<!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css">   
     <meta charset="utf-8">
     
-    <title>十二月的第二周 | Tankcat</title>
+    <title>Algorithm专项课程 IV The Master Method | Tankcat</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     
 
@@ -124,13 +124,13 @@
 					</div>
 			</aside>
 			
-					<section id="main"><article id="post-diary1210" class="article article-type-post" itemscope itemprop="blogPost">
+					<section id="main"><article id="post-Course4" class="article article-type-post" itemscope itemprop="blogPost">
     
 	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
         
             
 	
-		<img src="http://7xwggp.com1.z0.glb.clouddn.com/zuocai.JPG" class="article-banner" />
+		<img src="http://7xwggp.com1.z0.glb.clouddn.com/master2.png" class="article-banner" />
 	
 
 
@@ -142,7 +142,7 @@
 					<center>
     
         <h1 class="article-title" itemprop="name">
-            十二月的第二周
+            Algorithm专项课程 IV The Master Method
         </h1>
     
 
@@ -150,20 +150,20 @@
 						<div class="article-meta">
 							
     <div class="article-date">    
-        <a href="/2017/12/10/diary1210/">
-            <time datetime="2017-12-10T14:51:00.000Z" itemprop="datePublished">2017-12-10</time>
+        <a href="/2017/12/19/Course4/">
+            <time datetime="2017-12-19T00:29:00.000Z" itemprop="datePublished">2017-12-19</time>
         </a>
     </div>
 
 							<!--
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Jottings/">Jottings</a>
+        <a class="article-category-link" href="/categories/Techniques/">Techniques</a>
 		&nbsp;&nbsp;
 		
 			<span class="article-tag">
 				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/周记/">周记</a>, <a class="tag-link" href="/tags/自省/">自省</a>
+				<a class="tag-link" href="/tags/Algorithm-Specialization/">Algorithm Specialization</a>
 			</span>
 		
     </div>
@@ -171,7 +171,7 @@
 							<!--
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/周记/">周记</a>, <a class="tag-link" href="/tags/自省/">自省</a>
+        <a class="tag-link" href="/tags/Algorithm-Specialization/">Algorithm Specialization</a>
     </div>
 -->
 						</div>
@@ -182,12 +182,12 @@
 							
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Jottings/">Jottings</a>
+        <a class="article-category-link" href="/categories/Techniques/">Techniques</a>
 		&nbsp;&nbsp;
 		
 			<span class="article-tag">
 				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/周记/">周记</a>, <a class="tag-link" href="/tags/自省/">自省</a>
+				<a class="tag-link" href="/tags/Algorithm-Specialization/">Algorithm Specialization</a>
 			</span>
 		
     </div>
@@ -207,27 +207,114 @@
 			
 				<br/>
 				 <blockquote style="font-size:120%;line-height:1.5em;color:#083a4e">
-					一周的流水线，只是记录，文笔很差。
+					Coursera上学习“Algorithm专项课程”的第一课程，主要涉及渐近表示法(大O表示法)，排序与搜索算法，分治算法(主项定理、整数与矩阵乘法、最近点对问题)，以及随机算法(快速排序、最小割集收缩算法)。这一篇是介绍Master method及其证明的笔记。
 				 </blockquote>
 			  
-            <h3 id="被各种杂事扰乱的工作日"><a href="#被各种杂事扰乱的工作日" class="headerlink" title="被各种杂事扰乱的工作日"></a>被各种杂事扰乱的工作日</h3><p>结束了上周五组会上的简陋survey，这周的工作日就不打算继续读新的paper了，给自己定了下面几个需要完成的目标：</p>
+            <p>这一章节的课程主要介绍Master method，一种通用的分析分治算法运行时间的数学工具，先给出motivation，再介绍形式化描述，接着讲解6个示例，最后讨论Master method的证明。</p>
+<h2 id="Motivation-动机"><a href="#Motivation-动机" class="headerlink" title="Motivation / 动机"></a>Motivation / 动机</h2><blockquote>
+<p>update：2017/12/18</p>
+</blockquote>
+<p>潜在有用的算法通常需要数学分析来评估其性能，回顾小学时期的整数相乘算法使用$\Theta(n^2)$的运行时间来计算两个n位整数的乘积$x\times y$。递归算法是将x分解为$x=10^{\frac{1}{2}n}a+b$，将y分解为$y=10^{\frac{1}{2}n}c+d$，则$x\times y = 10^nac+10^{\frac{1}{2}n}(ad+bc)+bd$。即递归计算$ac,ad,bc,bd$的乘积即可。令T(n)表示计算两个n位整数乘积过程中操作的数量，基线条件是$T(1)\leq $常数，对于$n\geq 1$，有$T(n)\leq 4T(\frac{1}{2}n)+O(n)$。此外，一个更好的递归算法是减少一次递归调用，只计算ac,bd与(a+b)(c+d)，而ad+bc=(a+b)(c+d)-ac-bd。这样，对于$n\geq1$，有$T(n)\leq3T(\frac{1}{2}n)+O(n)$。</p>
+<h2 id="Formal-statement-形式化叙述"><a href="#Formal-statement-形式化叙述" class="headerlink" title="Formal statement / 形式化叙述"></a>Formal statement / 形式化叙述</h2><blockquote>
+<p>update：2017/12/18</p>
+</blockquote>
+<p>这一节课程视频主要介绍Master method的形式化叙述，可以理解为解决递归问题的一个black box，有一个前提假设，即所有的子问题拥有相同的size。其形式化表述如下：</p>
+<ol>
+<li><p>首先是基线条件Base Case：当n足够小时，T(n)为常数</p>
+</li>
+<li><p>通常递归调用的情况下，对于较大的n，假设有$T(n)\leq a\cdot T(\frac{n}{b})+O(n^d)$，其中a、b、d都是常数，与n大小无关</p>
 <ul>
-<li style="list-style: none"><input type="checkbox" checked> 明珠这周讨论班要将讨论班，再读08年的CRB，把checkpoint的过程梳理一遍；</li>
-<li style="list-style: none"><input type="checkbox" checked> Demo文章初稿，和蒋程交涉好前端需要做的；</li>
-<li style="list-style: none"><input type="checkbox" checked> 关注NVMe；</li>
-<li style="list-style: none"><input type="checkbox" checked> 思考并设计survey的维度；</li>
-<li style="list-style: none"><input type="checkbox" checked> 开始学习Algorithm Specialization课程的学习</li>
+<li>a是递归调用的次数($\geq 1$)</li>
+<li>b是输入大小收缩系数($&gt; 1$)</li>
+<li>d是“合并阶段”运行时间的指数($\geq 0$)</li>
 </ul>
-<p>周一一早来老板便交代了要开始准备1月初的Demo投稿，因为这个工作的后端实现是和房叔一起做的，已经出了两篇paper了，前端明珠之前实现了一个相对简单的版本，所以论文写起来应该不费事，所以上午先搞了注册的事情。今年有点懵逼啊，按照Demo track给的submission链接注册好个人信息了之后发现没有任何提交paper信息的按钮？？？最后只在Research track板块里给的链接找到了能投稿的地方，占了一个坑。paper的名字也是随意起的。正式写之前先找了几篇已经发表的demo paper看了看，页数限制，就简单安排了一下论文框架。然后抽出了之前工作的关键技术，简要介绍了一番。画系统架构图废了点时间，虽然以前的图也能用，但是太Low了，还是要好好设计一下，毕竟中了的话还能去土澳浪一波~下午三四点的时候在大众点评上选中了两家轰趴馆，晚上约了欢欢去“实地考察”了一番，第一家新开的，环境很不错但是价格不低；第二家环境一般价格也不是很低。回来之后和实验室的小伙伴讨论了一下，大家觉得场地费平摊下来人均不低，所以当天晚上没有确定结果。</p>
-<p>周二早上6点半就起床了，因为天气预报说有太阳，于是洗漱之前把床单被单拿到楼下洗衣房洗，洗漱收拾好把被子和洗好的床被单拿出去晒。上午就继续写demo。中午回去发现晒被子的地方没有阳光了，所以就转移场地，拿到宿舍西边楼道的窗台上晒了。下午抽空继续商讨轰趴馆的选择。由于现在是黄金档，就近的几家价格都不便宜，大家因为价格原因不太愿意去，有的同学甚至建议直接组织出去唱歌然后举个餐就算了事了。但是毕竟有的人不喜欢唱歌啊，这样他们参与不进来，所以迟迟出不了结果。最后学姐让步了，她说她和小龙愿意承担1000块，算作是她毕业请吃饭。我把情况和大家说明了一下，可能是觉得学姐都让步到这个程度了，所以最终确定了还去轰趴。几个学弟还是很好说话的，他们本来也建议去轰趴，也不是很在乎钱的问题。轰趴馆就选的第一家，和店家确定之后交了五百押金，这事就算是安定了。晚饭期间去操场跑了三公里，快走了一公里。</p>
-<p>周三是最忙的一天了。早上化了妆出门，以为下午颁奖典礼需要上台。上午本来打算把CRB好好再看一遍的，老板一个消息发过来要帮她买一桶羽毛球。一开始以为大活那边有得卖，哪知道体育器材店没有开门。遇到一个保安大叔，他说校门那边的体育馆有得卖，我就急匆匆地跑过去，发现就剩几只了，没有成桶卖的。然后又跑到校外的联华超市，被告知又没有！最后只能寄希望于教育超市了，如果在没有只能让老板自己淘宝了。万幸，教超有得卖。买到手的时候内心mmp，为啥一开始不先去教超呢，明明离得最近……买完已经10点半了，迅速回宿舍补了妆，然后去河东食堂吃了午饭，就去停车场等校车去闵行路。颁奖典礼一直开到下午三点多，根本用不着我们上台，事先确定好了学生代表上台领奖。返程路上看完了行尸走肉这周新更，全程高度紧张，片尾又留悬念，看完更饿了。到了学校之后赶紧去全家买了一个鸡肉卷饼。晚饭之前迅速浏览了一遍CRB，弄清楚了一些基本概念，比如COW、WAL。晚上我们FToS小分队三人继续了这周的小讨论班，帮明珠解答了论文中看不懂的疑惑，我自己也顺带加深一遍理解。</p>
+<p>则有$ T(n)=\begin{cases}O(n^dlogn) &amp;a = b^d \ O(n^d) &amp; a &lt; b^d \\O(n^{log_ba}) &amp; a &gt; b^d  \end{cases}$</p>
+<p>需要注意的是，当$a=b^d$时，big-O里面的log基数省略没写，这是因为基数具体为哪个值并不重要，不同基数带来的变化是常量级别的；而当$a&gt;b^d$时，由于log是在指数的位置，所以基数是哪个值就很重要了，不能忽略。</p>
+</li>
+</ol>
+<h2 id="Examples-示例"><a href="#Examples-示例" class="headerlink" title="Examples / 示例"></a>Examples / 示例</h2><blockquote>
+<p>update：2017/12/18</p>
+</blockquote>
+<p>这一节课程主要是利用6个具体示例来说明Master method。</p>
+<h3 id="示例1：Merge-sort"><a href="#示例1：Merge-sort" class="headerlink" title="示例1：Merge sort"></a>示例1：Merge sort</h3><p>首先确定a、b、d的数值：</p>
+<ul>
+<li>a=2</li>
+<li>b=2</li>
+<li>d=1</li>
+</ul>
+<p>满足$a=b^d$，因此Merge sort的$T(n)=O(n^dlogn)=O(nlogn)$</p>
+<h3 id="示例2：有序数组的二分查找"><a href="#示例2：有序数组的二分查找" class="headerlink" title="示例2：有序数组的二分查找"></a>示例2：有序数组的二分查找</h3><p>首先确定a、b、d的数值：</p>
+<ul>
+<li>a=1</li>
+<li>b=2</li>
+<li>d=0</li>
+</ul>
+<p>和Merge sort不同，只需要将要查找的数与中间元素比较，如果小于中间元素，则递归调用左半部分，否则调用右半部分，所以a的值为1；递归之外的操作就是元素的比较，因此d的值为0。由于满足$a=b^d$，因此有序数组的二分查找的$T(n)=O(n^dlogn)=O(logn)$</p>
+<h3 id="示例3：整数相乘的递归算法I"><a href="#示例3：整数相乘的递归算法I" class="headerlink" title="示例3：整数相乘的递归算法I"></a>示例3：整数相乘的递归算法I</h3><p>首先确定a、b、d的数值：</p>
+<ul>
+<li>a=4</li>
+<li>b=2</li>
+<li>d=1</li>
+</ul>
+<p>整数相乘的基础递归算法总共有4次调用，所以a=4；每一次调用的整数位数是原来的一半，所以b=2；递归调用之外的加操作是线性的，所以d=1。由于满足$a&gt;b^d$，因此整数相乘的基础递归算法的$T(n)=O(n^log_ba)=O(n^2)$</p>
+<h3 id="示例4：整数相乘的递归算法II"><a href="#示例4：整数相乘的递归算法II" class="headerlink" title="示例4：整数相乘的递归算法II"></a>示例4：整数相乘的递归算法II</h3><p>首先确定a、b、d的数值：</p>
+<ul>
+<li>a=3</li>
+<li>b=2</li>
+<li>d=1</li>
+</ul>
+<p>整数相乘的改进递归算法总共有3次调用，所以a=3；每一次调用的整数位数是原来的一半，所以b=2；递归调用之外的加操作是线性的，所以d=1。由于满足$a&gt;b^d$，因此整数相乘的基础递归算法的$T(n)=O(n^log_ba)=O(n^{log_23})=O(n^{1.59})$</p>
+<h3 id="示例5：Strassen矩阵乘法"><a href="#示例5：Strassen矩阵乘法" class="headerlink" title="示例5：Strassen矩阵乘法"></a>示例5：Strassen矩阵乘法</h3><p>首先确定a、b、d的数值：</p>
+<ul>
+<li>a=7</li>
+<li>b=2</li>
+<li>d=2</li>
+</ul>
+<p>Strassen矩阵乘法是递归调用7次$P_1$~$P_7$加减操作，所以a=7；$P_1$~$P_7$子矩阵的规模是原始矩阵的一半，所以b=2；递归调用之外的加操作规模是子矩阵的大小，因此d=1。由于满足$a&gt;b^d$，因此整数相乘的基础递归算法的$T(n)=O(n^log_ba)=O(n^{log_27})=O(n^{2.81})$</p>
+<h3 id="示例6：Fictitious-recurrence-for-a-lt-b-d"><a href="#示例6：Fictitious-recurrence-for-a-lt-b-d" class="headerlink" title="示例6：Fictitious recurrence for $a&lt;b^d$"></a>示例6：Fictitious recurrence for $a&lt;b^d$</h3><p>假设a、b、d的数值：</p>
+<ul>
+<li>a=2</li>
+<li>b=2</li>
+<li>d=2</li>
+</ul>
+<p>由于满足$a&lt;b^d$，因此$T(n)=O(n^d)=O(n^2)$</p>
 <a id="more"></a>
-<p>周四也是不消停的一天。这天的原计划是把CRB没看完的看完，再关注一下NVMe，顺带复习一下存储技术的基础知识，于是把去年翁老师的课件翻出来又刷了一遍。中途想起来还没问教务老师，转博要提交的材料到底有哪些，邮件上也没说明。跑过去问清楚了，缺的材料不少，专家推荐信还缺一份，于是加了老金的微信，老金当天去北京出差了，晚上还抽时间帮我填好了材料，感动。这天上午男票还犯傻，想骗我说521，被我识破，这个小插曲我写在前一篇日记里了。晚上去参加了三位同学的转预备党员小会。</p>
-<p>周五上午继续学习NVMe。这天没什么特别的事情，下午讨论班也顺利进行了。除了将论文，李学长和老师还一起帮我梳理了后面利用NVMe可以考虑的研究点，跟李学长要了几篇文章，下周看看。晚上整理轰趴需要准备的食材、娱乐项目清单整理出来，在实验室群里说明了一下各项事宜。</p>
-<p>PS：每天早上来实验室刷完单词之后花四十分钟左右的时间学习算法课程，并整理笔记，笔记以及相关的学习资料我挂在github上了<a href="https://github.com/tankcat/algorithm-specialization-notes" target="_blank" rel="noopener">algorithm-specialization-notes</a>，看视频的时候也想锻炼自己的英语，所以放的是英文字幕，希望自己以后能脱离字幕看视频吧。除了这个，这周把饮食健身打卡也从豆瓣小组的帖子转移到github上了<a href="https://github.com/tankcat/diet-record" target="_blank" rel="noopener">diet-record</a>，因为这样本地编辑起来更加方便。</p>
-<h3 id="日程满满的周六周日"><a href="#日程满满的周六周日" class="headerlink" title="日程满满的周六周日"></a>日程满满的周六周日</h3><p>这次周六周日日程安排得满满当当：周六中午和原来313的两个学姐、一个学弟(欢欢、妍虹和高竹)一起去避风塘吃饭，周六晚上约了小慧去吃上周抽中的一家霸王餐；周日要组织实验室的小伙伴们一起去轰趴。</p>
-<p>周六早上晚起了一会儿，发现牛油果再放就要坏了，于是打奶昔的时候顺便给早来实验室的一个学弟也做了一杯。学习好算法视频，写好周报，收拾了一下就出门去环球港的避风塘占座了。记得三四年前和本科室友们第一次在南京马群吃避风塘的时候，觉得超级好吃，今天发现质量严重下降，点心太甜菜太咸，连云吞面的汤也是，烧鹅肉质一点也不新鲜。席间学弟学姐们讲了不少工作上的事情。饭后他们三人去Coco各自买了奶茶，后来转战到宝珠奶酪，我又买了一杯牛油果雪酿，这次喝得比较慢，看着它慢慢融化，喝到最后越来越美味~在宝珠奶酪待了很久，听学弟说互联网的加班很辛苦，最近这段时间他经常加班到晚上十一二点才回家，说工作了之后才发现，真的比在学校辛苦太多，在学校就算老师给了deadline，其实没有按时交出结果也不是大问题，但是工作上很不一样，没有人会设身处地地为你想，没有结果就等于没做。想想自己决定转博，也不乏逃避找工作这一因素。聊完之后就在环球港逛了逛衣服，中午让老妈资助了五百，去买了上周相中的那件粉色卫衣。因为中午吃得太饱，下午又喝了一大杯雪酿，晚饭就没吃，回宿舍锻炼了半小时的HIIT。洗完澡回到实验室把临时不去轰趴吃午饭的人记录一下，确定了周日早上去菜市场采购的人员和时间点。安排好所有事情之后又看了会算法视频。</p>
-<p>周日早上6点30起来，洗漱完撸了一个简易妆，然后就和采购小分队去买菜了。从枣阳路门出去，到光复西路左转，穿过强家角桥，发现了好多家崇明蔬菜市场，按照周五晚上定的食材清单采购完，就骑了单车去轰趴馆。由于时间还早，交接的人还没到，我们五个人就先在新客来大食堂坐了一会儿，给大家买了大肉包当早饭吃，后来直接在店里买了一些打包饭盒和一次性筷子。进了轰趴馆后，分配好洗菜任务，就继续和其中一个学弟去环球港买了点零食、主食和酱料。还买了一瓶牛奶，因为今天带了自己的电炖锅，给大家做了奶茶喝~陆陆续续人到了，中午就涮起火锅吃，16个人围着一个小吧台、两口锅还是有点挤的，不过吃得还算开心，口味还不错，嘿嘿，自夸一下。吃完大家就开始游戏了：有玩狼人杀的，有打桌球的，有打麻将的，有玩街机的，还有唱K的。这家KTV效果还是不错的，今天唱得很尽兴，哲神和韩易唱歌都超级厉害，周杰伦、陈奕迅的每首歌都唱的很6~很开心今天和哲神合唱了青峰和Ella的《你被写在我的歌里》，也很开心他们俩唱双截棍，我、小慧还有卷积在旁边附和，真心嗨爆了，可爱又迷人~再有就是后来祝翔加入，一起唱霍元甲~唱到一半累了，出去和鹏鑫打了两局桌球，平手~只要不让我设计那种可以反弹折射的角度打法，我还是可以的哈哈。晚上就把中午没吃掉的饺子煮了，由于锅不大，两大袋饺子足足分了四次才煮完。怕不够吃，还点了三个达美乐披萨，土豆味的一如既往地好吃~吃完饭又继续进去唱K，一直到最后，大家合影留念。这是我第一次主动组织大家聚会，我这个人吧喜欢简单，所以安排事情的时候就可能没有考虑很全面，反思一下，以后说话态度也要和善一点~总之，大家玩得还算尽兴，也辛苦起早陪我一起买菜得小慧、杨康、蒋程和汤路明，辛苦可人给大家拍照，也辛苦参与和支持的每一位小伙伴~</p>
+<h2 id="Proof-I-证明-I"><a href="#Proof-I-证明-I" class="headerlink" title="Proof I / 证明 I"></a>Proof I / 证明 I</h2><blockquote>
+<p>update：2017/12/18</p>
+</blockquote>
+<p>这一节课程主要是介绍Master method的证明。这个证明是概念性层面上的，理解Master method的三种case的概念性意义以及对于的recursion tree是有很大帮助的。如果理解了，就不用对Master method的三种case进行死记硬背。</p>
+<p>证明的前提假设如下：</p>
+<ol>
+<li>$T(1)\leq c$</li>
+<li>$T(n)\leq a\cdot T(\frac{n}{b})+c\cdot n^d$</li>
+<li>n是b的幂次方</li>
+</ol>
+<p>按照Merge sort讲解recursion tree的思路，在第j层，有$a^j$次方个子问题，且每个子问题的输入规模是$\frac{n}{b^j}$。层数j的取值范围是[0,1,…,$log_bn$]。分析第j层的总工作量为$\leq a^j\cdot c\cdot [\frac{n}{b^j}]^d=c\cdot n^d\cdot (\frac{a}{b^d})^j$，其中$(\frac{n}{b^j})^d$是第j层每个子问题的总工作量，对公式进行化简整理，使得与j相关、无关的变量分离。对所以层的工作量求和，即$\leq c\cdot n^d\cdot \sum_{j=0}^{log_bn}(\frac{a}{b^d})^j$。后续视频会讲解这个式子与Master method的三种case之间的关联。</p>
+<h2 id="Interpretation-of-the-3-cases-3种情况的演绎"><a href="#Interpretation-of-the-3-cases-3种情况的演绎" class="headerlink" title="Interpretation of the 3 cases / 3种情况的演绎"></a>Interpretation of the 3 cases / 3种情况的演绎</h2><blockquote>
+<p>update：2017/12/18</p>
+</blockquote>
+<p>上一节课程已经介绍了第j层的工作量上界是$c\cdot n^d\cdot(\frac{a}{b^d})^j$。令a为子问题增生的速率RSP，$b^d$是每个子问题工作量的收缩速率RWS，有下面三种结论：</p>
+<ol>
+<li>如果RSP&lt;RWS，则每一层工作量随着层数j而递减，recursion tree根节点处的工作量更多，起决定性作用，而根节点的输入规模是n，因此$T(n)=O(n^d)$</li>
+<li>如果RSP&gt;RWS，则每一层工作量随着层数j而递增，recursion tree叶子节点处的工作量更多，起决定性作用</li>
+<li>如果RSP=RWS，则每一层的工作量是相同的，而层数规模是$O(logn)$，每一层的工作量为$O(n^d)$，因此$T(n)=O(n^dlogn)$</li>
+</ol>
+<h2 id="Proof-II-证明-II"><a href="#Proof-II-证明-II" class="headerlink" title="Proof II / 证明 II"></a>Proof II / 证明 II</h2><blockquote>
+<p>update：2017/12/19</p>
+</blockquote>
+<p>前面的两节课程分别分析了recursion tree的工作量(放大聚焦于给定的第j层工作量，然后对所有层的工作量求和)，以及赋予它三种直观语义。这一节课程继续完成Master method的精确证明。</p>
+<p>首先回顾一下总工作量：$\leq c\cdot n^d\cdot \sum_{j=0}^{log_bn}(\frac{a}{b^d})^j \star$</p>
+<ol>
+<li><p>当$a=b^d$时，$\star=c\cdot n^d (log_bn+1)=O(n^dlogn)$</p>
+</li>
+<li><p>在讨论另外两种语义时，先回顾一下等比数列求和，当$r\neq1$时，我们有$1+r+r^2+…+r^k=\frac{r^{k+1}-1}{r-1}$。当$r<1$时，$r^{k+1}$趋近于0，因此和趋近于$\frac{1}{1-r}$是一个常数；当$r>1$时，和$\leq r^k(1+\frac{1}{r-1})$</1$时，$r^{k+1}$趋近于0，因此和趋近于$\frac{1}{1-r}$是一个常数；当$r></p>
+<ul>
+<li>当$a&lt;b^d$，即$r&lt;1$，则$\star=O(n^d)$</li>
+<li>当$a&gt;b^d$，即$r&gt;1$，则$\star=O(n^d\cdot(\frac{a}{b^d})^{log_bn})$，由于$b^{-dlog_bn}=(b^{log_bn})^-d=n^{-d}$，所以$\star=O(n^d\cdot a^{log_bn}\cdot n^{-d})$，而$a^{log_bn}$是recursion tree叶子节点的规模，且$a^{log_bn}=n^{log_ba}$(左右两边同时取对数logb)，所以$\star=O(n^log_ba)$</li>
+</ul>
+<p>​</p>
+</li>
+</ol>
 
 			
 			
@@ -236,13 +323,13 @@
 		
 		
 <div class="copyright">
-  <p><span>Title:</span><a href="/2017/12/10/diary1210/">十二月的第二周</a></p>
+  <p><span>Title:</span><a href="/2017/12/19/Course4/">Algorithm专项课程 IV The Master Method</a></p>
   <p><span>Author:</span><a href="/" title="visit Tankcat 's personal blog">Tankcat</a></p>
-  <p><span>Release Date:</span>2017-12-10  22:51</p>
-  <p><span>Update Date:</span>2017-12-12  19:18</p>
+  <p><span>Release Date:</span>2017-12-19  08:29</p>
+  <p><span>Update Date:</span>2017-12-19  08:32</p>
   <p>
-    <span>Original Link:</span><a href="/2017/12/10/diary1210/" title="十二月的第二周">http://tankcat2.com/2017/12/10/diary1210/</a>
-    <span class="btn" data-clipboard-text="Master Copy: http://tankcat2.com/2017/12/10/diary1210/　　Author: Tankcat" title="copy the article link">
+    <span>Original Link:</span><a href="/2017/12/19/Course4/" title="Algorithm专项课程 IV The Master Method">http://tankcat2.com/2017/12/19/Course4/</a>
+    <span class="btn" data-clipboard-text="Master Copy: http://tankcat2.com/2017/12/19/Course4/　　Author: Tankcat" title="copy the article link">
         <i class="fa fa-clipboard"></i>
     </span>
   </p>
@@ -338,7 +425,7 @@
 
 </div>
 
-    <a data-url="http://tankcat2.com/2017/12/10/diary1210/" data-id="cjbcwe0p7001724kxmvvmi0xt" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://tankcat2.com/2017/12/19/Course4/" data-id="cjbcwe0oo000c24kxigwv69ef" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -406,7 +493,7 @@
 
             
     
-        <a href="http://tankcat2.com/2017/12/10/diary1210/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://tankcat2.com/2017/12/10/diary1210/">Comments</a>
+        <a href="http://tankcat2.com/2017/12/19/Course4/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://tankcat2.com/2017/12/19/Course4/">Comments</a>
     
 
         </footer>
@@ -416,19 +503,10 @@
         
 <nav id="article-nav">
     
-        <a href="/2017/12/11/Course1/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Newer</strong>
-            <div class="article-nav-title">
-                
-                    Algorithm专项课程 I Introduction
-                
-            </div>
-        </a>
     
-    
-        <a href="/2017/12/03/diary1203/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2017/12/18/Course3/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">Older</strong>
-            <div class="article-nav-title">十二月的第一周</div>
+            <div class="article-nav-title">Algorithm专项课程 III Dive and Conquer Algorithms</div>
         </a>
     
 </nav>
@@ -452,7 +530,7 @@
 <script>
 
 var gitment = new Gitment({
-  id: 'http://tankcat2.com/2017/12/10/diary1210/',
+  id: 'http://tankcat2.com/2017/12/19/Course4/',
   owner: 'tankcat',
   repo: 'tankcat.github.io',
   oauth: {
@@ -529,7 +607,7 @@ gitment.render('comments')
 <script>
 
 var gitment = new Gitment({
-  id: 'http://tankcat2.com/2017/12/10/diary1210/',
+  id: 'http://tankcat2.com/2017/12/19/Course4/',
   owner: 'tankcat',
   repo: 'tankcat.github.io',
   oauth: {
