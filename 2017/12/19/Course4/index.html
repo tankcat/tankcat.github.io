@@ -228,7 +228,7 @@
 <li>b是输入大小收缩系数($&gt; 1$)</li>
 <li>d是“合并阶段”运行时间的指数($\geq 0$)</li>
 </ul>
-<p>则有$ T(n)=\begin{cases}O(n^dlogn) &amp;a = b^d \ O(n^d) &amp; a &lt; b^d \\O(n^{log_ba}) &amp; a &gt; b^d  \end{cases}$</p>
+<p>则有$ T(n)=\begin{cases}O(n^dlogn) &amp;a = b^d \ O(n^d) &amp; a &lt; b^d \\O(n^{log_ba}) &amp; a &gt; b^d  \end{cases}​$</p>
 <p>需要注意的是，当$a=b^d$时，big-O里面的log基数省略没写，这是因为基数具体为哪个值并不重要，不同基数带来的变化是常量级别的；而当$a&gt;b^d$时，由于log是在指数的位置，所以基数是哪个值就很重要了，不能忽略。</p>
 </li>
 </ol>
@@ -256,21 +256,21 @@
 <li>b=2</li>
 <li>d=1</li>
 </ul>
-<p>整数相乘的基础递归算法总共有4次调用，所以a=4；每一次调用的整数位数是原来的一半，所以b=2；递归调用之外的加操作是线性的，所以d=1。由于满足$a&gt;b^d$，因此整数相乘的基础递归算法的$T(n)=O(n^log_ba)=O(n^2)$</p>
+<p>整数相乘的基础递归算法总共有4次调用，所以a=4；每一次调用的整数位数是原来的一半，所以b=2；递归调用之外的加操作是线性的，所以d=1。由于满足$a&gt;b^d$，因此整数相乘的基础递归算法的$T(n)=O(n^{log_ba})=O(n^2)$</p>
 <h3 id="示例4：整数相乘的递归算法II"><a href="#示例4：整数相乘的递归算法II" class="headerlink" title="示例4：整数相乘的递归算法II"></a>示例4：整数相乘的递归算法II</h3><p>首先确定a、b、d的数值：</p>
 <ul>
 <li>a=3</li>
 <li>b=2</li>
 <li>d=1</li>
 </ul>
-<p>整数相乘的改进递归算法总共有3次调用，所以a=3；每一次调用的整数位数是原来的一半，所以b=2；递归调用之外的加操作是线性的，所以d=1。由于满足$a&gt;b^d$，因此整数相乘的基础递归算法的$T(n)=O(n^log_ba)=O(n^{log_23})=O(n^{1.59})$</p>
+<p>整数相乘的改进递归算法总共有3次调用，所以a=3；每一次调用的整数位数是原来的一半，所以b=2；递归调用之外的加操作是线性的，所以d=1。由于满足$a&gt;b^d$，因此整数相乘的基础递归算法的$T(n)=O(n^{log_ba})=O(n^{log_23})=O(n^{1.59})$</p>
 <h3 id="示例5：Strassen矩阵乘法"><a href="#示例5：Strassen矩阵乘法" class="headerlink" title="示例5：Strassen矩阵乘法"></a>示例5：Strassen矩阵乘法</h3><p>首先确定a、b、d的数值：</p>
 <ul>
 <li>a=7</li>
 <li>b=2</li>
 <li>d=2</li>
 </ul>
-<p>Strassen矩阵乘法是递归调用7次$P_1$~$P_7$加减操作，所以a=7；$P_1$~$P_7$子矩阵的规模是原始矩阵的一半，所以b=2；递归调用之外的加操作规模是子矩阵的大小，因此d=1。由于满足$a&gt;b^d$，因此整数相乘的基础递归算法的$T(n)=O(n^log_ba)=O(n^{log_27})=O(n^{2.81})$</p>
+<p>Strassen矩阵乘法是递归调用7次$P_1$~$P_7$加减操作，所以a=7；$P_1$~$P_7$子矩阵的规模是原始矩阵的一半，所以b=2；递归调用之外的加操作规模是子矩阵的大小，因此d=1。由于满足$a&gt;b^d$，因此整数相乘的基础递归算法的$T(n)=O(n^{log_ba})=O(n^{log_27})=O(n^{2.81})$</p>
 <h3 id="示例6：Fictitious-recurrence-for-a-lt-b-d"><a href="#示例6：Fictitious-recurrence-for-a-lt-b-d" class="headerlink" title="示例6：Fictitious recurrence for $a&lt;b^d$"></a>示例6：Fictitious recurrence for $a&lt;b^d$</h3><p>假设a、b、d的数值：</p>
 <ul>
 <li>a=2</li>
@@ -310,9 +310,8 @@
 <li><p>在讨论另外两种语义时，先回顾一下等比数列求和，当$r\neq1$时，我们有$1+r+r^2+…+r^k=\frac{r^{k+1}-1}{r-1}$。当$r<1$时，$r^{k+1}$趋近于0，因此和趋近于$\frac{1}{1-r}$是一个常数；当$r>1$时，和$\leq r^k(1+\frac{1}{r-1})$</1$时，$r^{k+1}$趋近于0，因此和趋近于$\frac{1}{1-r}$是一个常数；当$r></p>
 <ul>
 <li>当$a&lt;b^d$，即$r&lt;1$，则$\star=O(n^d)$</li>
-<li>当$a&gt;b^d$，即$r&gt;1$，则$\star=O(n^d\cdot(\frac{a}{b^d})^{log_bn})$，由于$b^{-dlog_bn}=(b^{log_bn})^-d=n^{-d}$，所以$\star=O(n^d\cdot a^{log_bn}\cdot n^{-d})$，而$a^{log_bn}$是recursion tree叶子节点的规模，且$a^{log_bn}=n^{log_ba}$(左右两边同时取对数logb)，所以$\star=O(n^log_ba)$</li>
+<li>当$a&gt;b^d$，即$r&gt;1$，则$\star=O(n^d\cdot(\frac{a}{b^d})^{log_bn})$，由于$b^{-dlog_bn}=(b^{log_bn})^-d=n^{-d}$，所以$\star=O(n^d\cdot a^{log_bn}\cdot n^{-d})$，而$a^{log_bn}$是recursion tree叶子节点的规模，且$a^{log_bn}=n^{log_ba}$(左右两边同时取对数logb)，所以$\star=O(n^{log_ba})$</li>
 </ul>
-<p>​</p>
 </li>
 </ol>
 
@@ -326,7 +325,7 @@
   <p><span>Title:</span><a href="/2017/12/19/Course4/">Algorithm专项课程 IV The Master Method</a></p>
   <p><span>Author:</span><a href="/" title="visit Tankcat 's personal blog">Tankcat</a></p>
   <p><span>Release Date:</span>2017-12-19  08:29</p>
-  <p><span>Update Date:</span>2017-12-19  08:32</p>
+  <p><span>Update Date:</span>2017-12-19  08:42</p>
   <p>
     <span>Original Link:</span><a href="/2017/12/19/Course4/" title="Algorithm专项课程 IV The Master Method">http://tankcat2.com/2017/12/19/Course4/</a>
     <span class="btn" data-clipboard-text="Master Copy: http://tankcat2.com/2017/12/19/Course4/　　Author: Tankcat" title="copy the article link">
@@ -425,7 +424,7 @@
 
 </div>
 
-    <a data-url="http://tankcat2.com/2017/12/19/Course4/" data-id="cjbcwe0oo000c24kxigwv69ef" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://tankcat2.com/2017/12/19/Course4/" data-id="cjbcwo2zm000hp0kxrbc4s9tg" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
