@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://tankcat2.com/"/>
-  <updated>2017-12-20T14:52:04.686Z</updated>
+  <updated>2017-12-22T14:11:13.187Z</updated>
   <id>http://tankcat2.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Algorithm Specialization I-VI Probability Review</title>
+    <link href="http://tankcat2.com/2017/12/22/Course1-VII/"/>
+    <id>http://tankcat2.com/2017/12/22/Course1-VII/</id>
+    <published>2017-12-22T14:10:00.000Z</published>
+    <updated>2017-12-22T14:11:13.187Z</updated>
+    
+    <content type="html"><![CDATA[<p>这一章节的课程分了两个视频，首先回顾了离散概率、样本空间、事件、随机变量、期望值的概念，其次主要介绍条件概率与独立事件。学习这些是为后续随机压缩算法的分析做准备。</p><h2 id="Sample-spaces-样本空间"><a href="#Sample-spaces-样本空间" class="headerlink" title="Sample spaces / 样本空间"></a>Sample spaces / 样本空间</h2><p>样本空间$\Omega$表示所有可能发生的结果，在算法设计中，$\Omega$通常是有限的。对于样本空间中的每一个结果i，其发生概率$p(i)\geq0$，且所有结果发生概率之和$\sum_{i\in\Omega}p(i)=1$。</p><p>样本空间举例：</p><ol><li>掷两个六面骰子，则$\Omega=\{(1,1),(1,2),…,(6,5),(6,6)\}$，共有36个结果</li><li>一次QuickSort调用中的pivot选择，$\Omega=\{1,2,…,n\},p(i)=\frac{1}{n}$</li></ol><h2 id="Events-事件"><a href="#Events-事件" class="headerlink" title="Events / 事件"></a>Events / 事件</h2><p>事件$E$表示一个样本空间的子集，即$E\in\Omega$，事件E发生的概率是其拥有所有结果的发生概率之和，即$P(E)=\sum_{i\in E}p(i)$。</p><p>事件举例：</p><ol><li><p>掷两个六面骰子，则点数之和为7的事件概率是多少？</p><p>枚举可知$E=\{(1,6),(6,1),(2,5),(5,2),(3,4),(4,3)\}$，则$P(E)=\frac{6}{36}=\frac{1}{6}$</p></li><li><p>一次QuickSort调用ChoosePivot，则将输入数组划分成比25-75更好的划分事件概率是多少？</p><p>可知E={第$(\frac{n}{4}+1)^{th}$小元素，…，第$(\frac{3n}{4})^{th}$小元素}，则$P(E)=\frac{1}{2}$</p></li></ol><h2 id="Random-Variables-随机变量"><a href="#Random-Variables-随机变量" class="headerlink" title="Random Variables / 随机变量"></a>Random Variables / 随机变量</h2><p>随机变量$X$是一个实数函数，即$X:\Omega\rightarrow R$</p><h2 id="Expectation-期望值"><a href="#Expectation-期望值" class="headerlink" title="Expectation / 期望值"></a>Expectation / 期望值</h2><p>期望就是随机变量$X$的平均值，使用$E(X)$表示，有$E(X)=\sum_{i\in\Omega}X(i)\cdot p(i)$</p><h2 id="Linearity-of-Expectation-线性期望"><a href="#Linearity-of-Expectation-线性期望" class="headerlink" title="Linearity of Expectation / 线性期望"></a>Linearity of Expectation / 线性期望</h2><p>令$X_1,X_2,…,X_n$是定义在样本空间$\Omega$上的一组随机变量，则有$E[\sum_{j=1}^{n}X_j]=\sum_{j=1}^{n}E[X_j]$。这里对随机变量没有要求，即它们未必是独立的，这个结论在任何情况下都成立。</p><p>线性期望举例：掷骰子，令$X_1$表示第一个骰子的点数，$X_2$表示第二个骰子的点数，则两个骰子的点数之和的期望$E(X_1+X_2)=E(X_1)+E(X_2)$,而$E(X_1)=E(X_2)=\frac{1}{6}\cdot(1+2+3+4+5+6)=3.5$，则$E(X_1+X_2)=7$</p><a id="more"></a><p>线性期望证明：$\sum_{j=1}^{n}E[X_j]=\sum_{j=1}^n\sum_{i\in\Omega}X_j(i)p(i)=\sum_{i\in\Omega}\sum_{j=1}^nX_j(i)p(i)=\sum_{i\in\Omega}p(i)\sum_{j=1}^{n}X_j(i)=E[\sum_{j=1}^nX_j]$，如下图所示，每个单元的求和就是结果，区别就在于$\sum_{j=1}^n\sum_{i\in\Omega}X_j(i)p(i)$是先求每列的值，再把每列的值相加；而$\sum_{i\in\Omega}\sum_{j=1}^nX_j(i)p(i)$是先求每行的值，再把每行的值相加。</p><p><img src="http://7xwggp.com1.z0.glb.clouddn.com/linearity_expectation.png" alt=""></p><h2 id="Load-balancing-负载均衡示例"><a href="#Load-balancing-负载均衡示例" class="headerlink" title="Load balancing / 负载均衡示例"></a>Load balancing / 负载均衡示例</h2><p>通过一个例子把前面所有的知识点串联起来。</p><p>场景：将n个进程分配到n个服务器上。</p><p>解决方案：将每个进程随机指派到一个服务器上。</p><p>问题：一个服务器被分配到进程数量的期望？</p><p>样本空间$\Omega$是所有$n^2$种分配可能情况，每一种发生的概率相同。</p><p>令$Y$为指派到第一台服务器上的进程的总数量，目标是求$E(Y)$。</p><p>令$X_j=\begin{cases}1 &amp; 如果第j个进程指派给该服务器\ 0&amp;其他情况\end{cases}$</p><p>则有$Y=\sum_{j=1}^nX_j$，利用线性期望可得$E(Y)=E(\sum_{j=1}^nX_j)=\sum_{j=1}^nE(X_j)=\sum_{j=1}^nP(X_j=0)\cdot 0+P(X_j=1)\cdot 1=\sum_{j=1}^n\frac{1}{n}=1$</p><h2 id="条件概率"><a href="#条件概率" class="headerlink" title="条件概率"></a>条件概率</h2><p>令$X,Y\in\Omega$为两个事件，它们的关系如下图所示，则在已知事件Y发生概率P(Y)的情况下，事件X的发生概率$P(X|Y)=\frac{P(X\cap Y)}{P(Y)}$。</p><p><img src="http://7xwggp.com1.z0.glb.clouddn.com/conditional_probability.png" alt=""></p><p>条件概率示例：掷两个六面骰子，在给定两个骰子点数之和为7的前提下，至少有一个骰子的点数为1的概率是多大？设事件E为“至少有一个骰子的点数为1”，事件Y为“两个骰子的点数之和为7”，则有$Y=\{(1,6),(6,1),(2,5),(5,2),(3,4),(4,3)\}$,$X\cap Y=\{(1,6),(6,1)\}$，因此$P(X|Y)=\frac{P(X\cap Y)}{P(Y)}=\frac{2/36}{6/36}=\frac{1}{3}$.</p><h2 id="独立与独立的随机变量"><a href="#独立与独立的随机变量" class="headerlink" title="独立与独立的随机变量"></a>独立与独立的随机变量</h2><p>令$X,Y\in\Omega$为两个事件，则当且仅当$P(X\cap Y)=P(X)\cdot P(Y)$时事件X与Y是相互独立的。相互独立这个概念是比较微妙的，有的时候你觉得两个事件是相互独立的，但是直觉未必是正确的！</p><p>随机变量的独立定义是：假设A和B是定义在样本空间$\Omega$上的两个随机变量，当且仅当对于所有$A=a$和$B=b$都有$P(A=a \cap B=b)=P(A=a)\cdot P(B=b)$时，A与B是相互独立的。关于相互独立的两个随机变量有一个结论，即$E(AB)=E(A)\cdot E(B)$，证明如下：</p><p>$E(AB)=\sum_{a,b}(a\cdot b)\cdot P(A=a \cap B=b)=\sum_{a,b}(a\cdot b)\cdot P(A=a)\cdot P(B=b)=(\sum_{a}a\cdot P(A=a))\cdot (\sum_{b}b\cdot P(B=b)=E(A)\cdot E(B)$.</p><p>独立的随机变量示例：令$X_1,X_2\in \{0,1\},X_3=X_1 xor X_2$,则样本空间$\Omega=\{000,101,011,110\}$，每一个发生结果等概率。则事件$X_1$与$X_3$显然是相互独立的随机变量，而$X_1\cdot X_3$与$X_2$不是，因为$E(X_1X_2X_3)=0$,而$E(X_1X_3)\cdot E(X_2)=E(X_1)\cdot E(X_3)\cdot E(X_2)=\frac{1}{8}$。</p>]]></content>
+    
+    <summary type="html">
+    
+      Coursera上学习“Algorithm专项课程”中的第一课程，主要涉及渐近表示法(大O表示法)，排序与搜索算法，分治算法(主项定理、整数与矩阵乘法、最近点对问题)，以及随机算法(快速排序、最小割集收缩算法)。这是Course I中回顾概率论知识点的笔记。
+    
+    </summary>
+    
+      <category term="Techniques" scheme="http://tankcat2.com/categories/Techniques/"/>
+    
+    
+      <category term="Algorithm Specialization" scheme="http://tankcat2.com/tags/Algorithm-Specialization/"/>
+    
+      <category term="Course I" scheme="http://tankcat2.com/tags/Course-I/"/>
+    
+  </entry>
   
   <entry>
     <title>Algorithm Specialization I-V QuickSort Algorithm</title>
@@ -552,99 +576,6 @@
     
     
       <category term="诗词" scheme="http://tankcat2.com/tags/%E8%AF%97%E8%AF%8D/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>聚类索引与非聚类索引</title>
-    <link href="http://tankcat2.com/2017/05/06/index/"/>
-    <id>http://tankcat2.com/2017/05/06/index/</id>
-    <published>2017-05-06T13:08:00.000Z</published>
-    <updated>2017-11-27T13:22:30.291Z</updated>
-    
-    <content type="html"><![CDATA[<p>索引，是对数据库表中一列或者多列的值进行排序的一种数据结构，以便于快速访问数据库表的特定信息.如果没有索引，则需要遍历整张表，直到定位到所需的信息为止.可见，索引是用来<strong>定位</strong>的，加快数据库的查询速度.</p><h2 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h2><p>索引可分为聚集索引与非聚集索引.下面就两者分别介绍.</p><h3 id="聚集索引"><a href="#聚集索引" class="headerlink" title="聚集索引"></a>聚集索引</h3><p>在聚集索引中，表中行的物理顺序与索引的顺序相同，且一张表只能包含一个聚集索引.聚集索引类似物电话簿，索引可以包含一个或者多个列，类似电话簿按照姓氏和名字进行组织一样.</p><p>聚集索引很适用于那些经常要搜索范围值的列。使用聚集索引找到包含第一个值的行后，便可以确保包含后续索引值的行在物理上相邻.比如，若应用程序执行的某个查询经常检索某一个日期范围的记录，使用聚集索引可以迅速找到包含开始日期的行，接着检索相邻的行，直到到达结束日期.这样有助于提高类似查询的性能.</p><p>索引是通过<a href="http://blog.jobbole.com/24006/" target="_blank" rel="noopener">二叉树</a>的数据结构来描述的，我们可以这么理解聚集索引：索引的叶子节点就是数据节点，如下图所示.</p><p><img src="http://7xwggp.com1.z0.glb.clouddn.com/cluster.JPG" alt=""></p><h3 id="非聚集索引"><a href="#非聚集索引" class="headerlink" title="非聚集索引"></a>非聚集索引</h3><p>非聚集索引的逻辑顺序与表中行的物理存储数据不同，数据结构中的叶节点仍然是索引节点，有一个指针指向对应的数据块，如下图所示.</p><p><img src="http://7xwggp.com1.z0.glb.clouddn.com/noncluster.JPG" alt=""></p><h2 id="两者的区别"><a href="#两者的区别" class="headerlink" title="两者的区别"></a>两者的区别</h2><p>实际上，可把索引理解为一种特殊的目录。下面举个例子来说明一下聚集索引与非聚集索引的区别.</p><p>我们的汉语字典的正文本身就是一个聚集索引。比如，我们要查“安”字，就会很自然地翻开字典的前几页，因为“安”的拼音是“an”，而按照拼音排序汉字的字典是以英文字母“a”开头并以“z”结尾的，那么“安”字就自然地排在字典的前部。如果翻完了所有以“a”开头的部分仍然找不到这个字，那么就说明您的字典中没有这个字；同样的，如果查“张”字，那也会将您的字典翻到最后部分，因为“张”的拼音是“zhang”。也就是说，<strong>字典的正文部分本身就是一个目录</strong>，您不需要再去查其他目录来找到您需要找的内容。我们<strong>把这种正文内容本身就是一种按照一定规则排列的目录称为“聚集索引”</strong>。</p><p>如果我们认识某个字，可以快速地从自动中查到这个字。但也可能会遇到不认识的字，不知道它的发音，这时候，就不能按照刚才的方法找到我们要查的字，而需要去根据“偏旁部首”查到要找的字，然后根据这个字后的页码直接翻到某页来找到您要找的字。但结合“部首目录”和“检字表”而查到的字的排序并不是真正的正文的排序方法，比如查“张”字，我们可以看到在查部首之后的检字表中“张”的页码是672页，检字表中“张”的上面是“驰”字，但页码却是63页，“张”的下面是“弩”字，页面是390页。很显然，这些字并不是真正的分别位于“张”字的上下方，现在看到的连续的“驰、张、弩”三字实际上就是他们在<strong>非聚集索引中的排序</strong>，<strong>是字典正文中的字在非聚集索引中的映射</strong>。我们可以通过这种方式来找到您所需要的字，但它需要两个过程，先找到目录中的结果，然后再翻到所需要的页码。我们<strong>把这种目录纯粹是目录，正文纯粹是正文的排序方式称为“非聚集索引”</strong>。</p><p>通过以上例子，我们可以理解到什么是“聚集索引”和“非聚集索引”。进一步引申一下，我们可以很容易的理解：每个表只能有一个聚集索引，因为目录只能按照一种方法进行排序。</p><h2 id="两种索引的应用场合"><a href="#两种索引的应用场合" class="headerlink" title="两种索引的应用场合"></a>两种索引的应用场合</h2><table><thead><tr><th>动作描述</th><th>聚集索引</th><th>非聚集索引</th></tr></thead><tbody><tr><td>经常对列进行分组排序</td><td>√</td><td>√</td></tr><tr><td>返回某个范围内的数据</td><td>√</td><td>×</td></tr><tr><td>一个或者极少不同的值</td><td>×</td><td>×</td></tr><tr><td>小数目的不同值</td><td>√</td><td>×</td></tr><tr><td>大数目的不同值</td><td>×</td><td>√</td></tr><tr><td>频繁更新的列</td><td>×</td><td>√</td></tr><tr><td>频繁更新索引列</td><td>×</td><td>√</td></tr><tr><td>外键列</td><td>√</td><td>√</td></tr><tr><td>主键列</td><td>√</td><td>√</td></tr><tr><td></td><td></td></tr></tbody></table><a id="more"></a>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;索引，是对数据库表中一列或者多列的值进行排序的一种数据结构，以便于快速访问数据库表的特定信息.如果没有索引，则需要遍历整张表，直到定位到所需的信息为止.可见，索引是用来&lt;strong&gt;定位&lt;/strong&gt;的，加快数据库的查询速度.&lt;/p&gt;
-&lt;h2 id=&quot;基本知识&quot;&gt;&lt;a href=&quot;#基本知识&quot; class=&quot;headerlink&quot; title=&quot;基本知识&quot;&gt;&lt;/a&gt;基本知识&lt;/h2&gt;&lt;p&gt;索引可分为聚集索引与非聚集索引.下面就两者分别介绍.&lt;/p&gt;
-&lt;h3 id=&quot;聚集索引&quot;&gt;&lt;a href=&quot;#聚集索引&quot; class=&quot;headerlink&quot; title=&quot;聚集索引&quot;&gt;&lt;/a&gt;聚集索引&lt;/h3&gt;&lt;p&gt;在聚集索引中，表中行的物理顺序与索引的顺序相同，且一张表只能包含一个聚集索引.聚集索引类似物电话簿，索引可以包含一个或者多个列，类似电话簿按照姓氏和名字进行组织一样.&lt;/p&gt;
-&lt;p&gt;聚集索引很适用于那些经常要搜索范围值的列。使用聚集索引找到包含第一个值的行后，便可以确保包含后续索引值的行在物理上相邻.比如，若应用程序执行的某个查询经常检索某一个日期范围的记录，使用聚集索引可以迅速找到包含开始日期的行，接着检索相邻的行，直到到达结束日期.这样有助于提高类似查询的性能.&lt;/p&gt;
-&lt;p&gt;索引是通过&lt;a href=&quot;http://blog.jobbole.com/24006/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;二叉树&lt;/a&gt;的数据结构来描述的，我们可以这么理解聚集索引：索引的叶子节点就是数据节点，如下图所示.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://7xwggp.com1.z0.glb.clouddn.com/cluster.JPG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;h3 id=&quot;非聚集索引&quot;&gt;&lt;a href=&quot;#非聚集索引&quot; class=&quot;headerlink&quot; title=&quot;非聚集索引&quot;&gt;&lt;/a&gt;非聚集索引&lt;/h3&gt;&lt;p&gt;非聚集索引的逻辑顺序与表中行的物理存储数据不同，数据结构中的叶节点仍然是索引节点，有一个指针指向对应的数据块，如下图所示.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://7xwggp.com1.z0.glb.clouddn.com/noncluster.JPG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;两者的区别&quot;&gt;&lt;a href=&quot;#两者的区别&quot; class=&quot;headerlink&quot; title=&quot;两者的区别&quot;&gt;&lt;/a&gt;两者的区别&lt;/h2&gt;&lt;p&gt;实际上，可把索引理解为一种特殊的目录。下面举个例子来说明一下聚集索引与非聚集索引的区别.&lt;/p&gt;
-&lt;p&gt;我们的汉语字典的正文本身就是一个聚集索引。比如，我们要查“安”字，就会很自然地翻开字典的前几页，因为“安”的拼音是“an”，而按照拼音排序汉字的字典是以英文字母“a”开头并以“z”结尾的，那么“安”字就自然地排在字典的前部。如果翻完了所有以“a”开头的部分仍然找不到这个字，那么就说明您的字典中没有这个字；同样的，如果查“张”字，那也会将您的字典翻到最后部分，因为“张”的拼音是“zhang”。也就是说，&lt;strong&gt;字典的正文部分本身就是一个目录&lt;/strong&gt;，您不需要再去查其他目录来找到您需要找的内容。我们&lt;strong&gt;把这种正文内容本身就是一种按照一定规则排列的目录称为“聚集索引”&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;如果我们认识某个字，可以快速地从自动中查到这个字。但也可能会遇到不认识的字，不知道它的发音，这时候，就不能按照刚才的方法找到我们要查的字，而需要去根据“偏旁部首”查到要找的字，然后根据这个字后的页码直接翻到某页来找到您要找的字。但结合“部首目录”和“检字表”而查到的字的排序并不是真正的正文的排序方法，比如查“张”字，我们可以看到在查部首之后的检字表中“张”的页码是672页，检字表中“张”的上面是“驰”字，但页码却是63页，“张”的下面是“弩”字，页面是390页。很显然，这些字并不是真正的分别位于“张”字的上下方，现在看到的连续的“驰、张、弩”三字实际上就是他们在&lt;strong&gt;非聚集索引中的排序&lt;/strong&gt;，&lt;strong&gt;是字典正文中的字在非聚集索引中的映射&lt;/strong&gt;。我们可以通过这种方式来找到您所需要的字，但它需要两个过程，先找到目录中的结果，然后再翻到所需要的页码。我们&lt;strong&gt;把这种目录纯粹是目录，正文纯粹是正文的排序方式称为“非聚集索引”&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;通过以上例子，我们可以理解到什么是“聚集索引”和“非聚集索引”。进一步引申一下，我们可以很容易的理解：每个表只能有一个聚集索引，因为目录只能按照一种方法进行排序。&lt;/p&gt;
-&lt;h2 id=&quot;两种索引的应用场合&quot;&gt;&lt;a href=&quot;#两种索引的应用场合&quot; class=&quot;headerlink&quot; title=&quot;两种索引的应用场合&quot;&gt;&lt;/a&gt;两种索引的应用场合&lt;/h2&gt;&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;动作描述&lt;/th&gt;
-&lt;th&gt;聚集索引&lt;/th&gt;
-&lt;th&gt;非聚集索引&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;经常对列进行分组排序&lt;/td&gt;
-&lt;td&gt;√&lt;/td&gt;
-&lt;td&gt;√&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;返回某个范围内的数据&lt;/td&gt;
-&lt;td&gt;√&lt;/td&gt;
-&lt;td&gt;×&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;一个或者极少不同的值&lt;/td&gt;
-&lt;td&gt;×&lt;/td&gt;
-&lt;td&gt;×&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;小数目的不同值&lt;/td&gt;
-&lt;td&gt;√&lt;/td&gt;
-&lt;td&gt;×&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;大数目的不同值&lt;/td&gt;
-&lt;td&gt;×&lt;/td&gt;
-&lt;td&gt;√&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;频繁更新的列&lt;/td&gt;
-&lt;td&gt;×&lt;/td&gt;
-&lt;td&gt;√&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;频繁更新索引列&lt;/td&gt;
-&lt;td&gt;×&lt;/td&gt;
-&lt;td&gt;√&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;外键列&lt;/td&gt;
-&lt;td&gt;√&lt;/td&gt;
-&lt;td&gt;√&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;主键列&lt;/td&gt;
-&lt;td&gt;√&lt;/td&gt;
-&lt;td&gt;√&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-    
-    </summary>
-    
-      <category term="Techniques" scheme="http://tankcat2.com/categories/Techniques/"/>
-    
-    
-      <category term="索引" scheme="http://tankcat2.com/tags/%E7%B4%A2%E5%BC%95/"/>
     
   </entry>
   

@@ -125,6 +125,80 @@
 			</aside>
 			
 					<section id="main">
+    <article id="post-storm_ui" class="article article-type-post" itemscope itemprop="blogPost">
+    
+	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
+        
+        
+            <header class="article-header">
+				
+					<center>
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/05/22/storm_ui/">Storm UI详解</a>
+        </h1>
+    
+
+					 
+						<div class="article-meta">
+							
+    <div class="article-date">    
+        <a href="/2017/05/22/storm_ui/">
+            <time datetime="2017-05-22T08:32:31.000Z" itemprop="datePublished">2017-05-22</time>
+        </a>
+    </div>
+
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Techniques/">Techniques</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/Storm/">Storm</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Storm/">Storm</a>
+    </div>
+-->
+						</div>
+					
+					
+					
+					</center>
+				
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><p><img src="http://7xwggp.com1.z0.glb.clouddn.com/storm_ui_config_summary.png" alt=""></p></p>
+            <p class="article-more-link">
+               <a href="/2017/05/22/storm_ui/#more">Read More</a>
+				
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Storm/">Storm</a>
+    </div>
+
+            </p>
+        
+        </div>
+		
+    </div>
+    
+</article>
+
+
+
+
+
     <article id="post-KafkaSpout" class="article article-type-post" itemscope itemprop="blogPost">
     
 	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
@@ -479,151 +553,6 @@
     <div class="article-tag">
         <i class="fa fa-tag"></i>
         <a class="tag-link" href="/tags/诗词/">诗词</a>
-    </div>
-
-            </p>
-        
-        </div>
-		
-    </div>
-    
-</article>
-
-
-
-
-
-    <article id="post-index" class="article article-type-post" itemscope itemprop="blogPost">
-    
-	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
-        
-        
-            <header class="article-header">
-				
-					<center>
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2017/05/06/index/">聚类索引与非聚类索引</a>
-        </h1>
-    
-
-					 
-						<div class="article-meta">
-							
-    <div class="article-date">    
-        <a href="/2017/05/06/index/">
-            <time datetime="2017-05-06T13:08:00.000Z" itemprop="datePublished">2017-05-06</time>
-        </a>
-    </div>
-
-							<!--
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Techniques/">Techniques</a>
-		&nbsp;&nbsp;
-		
-			<span class="article-tag">
-				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/索引/">索引</a>
-			</span>
-		
-    </div>
--->
-							<!--
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/索引/">索引</a>
-    </div>
--->
-						</div>
-					
-					
-					
-					</center>
-				
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            <p><p>索引，是对数据库表中一列或者多列的值进行排序的一种数据结构，以便于快速访问数据库表的特定信息.如果没有索引，则需要遍历整张表，直到定位到所需的信息为止.可见，索引是用来<strong>定位</strong>的，加快数据库的查询速度.</p>
-<h2 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h2><p>索引可分为聚集索引与非聚集索引.下面就两者分别介绍.</p>
-<h3 id="聚集索引"><a href="#聚集索引" class="headerlink" title="聚集索引"></a>聚集索引</h3><p>在聚集索引中，表中行的物理顺序与索引的顺序相同，且一张表只能包含一个聚集索引.聚集索引类似物电话簿，索引可以包含一个或者多个列，类似电话簿按照姓氏和名字进行组织一样.</p>
-<p>聚集索引很适用于那些经常要搜索范围值的列。使用聚集索引找到包含第一个值的行后，便可以确保包含后续索引值的行在物理上相邻.比如，若应用程序执行的某个查询经常检索某一个日期范围的记录，使用聚集索引可以迅速找到包含开始日期的行，接着检索相邻的行，直到到达结束日期.这样有助于提高类似查询的性能.</p>
-<p>索引是通过<a href="http://blog.jobbole.com/24006/" target="_blank" rel="noopener">二叉树</a>的数据结构来描述的，我们可以这么理解聚集索引：索引的叶子节点就是数据节点，如下图所示.</p>
-<p><img src="http://7xwggp.com1.z0.glb.clouddn.com/cluster.JPG" alt=""></p>
-<h3 id="非聚集索引"><a href="#非聚集索引" class="headerlink" title="非聚集索引"></a>非聚集索引</h3><p>非聚集索引的逻辑顺序与表中行的物理存储数据不同，数据结构中的叶节点仍然是索引节点，有一个指针指向对应的数据块，如下图所示.</p>
-<p><img src="http://7xwggp.com1.z0.glb.clouddn.com/noncluster.JPG" alt=""></p>
-<h2 id="两者的区别"><a href="#两者的区别" class="headerlink" title="两者的区别"></a>两者的区别</h2><p>实际上，可把索引理解为一种特殊的目录。下面举个例子来说明一下聚集索引与非聚集索引的区别.</p>
-<p>我们的汉语字典的正文本身就是一个聚集索引。比如，我们要查“安”字，就会很自然地翻开字典的前几页，因为“安”的拼音是“an”，而按照拼音排序汉字的字典是以英文字母“a”开头并以“z”结尾的，那么“安”字就自然地排在字典的前部。如果翻完了所有以“a”开头的部分仍然找不到这个字，那么就说明您的字典中没有这个字；同样的，如果查“张”字，那也会将您的字典翻到最后部分，因为“张”的拼音是“zhang”。也就是说，<strong>字典的正文部分本身就是一个目录</strong>，您不需要再去查其他目录来找到您需要找的内容。我们<strong>把这种正文内容本身就是一种按照一定规则排列的目录称为“聚集索引”</strong>。</p>
-<p>如果我们认识某个字，可以快速地从自动中查到这个字。但也可能会遇到不认识的字，不知道它的发音，这时候，就不能按照刚才的方法找到我们要查的字，而需要去根据“偏旁部首”查到要找的字，然后根据这个字后的页码直接翻到某页来找到您要找的字。但结合“部首目录”和“检字表”而查到的字的排序并不是真正的正文的排序方法，比如查“张”字，我们可以看到在查部首之后的检字表中“张”的页码是672页，检字表中“张”的上面是“驰”字，但页码却是63页，“张”的下面是“弩”字，页面是390页。很显然，这些字并不是真正的分别位于“张”字的上下方，现在看到的连续的“驰、张、弩”三字实际上就是他们在<strong>非聚集索引中的排序</strong>，<strong>是字典正文中的字在非聚集索引中的映射</strong>。我们可以通过这种方式来找到您所需要的字，但它需要两个过程，先找到目录中的结果，然后再翻到所需要的页码。我们<strong>把这种目录纯粹是目录，正文纯粹是正文的排序方式称为“非聚集索引”</strong>。</p>
-<p>通过以上例子，我们可以理解到什么是“聚集索引”和“非聚集索引”。进一步引申一下，我们可以很容易的理解：每个表只能有一个聚集索引，因为目录只能按照一种方法进行排序。</p>
-<h2 id="两种索引的应用场合"><a href="#两种索引的应用场合" class="headerlink" title="两种索引的应用场合"></a>两种索引的应用场合</h2><table>
-<thead>
-<tr>
-<th>动作描述</th>
-<th>聚集索引</th>
-<th>非聚集索引</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>经常对列进行分组排序</td>
-<td>√</td>
-<td>√</td>
-</tr>
-<tr>
-<td>返回某个范围内的数据</td>
-<td>√</td>
-<td>×</td>
-</tr>
-<tr>
-<td>一个或者极少不同的值</td>
-<td>×</td>
-<td>×</td>
-</tr>
-<tr>
-<td>小数目的不同值</td>
-<td>√</td>
-<td>×</td>
-</tr>
-<tr>
-<td>大数目的不同值</td>
-<td>×</td>
-<td>√</td>
-</tr>
-<tr>
-<td>频繁更新的列</td>
-<td>×</td>
-<td>√</td>
-</tr>
-<tr>
-<td>频繁更新索引列</td>
-<td>×</td>
-<td>√</td>
-</tr>
-<tr>
-<td>外键列</td>
-<td>√</td>
-<td>√</td>
-</tr>
-<tr>
-<td>主键列</td>
-<td>√</td>
-<td>√</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table></p>
-            <p class="article-more-link">
-               <a href="/2017/05/06/index/#more">Read More</a>
-				
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/索引/">索引</a>
     </div>
 
             </p>

@@ -125,6 +125,104 @@
 			</aside>
 			
 					<section id="main">
+    <article id="post-sssj" class="article article-type-post" itemscope itemprop="blogPost">
+    
+	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
+        
+            
+	
+		<a href="/2016/08/23/sssj/" itemprop="url">
+            <img src="http://7xwggp.com1.z0.glb.clouddn.com/005yXe3qgw1f4tv3vh6eyj30zk0grjtj.jpg" class="article-banner" />
+        </a>
+	
+
+
+
+        
+        
+            <header class="article-header">
+				
+					<center>
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2016/08/23/sssj/">Streaming Similarity Self-Join</a>
+        </h1>
+    
+
+					 
+						<div class="article-meta">
+							
+    <div class="article-date">    
+        <a href="/2016/08/23/sssj/">
+            <time datetime="2016-08-23T05:45:31.000Z" itemprop="datePublished">2016-08-23</time>
+        </a>
+    </div>
+
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Papers/">Papers</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/Stream/">Stream</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Stream/">Stream</a>
+    </div>
+-->
+						</div>
+					
+					
+					
+					</center>
+				
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><p><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script></p>
+<h1 id="Abstract-摘要"><a href="#Abstract-摘要" class="headerlink" title="Abstract 摘要"></a>Abstract 摘要</h1><p>在数据流环境下，系统处理的数据是源源不断流进的数据项。本文研究的问题是，数据流相似性的连接处理(SSSJ)，即在数据流中找出所有的两两数据项对，它们的相似度超过一个给定的阈值。解决这个问题最简单的构想是能拥有无限大的内存空间，但目前来讲，这是不能获得的。因此为了解决这个问题，本文提出了一个概念，<code>时间依赖的相似性</code>，两个数据项到达的时间间隔越大，它们的相似度越低。<br>在此概念的基础上，本文设计两种算法框架：① 微批次处理(MiniBatch,简称MB)，使用目前已有的基于索引的过滤技术；② 流处理(Streaming,简称STR),在索引的基础上增加时间过滤，并在算法中集成一种新的基于时间的边界处理。除此之外，本文基于L2AP的索引设计一种新的适用于数据流环境的索引算法，即L2。</p>
+<h1 id="Introduction-介绍"><a href="#Introduction-介绍" class="headerlink" title="Introduction 介绍"></a>Introduction 介绍</h1><p>在数据库和数据挖掘领域，相关性自连接处理被广泛研究，其应用场景较为广泛，包括剽窃检测、查询优化、协同过滤、重复网页的检测与去除等。若使用暴力解法，其复杂度是\(O(n^2)\)。在现实应用中，数据项常以高维稀疏向量的形式呈现，那么相似度的计算即为余弦相似值的计算。为了方便处理，可以将向量归一化，则进一步将问题转换为两个向量的点积。目前解决相似度自连接的算法主要依赖于基于倒排索引的删减技术以及一些数值界限。<br>计算相似度自连接，不仅适用于静态的数据集，在数据流领域也同样适用。这里举例两个现实应用，在数据流环境下进行相似度自连接处理。</p>
+<ul>
+<li>趋势监测。社交平台，譬如Twitter，趋势监测算法识别频率陡增的主题标签。更细粒度的趋势监测算法也会识别微博集合。这些集合中的数据项出现的频率增加，并且同时出现某些相同的标签。对于该趋势监测算法，在数据流环境下找出相似的微博十分重要。</li>
+<li>近似重复项过滤。同样，在社交平台，譬如Twitter，当某个事件发生时，用户们可能会接收到与该事件相关的近似重复的多条微博。这些微博通常连续地出现。因此，将这些近似重复的微博进行过滤或者分组有利于提高用户体验。</li>
+</ul>
+<p>但问题是，关于数据流环境下的相似度自连接处理的研究并不多。这是由于缺乏无限内存：不能将先到来数据项随意删除，因为该数据项可能与未来到的数据项相似。<br>本文引入一个时间因子来解决内存问题。我们设定，只有在到达的时间间隔在指定范围内，两个数据项才有可能相似。我们定义时间依赖的相似性：基于内容的点积与时间因子的乘积，该时间因子会随着时间间隔的增加呈现指数级减小。由于时间因子的存在，当某些数据项的到达时间超出一定范围，我们可以将这些数据项删除。下图表达了这个idea。<br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20160823155752.png" alt="时序图"> </div></p>
+<p>如上图所示，标记有时间戳的文档以数据流的形式源源不断到达。时间轴上方的文档包含相似的内容，标记为红色。在所有两两相似的文档对中，我们只关心到达时间相近的文档对。因此，图中所有的4-选-2的文档对里，只有两对文档被选中(用蓝色箭头标记)。<br>与已有的相似性自连接处理算法类似，本文的算法也依赖于索引技术。已有的算法使用不同类型的<code>索引过滤</code>，以减少通过索引返回的潜在配对项数量。按照这种语义，我们定义<code>时间过滤</code>来，与时间依赖的相似性进行关联，以便将旧的索引项从索引列表中删除。<br>本文提出了两种算法框架来解决数据流的相似性自连接处理，均依赖于时间过滤。MB框架使用现成的索引技术，在运行过程中以流水线的方式创建两个索引，随着时间的推移丢弃旧索引。STR框架对现有的索引技术进行调整，将时间过滤的因素内嵌到其中。此外，本文结合已有的索引技术AP和L2AP，设计了一种可处理流式数据的索引算法L2,它存在以下四点优势：</p>
+<ol>
+<li>有效减少潜在相似数据项的配对数量；</li>
+<li>不需要收集数据流的统计信息；</li>
+<li>使用轻量级的索引维持；</li>
+<li>当数据项变“旧”时，可以迅速丢弃。</li>
+</ol></p>
+            <p class="article-more-link">
+               <a href="/2016/08/23/sssj/#more">Read More</a>
+				
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Stream/">Stream</a>
+    </div>
+
+            </p>
+        
+        </div>
+		
+    </div>
+    
+</article>
+
+
+
+
+
     <article id="post-lein" class="article article-type-post" itemscope itemprop="blogPost">
     
 	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">

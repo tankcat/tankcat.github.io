@@ -125,6 +125,177 @@
 			</aside>
 			
 					<section id="main">
+    <article id="post-Robust and Skew-resistant Parallel Joins in Shared-Nothing Systems" class="article article-type-post" itemscope itemprop="blogPost">
+    
+	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
+        
+        
+            <header class="article-header">
+				
+					<center>
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/01/17/Robust and Skew-resistant Parallel Joins in Shared-Nothing Systems/">Robust and Skew-resistant Parallel Joins in Shared-Nothing Systems</a>
+        </h1>
+    
+
+					 
+						<div class="article-meta">
+							
+    <div class="article-date">    
+        <a href="/2017/01/17/Robust and Skew-resistant Parallel Joins in Shared-Nothing Systems/">
+            <time datetime="2017-01-17T05:11:31.000Z" itemprop="datePublished">2017-01-17</time>
+        </a>
+    </div>
+
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Papers/">Papers</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/Join/">Join</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Join/">Join</a>
+    </div>
+-->
+						</div>
+					
+					
+					
+					</center>
+				
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><h2 id="并行连接处理的两种基本框架"><a href="#并行连接处理的两种基本框架" class="headerlink" title="并行连接处理的两种基本框架"></a>并行连接处理的两种基本框架</h2><ul>
+<li><p><strong>hash-based</strong> 基于哈希，如下图所示，分为四个步骤：</p>
+<ol>
+<li>partition划分，将原先每个节点上存储的$R_i$和$S_i$按照连接属性键的哈希值进行划分，比如图中，将第一个节点(大的实线矩形)中的$R_1$和$S_1$分别划分为k个子集；</li>
+<li>distribution分发，根据连接属性键的哈希值，将上面的子集分发到另外一个空闲节点上，比如图中，将每个节点中的第k个子集$R_{ik}$ 和 $S_{ik}$ 同时分发到一个空闲节点上，那么这个空闲节点存储的数据为$R_k=\bigcup_{i=1}^{n}R_{ik}$,$S_k=\bigcup_{i=1}^{n}S_{ik}$;</li>
+<li>build构建，在空闲节点中，对数据集$R_k$进行扫描，并对它构建一个存储在内存中的哈希表；</li>
+<li>prob检测，在空闲节点中，对数据集$S_k$进行遍历，判断每一条数据的键值是否存在于上面构建的哈希表中，并输出连接结果.</li>
+</ol>
+<p><img src="http://7xwggp.com1.z0.glb.clouddn.com/hash-based.png" alt="hash-based"></p>
+</li>
+<li><p><strong>duplication-based</strong> 基于副本，如下图所示，分为三个步骤：</p>
+<ol>
+<li>duplication复制，针对每个节点，将其中存储的数据集$R_i$广播到其他所有并行节点上(不是空余节点)，这样在广播操作结束后，所有节点上的数据集$R_k=\bigcup_{i=1}^{n}R_i=R$即为全集R；</li>
+<li>build构建，构建哈希表，与hash-based相似；</li>
+<li>prob检测，遍历另外一个数据集，输出连接结果，与hash-based相似.</li>
+</ol>
+</li>
+</ul>
+<p><img src="http://7xwggp.com1.z0.glb.clouddn.com/duplicated-based.png" alt="duplicated-based"></p>
+<h2 id="PRPD连接算法"><a href="#PRPD连接算法" class="headerlink" title="PRPD连接算法"></a>PRPD连接算法</h2><ol>
+<li><p>PRPD定义：partial redistribution &amp; partition duplication，即将hash-based和duplication-based相结合.</p>
+</li>
+<li><p>处理流程，如下图所示：处理数据集R和S的连接，假设R是均匀分布，S是倾斜分布. 将每个节点中存储的S划分为两部分，$S_{loc}$是倾斜数据子集，$S_{redis}$是剩余的非倾斜数据子集.前者保留才原节点中不动，后者需要根据连接键值重新分发到一个空余节点中，类似与hash-based中的distribution操作. 同样，将每个节点中存储的R划分为两部分，$R_{dup}$是与$S_{loc}$连接键值相同的数据子集，$R_{redis}$是剩余的数据子集. 前者需要广播到其余所有的原节点中，类似于duplication-based中的duplication操作，后者需要根据连接键值重新分发到空余节点中，按照hash-based的最后两步，与$S_{redis}$进行连接.</p>
+<p><img src="http://7xwggp.com1.z0.glb.clouddn.com/PRPD.jpg" alt="PRPD"></p>
+</li>
+<li><p>存在的问题：</p>
+<ul>
+<li>global skew，涉及到的对数据集S和R的划分需要预先获取每个节点上的倾斜键值的分布；</li>
+<li>broadcasting，数据子集R的广播操作对网络负载施压，并且广播量将随着节点数量的增加而增加.</li>
+</ul>
+</li>
+</ol>
+<h2 id="本文提出算法"><a href="#本文提出算法" class="headerlink" title="本文提出算法"></a>本文提出算法</h2><p>PRPQ是基于两个可有效处理数据倾斜的分布式连接算法，semijoin-based和query-based. 基于这两者，提出改进.</p>
+<h3 id="Semijoin-based-连接"><a href="#Semijoin-based-连接" class="headerlink" title="Semijoin-based 连接"></a>Semijoin-based 连接</h3><ol>
+<li><p>semi-join的定义：半连接，从一个表中返回的行与另一个表中数据进行<strong>不完全</strong>连接查询，即查找到匹配的数据行就返回，不再继续查找.</p>
+</li>
+<li><p>semijoin-based连接，如下图所示. 数据集R和S在各自的属性a和b上做连接操作，分为以下四步骤：</p>
+<ol>
+<li>类似于hash-based中的第1,2两步，将各个节点中的数据集$R_i$按照连接属性的哈希值进行切分，再将元组分发到各自对应的空闲计算节点中(图中的红色虚线);</li>
+<li>对各个节点中的数据集$S_i$在属性b上做投影操作得到$\pi_b(S_i)$，根据哈希值将这些属性b的unique key分发到计算节点中；</li>
+<li>每个计算节点k收到数据集S的key 子集$\pi_b(S_{ik})$，和数据集R的子集$R_k=\bigcup_{i=1}^nR_{ik}$，对这两个子集做连接操作，将能连接上的R元组回发到各自的原节点i上(图中的③号线)；</li>
+<li>各个原节点接收到retrieval返回的R集元组，与本地存储的S集元组做最后实际的连接操作，输出结果.</li>
+</ol>
+<p><img src="http://7xwggp.com1.z0.glb.clouddn.com/semijoin.png" alt="semijoin"></p>
+</li>
+<li><p>特点：</p>
+<ul>
+<li>由于<strong>投影</strong>操作，S数据集只考虑unique key，而不考虑key的粒度，因此可以<strong>解决数据倾斜</strong>；</li>
+<li>第2和第3步骤，只传输key和能连接上的元组，因此<strong>减轻了网络传输代价</strong>.</li>
+<li>对于高选择性的连接，第2步和第3步中，S集的key和retrieval的R集元组交叠的数据量较大，仍然可能带来很大的网络通信量.</li>
+</ul>
+</li>
+</ol>
+<h3 id="Query-based-连接"><a href="#Query-based-连接" class="headerlink" title="Query-based 连接"></a>Query-based 连接</h3><ol>
+<li><p>根据semijoin-based的第三个特点(存在的问题)，对第3和第4步进行改进，则有query-based连接算法.改进如下：</p>
+<ol>
+<li>若存在连接上的key和R集元组，则只返回value，而不是整个元组；若没有数据能连接上，则返回值为null的value；</li>
+<li>返回的value和本地的S数据集做最后的实际连接操作，输出连接结果.</li>
+</ol>
+</li>
+<li><p>特点：</p>
+<ul>
+<li>对于高选择性的连接处理，优势大，减轻网络通信负载；</li>
+<li>对于低选择性的连接处理，存在问题，对于第3步没有能连接上的key，需要给返回的value赋值为null，以保证<key,value>的序列以便最后的连接处理，因此可能降低处理速度.</key,value></li>
+</ul>
+</li>
+<li><p>折中综合：通过一个<strong>计数器</strong>来统计第3步骤中null出现的比例，从而动态地选择适合的方法，即当null比例较低时，使用query-based，否则使用semijoin-based.</p>
+<h3 id="性能问题"><a href="#性能问题" class="headerlink" title="性能问题"></a>性能问题</h3><p>本文比较推崇直接在内存中进行连接计算，而不使用基于磁盘的计算框架比如MapReduce. 因此网络通信成本至关重要.当处理大规模的连接操作，上述两种方法都可能遭遇无法接受的网络通信负荷.</p>
+<h3 id="PRPQ连接算法"><a href="#PRPQ连接算法" class="headerlink" title="PRPQ连接算法"></a>PRPQ连接算法</h3><ol>
+<li><p>PRPQ定义：partial redistribution &amp; partial query，将hash-based和query-based相结合，如下图所示，分为四步骤：</p>
+<ol>
+<li><p>R distribution，与hash-based类似，将各个节点i上存储的数据集$R_i$根据连接属性a的哈希值，重新分发到一个空余计算节点上(图中红色虚线①)；</p>
+</li>
+<li><p>Push query keys，将各个节点i上存储的数据集$S_i$划分为两部分，低数据倾斜部分$S_i^{‘}$和高数据倾斜部分$h_i$. 根据连接属性b的哈希值，同时将$S_i^{‘}$的元组和$h_i$的投影unique key集合$\pi_b(h)$重新分发到对应的计算节点上(图中紫色虚线②)；</p>
+</li>
+<li>Return queried values，在每个计算节点k上，与hash-based的第3步类似，对集合$R_k=\bigcup_{i=1}^{n}R_{ik}$建立哈希表，(1). 对接收到的集合$\bigcup_{i=1}^{n}S_{ik}^{’}$进行遍历，并查找哈希表，直接输出连接结果；(2). 对接收到的key集合$\pi_b(h_{ik})$也遍历并查找路由表，如果没有匹配的key，则将retrieval的value置为null，若有匹配的key，则返回对应R的value.所有返回的value和节点k接收到key的顺序一致，并返回发送到原节点i；</li>
+<li>Result lookup，接收到计算节点返回的value集合之后，在原节点中遍历value，并和本地存储的数据集S的高倾斜部分h进行连接，输出连接结果：若value为null，则继续扫描下一个；若不为空，则必定存在一个R和S的元组能连接上. 因此，最终的连接结果是第3步骤的部分结果$\bigcup$第4部分的连接结果.</li>
+</ol>
+<p><img src="http://7xwggp.com1.z0.glb.clouddn.com/PRPQ.png" alt="PRPQ"></p>
+</li>
+<li><p>特点：</p>
+<ul>
+<li>与query-based算法相比<ol>
+<li>当处理的数据集包含大量倾斜程度低的数据时，在网络上传送的query key以及对应的value的规模将相当小. 在倾斜程度为0的情况下，即为hash-based算法的实现.因此，PRPQ算法有效地弥补了query-based算法的缺点，提高了鲁棒性.</li>
+<li>继承了query-based算法的优点，处理倾斜程度高的数据集时，大大减少网络通信量，因为高倾斜的元组并没有直接在网络上传输，而仅仅传输其unique key. </li>
+</ol>
+</li>
+<li>与PRPD算法相比<ol>
+<li>最主要的区别在于，使用query而不是duplication操作.</li>
+<li>PRPQ涉及到的数据划分(第2步骤对S数据集进行倾斜程度的划分)，只定性分析局部的倾斜度，而不需要全局的；而PRPD需要获取全局数据集S的倾斜分布信息.关于如何定义全局倾斜，PRPD在连接操作之前将倾斜程度高的元组均匀分发到所有节点上.这个预处理操作会带来额外的通信代价.</li>
+<li>对于倾斜程度中等mid-skew的元组，如何确定问题，PRPD使用广播的操作，可能导致节点负荷超载.</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol></p>
+            <p class="article-more-link">
+               <a href="/2017/01/17/Robust and Skew-resistant Parallel Joins in Shared-Nothing Systems/#more">Read More</a>
+				
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Join/">Join</a>
+    </div>
+
+            </p>
+        
+        </div>
+		
+    </div>
+    
+</article>
+
+
+
+
+
     <article id="post-stormproblems" class="article article-type-post" itemscope itemprop="blogPost">
     
 	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
@@ -437,104 +608,6 @@
     <div class="article-tag">
         <i class="fa fa-tag"></i>
         <a class="tag-link" href="/tags/苏打绿/">苏打绿</a>
-    </div>
-
-            </p>
-        
-        </div>
-		
-    </div>
-    
-</article>
-
-
-
-
-
-    <article id="post-sssj" class="article article-type-post" itemscope itemprop="blogPost">
-    
-	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
-        
-            
-	
-		<a href="/2016/08/23/sssj/" itemprop="url">
-            <img src="http://7xwggp.com1.z0.glb.clouddn.com/005yXe3qgw1f4tv3vh6eyj30zk0grjtj.jpg" class="article-banner" />
-        </a>
-	
-
-
-
-        
-        
-            <header class="article-header">
-				
-					<center>
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2016/08/23/sssj/">Streaming Similarity Self-Join</a>
-        </h1>
-    
-
-					 
-						<div class="article-meta">
-							
-    <div class="article-date">    
-        <a href="/2016/08/23/sssj/">
-            <time datetime="2016-08-23T05:45:31.000Z" itemprop="datePublished">2016-08-23</time>
-        </a>
-    </div>
-
-							<!--
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Papers/">Papers</a>
-		&nbsp;&nbsp;
-		
-			<span class="article-tag">
-				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/Stream/">Stream</a>
-			</span>
-		
-    </div>
--->
-							<!--
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Stream/">Stream</a>
-    </div>
--->
-						</div>
-					
-					
-					
-					</center>
-				
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            <p><p><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script></p>
-<h1 id="Abstract-摘要"><a href="#Abstract-摘要" class="headerlink" title="Abstract 摘要"></a>Abstract 摘要</h1><p>在数据流环境下，系统处理的数据是源源不断流进的数据项。本文研究的问题是，数据流相似性的连接处理(SSSJ)，即在数据流中找出所有的两两数据项对，它们的相似度超过一个给定的阈值。解决这个问题最简单的构想是能拥有无限大的内存空间，但目前来讲，这是不能获得的。因此为了解决这个问题，本文提出了一个概念，<code>时间依赖的相似性</code>，两个数据项到达的时间间隔越大，它们的相似度越低。<br>在此概念的基础上，本文设计两种算法框架：① 微批次处理(MiniBatch,简称MB)，使用目前已有的基于索引的过滤技术；② 流处理(Streaming,简称STR),在索引的基础上增加时间过滤，并在算法中集成一种新的基于时间的边界处理。除此之外，本文基于L2AP的索引设计一种新的适用于数据流环境的索引算法，即L2。</p>
-<h1 id="Introduction-介绍"><a href="#Introduction-介绍" class="headerlink" title="Introduction 介绍"></a>Introduction 介绍</h1><p>在数据库和数据挖掘领域，相关性自连接处理被广泛研究，其应用场景较为广泛，包括剽窃检测、查询优化、协同过滤、重复网页的检测与去除等。若使用暴力解法，其复杂度是\(O(n^2)\)。在现实应用中，数据项常以高维稀疏向量的形式呈现，那么相似度的计算即为余弦相似值的计算。为了方便处理，可以将向量归一化，则进一步将问题转换为两个向量的点积。目前解决相似度自连接的算法主要依赖于基于倒排索引的删减技术以及一些数值界限。<br>计算相似度自连接，不仅适用于静态的数据集，在数据流领域也同样适用。这里举例两个现实应用，在数据流环境下进行相似度自连接处理。</p>
-<ul>
-<li>趋势监测。社交平台，譬如Twitter，趋势监测算法识别频率陡增的主题标签。更细粒度的趋势监测算法也会识别微博集合。这些集合中的数据项出现的频率增加，并且同时出现某些相同的标签。对于该趋势监测算法，在数据流环境下找出相似的微博十分重要。</li>
-<li>近似重复项过滤。同样，在社交平台，譬如Twitter，当某个事件发生时，用户们可能会接收到与该事件相关的近似重复的多条微博。这些微博通常连续地出现。因此，将这些近似重复的微博进行过滤或者分组有利于提高用户体验。</li>
-</ul>
-<p>但问题是，关于数据流环境下的相似度自连接处理的研究并不多。这是由于缺乏无限内存：不能将先到来数据项随意删除，因为该数据项可能与未来到的数据项相似。<br>本文引入一个时间因子来解决内存问题。我们设定，只有在到达的时间间隔在指定范围内，两个数据项才有可能相似。我们定义时间依赖的相似性：基于内容的点积与时间因子的乘积，该时间因子会随着时间间隔的增加呈现指数级减小。由于时间因子的存在，当某些数据项的到达时间超出一定范围，我们可以将这些数据项删除。下图表达了这个idea。<br>    <div align="center"><img src="http://7xwggp.com1.z0.glb.clouddn.com/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20160823155752.png" alt="时序图"> </div></p>
-<p>如上图所示，标记有时间戳的文档以数据流的形式源源不断到达。时间轴上方的文档包含相似的内容，标记为红色。在所有两两相似的文档对中，我们只关心到达时间相近的文档对。因此，图中所有的4-选-2的文档对里，只有两对文档被选中(用蓝色箭头标记)。<br>与已有的相似性自连接处理算法类似，本文的算法也依赖于索引技术。已有的算法使用不同类型的<code>索引过滤</code>，以减少通过索引返回的潜在配对项数量。按照这种语义，我们定义<code>时间过滤</code>来，与时间依赖的相似性进行关联，以便将旧的索引项从索引列表中删除。<br>本文提出了两种算法框架来解决数据流的相似性自连接处理，均依赖于时间过滤。MB框架使用现成的索引技术，在运行过程中以流水线的方式创建两个索引，随着时间的推移丢弃旧索引。STR框架对现有的索引技术进行调整，将时间过滤的因素内嵌到其中。此外，本文结合已有的索引技术AP和L2AP，设计了一种可处理流式数据的索引算法L2,它存在以下四点优势：</p>
-<ol>
-<li>有效减少潜在相似数据项的配对数量；</li>
-<li>不需要收集数据流的统计信息；</li>
-<li>使用轻量级的索引维持；</li>
-<li>当数据项变“旧”时，可以迅速丢弃。</li>
-</ol></p>
-            <p class="article-more-link">
-               <a href="/2016/08/23/sssj/#more">Read More</a>
-				
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Stream/">Stream</a>
     </div>
 
             </p>
