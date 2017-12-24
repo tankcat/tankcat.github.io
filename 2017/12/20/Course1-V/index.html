@@ -211,10 +211,7 @@
 				 </blockquote>
 			  
             <p>这一章节的课程主要是关于快速排序，它是一个经典的随机算法，会介绍伪码、如何以线性的时间以及最小的额外空间来围绕一个pivot对一个数组进行划分、不同pivot的选择对性能的影响以及阐述算法是如何运行的。</p>
-<h2 id="Quick-Sort-overview-快速排序简介"><a href="#Quick-Sort-overview-快速排序简介" class="headerlink" title="Quick Sort overview / 快速排序简介"></a>Quick Sort overview / 快速排序简介</h2><blockquote>
-<p>update：2017/12/19</p>
-</blockquote>
-<p>QuickSort快速排序是一个很经典、著名的算法，很实用，是由图灵奖获得者Hoare提出的，在现实应用中经常比Merge Sort更加高效。它是一个很巧妙的算法，它的代码言简意赅。可以通过数学分析来解释为什么Quick Sort可以运行得很快，它的平均运行时间是$O(nlogn)$。和Merge Sort不同的是，QuickSort直接在原始数组的位置上重复地进行swap操作，只需要很少的额外空间。</p>
+<h2 id="Quick-Sort-overview-快速排序简介"><a href="#Quick-Sort-overview-快速排序简介" class="headerlink" title="Quick Sort overview / 快速排序简介"></a>Quick Sort overview / 快速排序简介</h2><p>QuickSort快速排序是一个很经典、著名的算法，很实用，是由图灵奖获得者Hoare提出的，在现实应用中经常比Merge Sort更加高效。它是一个很巧妙的算法，它的代码言简意赅。可以通过数学分析来解释为什么Quick Sort可以运行得很快，它的平均运行时间是$O(nlogn)$。和Merge Sort不同的是，QuickSort直接在原始数组的位置上重复地进行swap操作，只需要很少的额外空间。</p>
 <p>首先回顾一下排序问题，假设不包含重复数字：</p>
 <ul>
 <li>输入是包含n个无序数字的数组</li>
@@ -242,10 +239,7 @@
 </li>
 </ol>
 <a id="more"></a>
-<h2 id="Partitioning-around-a-pivot-以pivot为分界点划分"><a href="#Partitioning-around-a-pivot-以pivot为分界点划分" class="headerlink" title="Partitioning around a pivot / 以pivot为分界点划分"></a>Partitioning around a pivot / 以pivot为分界点划分</h2><blockquote>
-<p>update：2017/12/20</p>
-</blockquote>
-<p>这一节课程主要讲Paritioning around a pivot的具体实现，这里不考虑pivot是如何挑选的，为了方便，选择数组的第一个元素为pivot。pivot左边或者右边的元素暂时不需要有序，只要求左边的元素均比pivot小，右边的元素均比pivot大。</p>
+<h2 id="Partitioning-around-a-pivot-以pivot为分界点划分"><a href="#Partitioning-around-a-pivot-以pivot为分界点划分" class="headerlink" title="Partitioning around a pivot / 以pivot为分界点划分"></a>Partitioning around a pivot / 以pivot为分界点划分</h2><p>这一节课程主要讲Paritioning around a pivot的具体实现，这里不考虑pivot是如何挑选的，为了方便，选择数组的第一个元素为pivot。pivot左边或者右边的元素暂时不需要有序，只要求左边的元素均比pivot小，右边的元素均比pivot大。</p>
 <p>关于这个Partition操作，上一节课程介绍了两个结论，其中一个是说这个操作的运行时间是线性的O(n)，且操作是in-place的，不需要额外的空间。假设现在允许使用额外的线性空间，就能够事先分配一个长度为n的数组B，接着直接扫描输入数组A，把比pivot小的元素从B头部往后插入，把比pivot大的元素从B尾部往前插入，如下图所示。</p>
 <p><img src="http://7xwggp.com1.z0.glb.clouddn.com/non-in-place.png" alt=""></p>
 <p>In-place的Partition实现：假设pivot是输入数组的第一个元素(如果不是，可以通过将pivot和第一个元素交换一下，就能继续使用下面讲的方法)。由于这个Partition操作是对输入数组进行一次扫描，所以在这个过程中，需要追踪已经扫描到的数据和未扫描到的数据的分界，如下图所示。已经扫描到的数据表示已经进行了Parititon，且该部分数据以pivot为分界点进行了划分。</p>
@@ -269,10 +263,7 @@
 <p>最后给出Partition操作的伪码，输入数组为A，l和r分别是A的首尾边界：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Partiton(A, l, r)</span><br><span class="line">  p = A[l]</span><br><span class="line">  i = l + <span class="number">1</span></span><br><span class="line">  <span class="keyword">for</span> j = l + <span class="number">1</span> to r </span><br><span class="line">  	<span class="keyword">if</span> A[j] &lt; p</span><br><span class="line">    	swap A[j] <span class="keyword">and</span> A[i]</span><br><span class="line">      	i++</span><br><span class="line">  swap A[i<span class="number">-1</span>] <span class="keyword">and</span> A[l]</span><br></pre></td></tr></table></figure>
 <p>分析一下其运行时间，由于$n=r-l+1$是输入数组的长度，且每个元素的工作量是O(1)，并且处理是in-place的，所以总的运行时间是O(n)线性的。</p>
-<h2 id="Correctness-of-QuickSort-快速排序的正确性"><a href="#Correctness-of-QuickSort-快速排序的正确性" class="headerlink" title="Correctness of QuickSort / 快速排序的正确性"></a>Correctness of QuickSort / 快速排序的正确性</h2><blockquote>
-<p>update：2017/12/20</p>
-</blockquote>
-<p>这一节课程的目的是证明QuickSort算法是正确的。虽然遇到一个问题，能够设计出一个分治算法来解决它比较困难，但是我们也总希望自己能理解为什么它这么做是正确的，有的时候需要证明自己的直觉。这里以QuickSort为例来证明，首先pivot的选择只会影响算法的性能，不会影响想法的正确性。利用归纳假设法来证明。归纳假设里的P(n)在QuickSort中是指”对于任意长度n的输入数组，QuickSort总能正确地对其进行排序”。归纳假设证明分两步：</p>
+<h2 id="Correctness-of-QuickSort-快速排序的正确性"><a href="#Correctness-of-QuickSort-快速排序的正确性" class="headerlink" title="Correctness of QuickSort / 快速排序的正确性"></a>Correctness of QuickSort / 快速排序的正确性</h2><p>这一节课程的目的是证明QuickSort算法是正确的。虽然遇到一个问题，能够设计出一个分治算法来解决它比较困难，但是我们也总希望自己能理解为什么它这么做是正确的，有的时候需要证明自己的直觉。这里以QuickSort为例来证明，首先pivot的选择只会影响算法的性能，不会影响想法的正确性。利用归纳假设法来证明。归纳假设里的P(n)在QuickSort中是指”对于任意长度n的输入数组，QuickSort总能正确地对其进行排序”。归纳假设证明分两步：</p>
 <ol>
 <li><p>当n=1时，输入数组只有一个元素，显然已经是有序的，因此QuickSort是正确的</p>
 </li>
@@ -280,10 +271,7 @@
 <p><img src="http://7xwggp.com1.z0.glb.clouddn.com/partition.png" alt=""></p>
 </li>
 </ol>
-<h2 id="Choose-a-good-pivot-pivot的选择"><a href="#Choose-a-good-pivot-pivot的选择" class="headerlink" title="Choose a good pivot / pivot的选择"></a>Choose a good pivot / pivot的选择</h2><blockquote>
-<p>update：2017/12/20</p>
-</blockquote>
-<p>QuickSort的第一步是选择输入数组的pivot，并以此为分界点进行划分。QuickSort的运行时间取决于所选pivot的质量。质量较高的pivot意味着以此为分界点可以将输入数组划分成较为均等的两个子数组；而质量较低的pivot意味着以此为分界点会将输入数组划分成两个极不均衡的子数组。举个例子，如果输入数组是有序的，QuickSort总是选择第一个元素为pivot，则运行时间是$\Theta(n^2)$。如下图所示，由于输入数组本身是有序的，所以以第一个元素为分界点进行划分，左半数组大小为0，右半数组大小为n-1；以此类推，每次Partition的工作量是至少输入数组的长度，则总工作量$\geq n+(n-1)+(n-2)+…+1=\Theta(n^2)$，因此这种情况下QuickSort性能是最差的。</p>
+<h2 id="Choose-a-good-pivot-pivot的选择"><a href="#Choose-a-good-pivot-pivot的选择" class="headerlink" title="Choose a good pivot / pivot的选择"></a>Choose a good pivot / pivot的选择</h2><p>QuickSort的第一步是选择输入数组的pivot，并以此为分界点进行划分。QuickSort的运行时间取决于所选pivot的质量。质量较高的pivot意味着以此为分界点可以将输入数组划分成较为均等的两个子数组；而质量较低的pivot意味着以此为分界点会将输入数组划分成两个极不均衡的子数组。举个例子，如果输入数组是有序的，QuickSort总是选择第一个元素为pivot，则运行时间是$\Theta(n^2)$。如下图所示，由于输入数组本身是有序的，所以以第一个元素为分界点进行划分，左半数组大小为0，右半数组大小为n-1；以此类推，每次Partition的工作量是至少输入数组的长度，则总工作量$\geq n+(n-1)+(n-2)+…+1=\Theta(n^2)$，因此这种情况下QuickSort性能是最差的。</p>
 <p><img src="http://7xwggp.com1.z0.glb.clouddn.com/worst_quicksort.png" alt=""></p>
 <p>最好的情况是每次选择的pivot是输入数组的中位数，这样每次将数组划分成均等的子数组，这种情况下，运行时间$T(n)\leq 2\cdot T(\frac{1}{2}n)+\Theta(n)$，利用Master Method可知$T(n)=\Theta(nlogn)$。</p>
 <p>问题的关键是，不可能每次选中的pivot都是中位数。则解决方案是随机选择一个元素作为pivot。我们希望的是随机选择的pivot<strong>足够好</strong>。Randomization是算法设计的一个成功突破，利用随机，可以让算法更加巧妙，更加简单，更易于编码实现，性能更快，或者说，不使用随机可能很难简单地设计出来一个算法出来。后续课程会给出数学分析，证明关于QuickSort的一个定理：对于每次长度为n的输入数组，随机选取pivot，QuickSort的平均运行时间是$O(nlogn)$。这个定理适用于任何输入，没有对输入数据的假设；Average是针对算法的随机决策而言。</p>
@@ -298,7 +286,7 @@
   <p><span>Title:</span><a href="/2017/12/20/Course1-V/">Algorithm Specialization I-V QuickSort Algorithm</a></p>
   <p><span>Author:</span><a href="/" title="visit Tankcat 's personal blog">Tankcat</a></p>
   <p><span>Release Date:</span>2017-12-20  22:50</p>
-  <p><span>Update Date:</span>2017-12-20  22:52</p>
+  <p><span>Update Date:</span>2017-12-23  12:35</p>
   <p>
     <span>Original Link:</span><a href="/2017/12/20/Course1-V/" title="Algorithm Specialization I-V QuickSort Algorithm">http://tankcat2.com/2017/12/20/Course1-V/</a>
     <span class="btn" data-clipboard-text="Master Copy: http://tankcat2.com/2017/12/20/Course1-V/　　Author: Tankcat" title="copy the article link">
@@ -397,7 +385,7 @@
 
 </div>
 
-    <a data-url="http://tankcat2.com/2017/12/20/Course1-V/" data-id="cjbhzvjjg000cngkx82o6tf0h" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://tankcat2.com/2017/12/20/Course1-V/" data-id="cjbk7lbtk0009tskxxq7qt4kf" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -479,7 +467,7 @@
             <strong class="article-nav-caption">Newer</strong>
             <div class="article-nav-title">
                 
-                    Algorithm Specialization I-VI Probability Review
+                    Algorithm Specialization I-VII Probability Review
                 
             </div>
         </a>

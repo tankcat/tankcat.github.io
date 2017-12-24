@@ -125,6 +125,242 @@
 			</aside>
 			
 					<section id="main">
+    <article id="post-Course1-III" class="article article-type-post" itemscope itemprop="blogPost">
+    
+	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
+        
+            
+	
+		<a href="/2017/12/18/Course1-III/" itemprop="url">
+            <img src="http://7xwggp.com1.z0.glb.clouddn.com/recursive.png" class="article-banner" />
+        </a>
+	
+
+
+
+        
+        
+            <header class="article-header">
+				
+					<center>
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/12/18/Course1-III/">Algorithm Specialization I-III Dive and Conquer Algorithms</a>
+        </h1>
+    
+
+					 
+						<div class="article-meta">
+							
+    <div class="article-date">    
+        <a href="/2017/12/18/Course1-III/">
+            <time datetime="2017-12-18T09:05:00.000Z" itemprop="datePublished">2017-12-18</time>
+        </a>
+    </div>
+
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Techniques/">Techniques</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/Algorithm-Specialization/">Algorithm Specialization</a>, <a class="tag-link" href="/tags/Course-I/">Course I</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Algorithm-Specialization/">Algorithm Specialization</a>, <a class="tag-link" href="/tags/Course-I/">Course I</a>
+    </div>
+-->
+						</div>
+					
+					
+					
+					</center>
+				
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><p>这一章节的课程围绕Divide and conquer分治算法的思想，讨论三个比较有意思的例子，分别是：</p>
+<ol>
+<li>找出给定数组中的逆序对，这个问题和计算两个排名表的相似度有关，因此又与推荐算法中的协同过滤有关</li>
+<li>矩阵乘法，利用Strassen提出的递归算法</li>
+<li>在给定平面中找出最近点对，三个问题中最具挑战性的一个</li>
+</ol>
+<h2 id="Counting-inversions-I-统计逆序对I"><a href="#Counting-inversions-I-统计逆序对I" class="headerlink" title="Counting inversions I/ 统计逆序对I"></a>Counting inversions I/ 统计逆序对I</h2><p>这节课的视频复习了分治思想的paradigm，即先将大问题分解为小问题，再递归求解小问题，最后合并每个小问题的求解结果。此外，继续给出一个具体的问题：找出一个数组中所有的逆序对。逆序对的定义是：数据对(i,j)，使得$i<j$且$a[i]>A[j]$。给定输入数组[1,3,5,2,4,6]，可以看出其中逆序对为(3,2)，(5,2)和(5,4)。可以通过如右图所示的连线方法来求解逆序对的数量，第一行是有序，第二行是原序，将数字相同的连接起来，则交叉点的数量就是逆序对的个数。有个题外话，为什么要计算逆序对？其实它的应用场景可以是两个排名list的相似度计算，比如协同过滤。</j$且$a[i]></p>
+<p><img src="http://7xwggp.com1.z0.glb.clouddn.com/inversions.png" alt=""></p>
+<p>逆序对求解，这里只讲两种方法，暴力求解与分治求解。</p>
+<ol>
+<li><p>暴力求解：直接嵌套循环，逐个判断，时间复杂度是$O(n^2)$</p>
+</li>
+<li><p>递归求解：先定义inversion，分为三种，如下图所示。求解过程就是先递归对左半数组求解left inversion的数量x，再递归对右半数组求解right inversion的数量y，然后求解split inversion的数量z，最后返回$x+y+z$之和就是最终结果了。这节课视频暂时没有讲解计算split inversion的实现，但是目标是以线性时间的复杂度$O(n)$来实现。</p>
+<p><img src="http://7xwggp.com1.z0.glb.clouddn.com/inversions_type.png" alt=""></p>
+</li>
+</ol>
+<h2 id="Counting-inversions-II-统计逆序-II"><a href="#Counting-inversions-II-统计逆序-II" class="headerlink" title="Counting inversions II/ 统计逆序 II"></a>Counting inversions II/ 统计逆序 II</h2><p>这一节课的视频主要解决上一个视频中遗留下来的问题，即如何统计split inversions。关键点在于利用Merge sort的思路，在递归调用时，除了统计左右半数组的left inversion和right inversion外，还需要顺便对左右半数据进行排序。这就是在递归时多做一点工作来简化split inversion的统计。为什么这么做呢？因为可以发现Merge sort的merge步骤可以自然地用来统计split inversion数量。</p>
+<p><img src="http://7xwggp.com1.z0.glb.clouddn.com/sort_and_count.png" alt=""></p>
+<p>如果左半数组B中的所有元素都小于右半数组C中的元素，那么split inversion的个数就是0。按照下图所示的merge操作，可以总结出一个结论，如果右半数组中的元素y比左半数组中的某个元素x小，则x之后剩余的所有元素都能和y组成逆序对。这是显然的，因为左右半数组前提已经是有序的了。这个统计split inversion的运行时间也是线性的，因为前面的课程已经分析了merge操作是$O(n)$，统计求和本身也是$O(n)$，则$O(n)+O(n)=O(n)$。递归调用和Merge sort一样，则找出数组中的逆序对，这个问题的总运行时间是$O(n\cdot log n)$。</p></p>
+            <p class="article-more-link">
+               <a href="/2017/12/18/Course1-III/#more">Read More</a>
+				
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Algorithm-Specialization/">Algorithm Specialization</a>, <a class="tag-link" href="/tags/Course-I/">Course I</a>
+    </div>
+
+            </p>
+        
+        </div>
+		
+    </div>
+    
+</article>
+
+
+
+
+
+    <article id="post-Assignment1" class="article article-type-post" itemscope itemprop="blogPost">
+    
+	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
+        
+            
+	
+		<a href="/2017/12/12/Assignment1/" itemprop="url">
+            <img src="http://7xwggp.com1.z0.glb.clouddn.com/assignment1.png" class="article-banner" />
+        </a>
+	
+
+
+
+        
+        
+            <header class="article-header">
+				
+					<center>
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/12/12/Assignment1/">Algorithm专项课程—Problem Sets and Programming Assignments</a>
+        </h1>
+    
+
+					 
+						<div class="article-meta">
+							
+    <div class="article-date">    
+        <a href="/2017/12/12/Assignment1/">
+            <time datetime="2017-12-12T11:00:00.000Z" itemprop="datePublished">2017-12-12</time>
+        </a>
+    </div>
+
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Techniques/">Techniques</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/Algorithm-Specialization/">Algorithm Specialization</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Algorithm-Specialization/">Algorithm Specialization</a>
+    </div>
+-->
+						</div>
+					
+					
+					
+					</center>
+				
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><h2 id="Problems-set"><a href="#Problems-set" class="headerlink" title="Problems set"></a>Problems set</h2><ol>
+<li><p>3-way-Merge Sort : Suppose that instead of dividing in half at each step of Merge Sort, you divide into thirds, sort each third, and finally combine all of them using a three-way merge subroutine. What is the overall asymptotic running time of this algorithm? (Hint: Note that the merge step can still be implemented in O(n) time.) </p>
+<ul>
+<li style="list-style: none"><input type="checkbox" checked> $n log (n)$</li>
+<li style="list-style: none"><input type="checkbox"> $n(log(n))^2$</li>
+<li style="list-style: none"><input type="checkbox"> $n^2log(n)$</li>
+<li style="list-style: none"><input type="checkbox"> n</li>
+</ul>
+<p>这道题是问如果Merge sort每次是把一个数组划分成三个部分，那么运行时间复杂度是多少。尽管是每个大问题划分成三个小问题，但是反映到recursion tree上，树的深度依旧是logarithmic，且每一层的merge操作的运行时间依旧是线性的，所以最终的复杂度仍然是$O(nlog(n))$。</p>
+</li>
+<li><p>You are given functions f and g such that $f(n)=O(g(n))$. Is $f(n)\cdot log_2(f(n)^c)=O(g(n)\cdot log_2(g(n))) $? (Here c is some positive constant.) You should assume that f and g are nondecreasing and always bigger than 1.</p>
+<ul>
+<li style="list-style: none"><input type="checkbox" checked> True</li>
+<li style="list-style: none"><input type="checkbox"> False</li>
+<li style="list-style: none"><input type="checkbox"> Sometimes yes, sometimes no, depending on the constant $c$</li>
+<li style="list-style: none"><input type="checkbox"> Sometimes yes, sometimes no, depending on the function $f$ and $g$</li>
+</ul>
+<p>这道题是问如果函数$f$与$g$满足$f(n)=O(g(n))$，那么$f(n)\cdot log_2(f(n)^c)=O(g(n)\cdot log_2(g(n))) $是否成立。根据条件可知，存在$c_1，n_0$使得当$n\geq n_0$时有$f(n)\leq c_1\cdot g(n)$。假设所问结论成立，则存在$c_2，n_0$使得当$n\geq n_0$时有$f(n)\cdot log_2(f(n)^c)=O(g(n)\cdot log_2(g(n)))$，即$f(n)\cdot log_2(f(n)^c)=c_2\cdot g(n)\cdot log_2(g(n))$，化简规约一下，$c\cdot f(n)\cdot log_2(f(n))=c_2\cdot g(n)\cdot log_2(g(n))$，将$f(n)\leq c_1\cdot g(n)$代入，显然是可以成立的</p>
+</li>
+<li><p>Assume again two (positive) nondecreasing functions f and gsuch that $f(n)=O(g(n))$. Is $2^{f(n)}=O(2^{g(n)})$ ? (Multiple answers may be correct, you should check all of those that apply.)</p>
+<ul>
+<li style="list-style: none"><input type="checkbox"> Always</li>
+<li style="list-style: none"><input type="checkbox"> Never</li>
+<li style="list-style: none"><input type="checkbox" checked> Sometimes yes, sometimes no (depending on $f$ and $g$)</li>
+<li style="list-style: none"><input type="checkbox" checked> Yes if $f(n)\leq g(n)$ for all sufficiently large $n$</li>
+</ul>
+<p>这道题是问如果函数$f$与$g$满足$f(n)=O(g(n))$，那么 $2^{f(n)}=O(2^{g(n)})$ 是否成立。我们可以通过一些特殊的例子来解答。</p>
+<ul>
+<li>假设$f(n)=g(n)=n$，这种情况下，$2^n=O(2^n)$是显然成立的</li>
+<li>假设$f(n)=10n，g(n)=n$，这种情况下，显然有$2^{10n}\neq O(2^n)$，这个在Course2课程的案例中介绍过证明</li>
+</ul>
+<p>综上所述，这个结论不总是对的，也不总是错的。</p>
+</li>
+<li><p>k-way-Merge Sort. Suppose you are given $k$ sorted arrays, each with $n$ elements, and you want to combine them into a single array of $kn$ elements. Consider the following approach. Using the merge subroutine taught in lecture, you merge the first 2 arrays, then merge the $3^{rd}$ given array with this merged version of the first two arrays, then merge the  $4^{th}$  given array with the merged version of the first three arrays, and so on until you merge in the final ($k^{th}$) input array. What is the running time taken by this successive merging algorithm, as a function of $k$ and $n$? (Optional: can you think of a faster way to do the k-way merge procedure ?)</p>
+<ul>
+<li style="list-style: none"><input type="checkbox"> $\Theta(nlog(k))$</li>
+<li style="list-style: none"><input type="checkbox" checked> $\Theta(nk^2)$</li>
+<li style="list-style: none"><input type="checkbox"> $\Theta(n^2k)$</li>
+<li style="list-style: none"><input type="checkbox"> $\Theta(nk)$</li>
+</ul>
+<p>这道题是问在k-way归并排序中，如果给定k个有序数组，每个数组有n个元素，现在要将它们合并成一个包含$kn$个元素的大数组，归并操作如下：首先归并前两个数组，得到的新数组继续和第三个数组合并，依此类推。问这个连续的归并操作的运行时间复杂度是多少。每次归并操作都是线性时间$O(kn)$的，且有k次归并，因此上界的时间复杂度是$O(k^2n)$。对于下界，每次至少有$\frac{1}{2}k$个元素参与合并，因此下界运行时间是$\Omega(nk^2)$。综上所述，运行时间满足$\Theta(nk^2)$</p>
+</li>
+<li><p>Arrange the following functions in increasing order of growth rate (with g(n) following $f(n)$ in your list if and only if $f(n)=O(g(n)))$.</p>
+<p>a) $\sqrt n$</p>
+<p>b)10n</p>
+<p>c) $n^{1.5}$</p>
+<p>d)$2^{\sqrt log(n)}$</p>
+<p>e)$n^{\frac{5}{3}}$</p>
+<p>这道题是要求把以下五个函数按照增长率由小到大排序。答案是$2^{\sqrt log(n)} \leq \sqrt n \leq n^{1.5} \leq n^{\frac{5}{3}} \leq 10^n$。前面两个的证明可以是左右两边同时去对数。后面几个显然成立。</p>
+</li>
+</ol></p>
+            <p class="article-more-link">
+               <a href="/2017/12/12/Assignment1/#more">Read More</a>
+				
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Algorithm-Specialization/">Algorithm Specialization</a>
+    </div>
+
+            </p>
+        
+        </div>
+		
+    </div>
+    
+</article>
+
+
+
+
+
     <article id="post-Course1-II" class="article article-type-post" itemscope itemprop="blogPost">
     
 	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
@@ -188,10 +424,7 @@
         
         <div class="article-entry" itemprop="articleBody">
         
-            <p><h2 id="The-gist-要旨"><a href="#The-gist-要旨" class="headerlink" title="The gist / 要旨"></a>The gist / 要旨</h2><blockquote>
-<p>update：2017/12/11</p>
-</blockquote>
-<p>Asymptotic analysis是设计和分析算法的vocabulary，比如大O表示法：</p>
+            <p><h2 id="The-gist-要旨"><a href="#The-gist-要旨" class="headerlink" title="The gist / 要旨"></a>The gist / 要旨</h2><p>Asymptotic analysis是设计和分析算法的vocabulary，比如大O表示法：</p>
 <ul>
 <li>从较高的层次分析算法的sweet spot</li>
 <li>足够coarse来压缩依赖于系统/编程语言/编译器的细节</li>
@@ -209,10 +442,7 @@
 <li>判断数组A和B中是否包含相同的整数，$O(n^2)$</li>
 <li>判断数组A中是否包含重复的整数，$\frac{1}{2}n\cdot (n+1) = O(n^2)$</li>
 </ol>
-<h2 id="Big-Oh-notation-大O表示法"><a href="#Big-Oh-notation-大O表示法" class="headerlink" title="Big-Oh notation / 大O表示法"></a>Big-Oh notation / 大O表示法</h2><blockquote>
-<p>update：2017/12/11</p>
-</blockquote>
-<p>这一节课讲解大O表示法的定义。令T(n)是n的函数f(n)，通常表示一个算法的worst case运行时间，那么问题是：什么时候$T(n)=O(f(n))$？答案是，当n足够大，最终T(n)的上限是一个常数与f(n)的乘积。下图所示，给出形式化定义：</p>
+<h2 id="Big-Oh-notation-大O表示法"><a href="#Big-Oh-notation-大O表示法" class="headerlink" title="Big-Oh notation / 大O表示法"></a>Big-Oh notation / 大O表示法</h2><p>这一节课讲解大O表示法的定义。令T(n)是n的函数f(n)，通常表示一个算法的worst case运行时间，那么问题是：什么时候$T(n)=O(f(n))$？答案是，当n足够大，最终T(n)的上限是一个常数与f(n)的乘积。下图所示，给出形式化定义：</p>
 <p>当存在常数c和$n_0$，对于所有的$n\geq n_0$，有$T(n)\leq c\cdot f(n)$，则称$T(n) = O(f(n))$。其中，常数c和$n_0$与n无关。<br></p>
             <p class="article-more-link">
                <a href="/2017/12/12/Course1-II/#more">Read More</a>
@@ -297,10 +527,7 @@
         
         <div class="article-entry" itemprop="articleBody">
         
-            <p><h1 id="Introduction-简介"><a href="#Introduction-简介" class="headerlink" title="Introduction / 简介"></a>Introduction / 简介</h1><blockquote>
-<p>update: 2017/12/05</p>
-</blockquote>
-<p>求解：两个n位整数相乘</p>
+            <p><h1 id="Introduction-简介"><a href="#Introduction-简介" class="headerlink" title="Introduction / 简介"></a>Introduction / 简介</h1><p>求解：两个n位整数相乘</p>
 <p>输入：两个n位的整数x与y</p>
 <p>输出：两者的乘积</p>
 <p>解决方案：</p>
@@ -329,10 +556,7 @@
 <li>确定输入与输出</li>
 <li>给出解决方案，即算法，使得输入转化为输出</li>
 </ol>
-<h1 id="About-the-course-关于这门课程"><a href="#About-the-course-关于这门课程" class="headerlink" title="About the course /关于这门课程"></a>About the course /关于这门课程</h1><blockquote>
-<p>update: 2017/12/06</p>
-</blockquote>
-<p>课程涵盖了5个话题：</p>
+<h1 id="About-the-course-关于这门课程"><a href="#About-the-course-关于这门课程" class="headerlink" title="About the course /关于这门课程"></a>About the course /关于这门课程</h1><p>课程涵盖了5个话题：</p>
 <ol>
 <li>设计与<strong>分析算法性能</strong>所需要的基本知识，比如大O表示法</li>
 <li><strong>分治算法</strong>的设计与分析，使用场景很多，比如上一节课提到的Karatsuba算法，还有其他的比如排序、矩阵乘法等，需要分析类似递归算法的运行之间</li>
@@ -453,188 +677,6 @@
 <p>周三是最忙的一天了。早上化了妆出门，以为下午颁奖典礼需要上台。上午本来打算把CRB好好再看一遍的，老板一个消息发过来要帮她买一桶羽毛球。一开始以为大活那边有得卖，哪知道体育器材店没有开门。遇到一个保安大叔，他说校门那边的体育馆有得卖，我就急匆匆地跑过去，发现就剩几只了，没有成桶卖的。然后又跑到校外的联华超市，被告知又没有！最后只能寄希望于教育超市了，如果在没有只能让老板自己淘宝了。万幸，教超有得卖。买到手的时候内心mmp，为啥一开始不先去教超呢，明明离得最近……买完已经10点半了，迅速回宿舍补了妆，然后去河东食堂吃了午饭，就去停车场等校车去闵行路。颁奖典礼一直开到下午三点多，根本用不着我们上台，事先确定好了学生代表上台领奖。返程路上看完了行尸走肉这周新更，全程高度紧张，片尾又留悬念，看完更饿了。到了学校之后赶紧去全家买了一个鸡肉卷饼。晚饭之前迅速浏览了一遍CRB，弄清楚了一些基本概念，比如COW、WAL。晚上我们FToS小分队三人继续了这周的小讨论班，帮明珠解答了论文中看不懂的疑惑，我自己也顺带加深一遍理解。</p></p>
             <p class="article-more-link">
                <a href="/2017/12/10/diary1210/#more">Read More</a>
-				
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/周记/">周记</a>, <a class="tag-link" href="/tags/自省/">自省</a>
-    </div>
-
-            </p>
-        
-        </div>
-		
-    </div>
-    
-</article>
-
-
-
-
-
-    <article id="post-diary1203" class="article article-type-post" itemscope itemprop="blogPost">
-    
-	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
-        
-            
-	
-		<a href="/2017/12/03/diary1203/" itemprop="url">
-            <img src="http://7xwggp.com1.z0.glb.clouddn.com/meet.jpg" class="article-banner" />
-        </a>
-	
-
-
-
-        
-        
-            <header class="article-header">
-				
-					<center>
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2017/12/03/diary1203/">十二月的第一周</a>
-        </h1>
-    
-
-					 
-						<div class="article-meta">
-							
-    <div class="article-date">    
-        <a href="/2017/12/03/diary1203/">
-            <time datetime="2017-12-03T12:44:00.000Z" itemprop="datePublished">2017-12-03</time>
-        </a>
-    </div>
-
-							<!--
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Jottings/">Jottings</a>
-		&nbsp;&nbsp;
-		
-			<span class="article-tag">
-				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/周记/">周记</a>, <a class="tag-link" href="/tags/自省/">自省</a>
-			</span>
-		
-    </div>
--->
-							<!--
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/周记/">周记</a>, <a class="tag-link" href="/tags/自省/">自省</a>
-    </div>
--->
-						</div>
-					
-					
-					
-					</center>
-				
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            <p><p>十一月就这么静悄悄地溜走了，回头一看，这一个月好像正经事没做成，但是仔细数数又似乎达成了不少目标。</p>
-<ol>
-<li>拿到了研究生国国家奖学金、校优秀学生、全国研究生数学建模二等奖</li>
-<li>给爸爸换了手机，买了种草许久的Mate 9</li>
-<li>体重下百了</li>
-<li>订制了心仪的中古包、买了一整套Martiderm的平衡和臻活安瓶、买了性价比高的牛角梳</li>
-</ol>
-<h3 id="工作日的日常"><a href="#工作日的日常" class="headerlink" title="工作日的日常"></a>工作日的日常</h3><p>这周周五的讨论班轮到我讲，因为十一月的主要工作就是读paper，于是就准备做个简短的survey。算下来看了有二十多篇，由于没找到读paper的技巧，为了赶进度导致很多篇都没有真正理解，做起survey的时候才发现很多东西自己也讲不清楚。</p>
-<p>一开始给自己这周的规划是，新论文就不读了，专心整理已经读过的。然而，周一又把时间花在自己的个人博客上了。无意间发现有人利用Github Issue改写了一个评论系统，我觉得还不错就想着借鉴一下，替换现有的disqus。一些配置问题占用了我一整个下午。晚上参加数模的三个团队，其实也就是实验室的小伙伴，说拿了奖一起约顿饭，于是就去秋林阁三楼点了一桌子菜。每次都必点青椒炒蛋和冬瓜排骨汤。吃完洗了澡，回到实验室继续看paper。但是又被一个妹纸的个人博客吸引住了，她的首页是 一张cv，而博客是二级域名。她把cv的制作公开在github上了，由于一些域名设置问题，我捣鼓了不少时间，最终还是放弃，十点半的时候回寝室睡觉了。</p>
-<p>周二早上醒来觉得还是不甘心，cv我肯定是也要做一张的，但是不换域名了，直接利用HTML按照她的样式做了一个一模一样的，简单粗暴，替换成了博客的首页。博客的改造终于完成了，就继续做起了survey。原本打算先把上周没看完的一篇02年的survey看完，可是越看越觉得不理解，心情很烦躁。不巧中午来了大姨妈，肚子很疼，就荒废了一下午躺在床上休息。</p>
-<p>周三算是真正开始写survey的presentation了。 没有跳出前人整理的框架，我继续沿用，只是合并了一些小分类，在整理具体系统的容错实现时发现自己还是无从下手，不知道怎么才能讲的清楚，又陷入了烦躁的情绪，没忍住还和男票哭诉了一番。晚上洗完澡发现自己感冒了，真是祸不单行。</p>
-<p>周四继续写presentation，但是不巧，遇到老板开始帮我改老早之前的期刊文章。仍旧是定理证明的那块儿写的不好。这一块儿反反复复修改了不知道多少遍了，我早已厌烦。我承认，想要投稿期刊论文，又或者说以后想投稿顶会论文，没有两三个定理与证明是真说不过去的，这一块技能我确实欠缺了。下午老板把我叫过去，讲完问题所在之后我主动和她交流了一下这一个月来读论文的感受，说明了自己的矛盾所在，其实烦躁的根源在于自己平日偷懒、效率低下导致论文没有理解透彻，后来回了实验室，老板在微信了给我打了一剂鸡血。</p></p>
-            <p class="article-more-link">
-               <a href="/2017/12/03/diary1203/#more">Read More</a>
-				
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/周记/">周记</a>, <a class="tag-link" href="/tags/自省/">自省</a>
-    </div>
-
-            </p>
-        
-        </div>
-		
-    </div>
-    
-</article>
-
-
-
-
-
-    <article id="post-diary1126" class="article article-type-post" itemscope itemprop="blogPost">
-    
-	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
-        
-            
-	
-		<a href="/2017/11/26/diary1126/" itemprop="url">
-            <img src="http://7xwggp.com1.z0.glb.clouddn.com/wuchang.jpg" class="article-banner" />
-        </a>
-	
-
-
-
-        
-        
-            <header class="article-header">
-				
-					<center>
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2017/11/26/diary1126/">十一月的第四周</a>
-        </h1>
-    
-
-					 
-						<div class="article-meta">
-							
-    <div class="article-date">    
-        <a href="/2017/11/26/diary1126/">
-            <time datetime="2017-11-26T10:29:45.000Z" itemprop="datePublished">2017-11-26</time>
-        </a>
-    </div>
-
-							<!--
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Jottings/">Jottings</a>
-		&nbsp;&nbsp;
-		
-			<span class="article-tag">
-				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/周记/">周记</a>, <a class="tag-link" href="/tags/自省/">自省</a>
-			</span>
-		
-    </div>
--->
-							<!--
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/周记/">周记</a>, <a class="tag-link" href="/tags/自省/">自省</a>
-    </div>
--->
-						</div>
-					
-					
-					
-					</center>
-				
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            <p><h3 id="工作日的survey"><a href="#工作日的survey" class="headerlink" title="工作日的survey"></a>工作日的survey</h3><p>这个月进行survey的第四周，工作日的五天细读了两篇微软的流处理系统paper，一篇Naiad和一篇Falkirk Wheel；一篇很经典的Dynamo，十年前就发表的这篇今年喜获SIGOPS名人堂奖，重点关注了它的高可用是如何实现的；一篇综述，其中一个作者和Naiad、Falkirk Wheel联系密切，这篇综述关注的点很基础。</p>
-<p>算下来从开始做survey，看过的文章也有二十多篇了，关于容错，心中确实有了一点感觉，但觉得还不够，有的时候回头想想看过的文章，竟然不能一句话讲出它做了什么，看过就忘成了很大的问题。男票告诉我，这是因为我没有理解透彻。所以，现在就有点迷茫，到底什么文章该精读，精读到什么程度是够的，要想真正理解一篇文章的proposal，耗时不短，这当中该怎么做权衡呢？</p>
-<p>还有一点需要反省，就是效率问题，一周只看了四篇文章，很大一部分时间还是被我浪费了，经常看文章看到一半就去找人聊天、逛豆瓣微博，没有完整、高效率的学习时间，这应该也是导致文章理解不透彻的原因之一吧。</p>
-<p>不过，有进步的是，开始定制周计划了，也切实进行了，希望在次基础上提高效率并继续保持。</p></p>
-            <p class="article-more-link">
-               <a href="/2017/11/26/diary1126/#more">Read More</a>
 				
     <div class="article-tag">
         <i class="fa fa-tag"></i>

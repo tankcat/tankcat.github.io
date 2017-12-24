@@ -216,10 +216,7 @@
 <li>矩阵乘法，利用Strassen提出的递归算法</li>
 <li>在给定平面中找出最近点对，三个问题中最具挑战性的一个</li>
 </ol>
-<h2 id="Counting-inversions-I-统计逆序对I"><a href="#Counting-inversions-I-统计逆序对I" class="headerlink" title="Counting inversions I/ 统计逆序对I"></a>Counting inversions I/ 统计逆序对I</h2><blockquote>
-<p>update：2017/12/12</p>
-</blockquote>
-<p>这节课的视频复习了分治思想的paradigm，即先将大问题分解为小问题，再递归求解小问题，最后合并每个小问题的求解结果。此外，继续给出一个具体的问题：找出一个数组中所有的逆序对。逆序对的定义是：数据对(i,j)，使得$i<j$且$a[i]>A[j]$。给定输入数组[1,3,5,2,4,6]，可以看出其中逆序对为(3,2)，(5,2)和(5,4)。可以通过如右图所示的连线方法来求解逆序对的数量，第一行是有序，第二行是原序，将数字相同的连接起来，则交叉点的数量就是逆序对的个数。有个题外话，为什么要计算逆序对？其实它的应用场景可以是两个排名list的相似度计算，比如协同过滤。</j$且$a[i]></p>
+<h2 id="Counting-inversions-I-统计逆序对I"><a href="#Counting-inversions-I-统计逆序对I" class="headerlink" title="Counting inversions I/ 统计逆序对I"></a>Counting inversions I/ 统计逆序对I</h2><p>这节课的视频复习了分治思想的paradigm，即先将大问题分解为小问题，再递归求解小问题，最后合并每个小问题的求解结果。此外，继续给出一个具体的问题：找出一个数组中所有的逆序对。逆序对的定义是：数据对(i,j)，使得$i<j$且$a[i]>A[j]$。给定输入数组[1,3,5,2,4,6]，可以看出其中逆序对为(3,2)，(5,2)和(5,4)。可以通过如右图所示的连线方法来求解逆序对的数量，第一行是有序，第二行是原序，将数字相同的连接起来，则交叉点的数量就是逆序对的个数。有个题外话，为什么要计算逆序对？其实它的应用场景可以是两个排名list的相似度计算，比如协同过滤。</j$且$a[i]></p>
 <p><img src="http://7xwggp.com1.z0.glb.clouddn.com/inversions.png" alt=""></p>
 <p>逆序对求解，这里只讲两种方法，暴力求解与分治求解。</p>
 <ol>
@@ -229,10 +226,7 @@
 <p><img src="http://7xwggp.com1.z0.glb.clouddn.com/inversions_type.png" alt=""></p>
 </li>
 </ol>
-<h2 id="Counting-inversions-II-统计逆序-II"><a href="#Counting-inversions-II-统计逆序-II" class="headerlink" title="Counting inversions II/ 统计逆序 II"></a>Counting inversions II/ 统计逆序 II</h2><blockquote>
-<p>update：2017/12/13</p>
-</blockquote>
-<p>这一节课的视频主要解决上一个视频中遗留下来的问题，即如何统计split inversions。关键点在于利用Merge sort的思路，在递归调用时，除了统计左右半数组的left inversion和right inversion外，还需要顺便对左右半数据进行排序。这就是在递归时多做一点工作来简化split inversion的统计。为什么这么做呢？因为可以发现Merge sort的merge步骤可以自然地用来统计split inversion数量。</p>
+<h2 id="Counting-inversions-II-统计逆序-II"><a href="#Counting-inversions-II-统计逆序-II" class="headerlink" title="Counting inversions II/ 统计逆序 II"></a>Counting inversions II/ 统计逆序 II</h2><p>这一节课的视频主要解决上一个视频中遗留下来的问题，即如何统计split inversions。关键点在于利用Merge sort的思路，在递归调用时，除了统计左右半数组的left inversion和right inversion外，还需要顺便对左右半数据进行排序。这就是在递归时多做一点工作来简化split inversion的统计。为什么这么做呢？因为可以发现Merge sort的merge步骤可以自然地用来统计split inversion数量。</p>
 <p><img src="http://7xwggp.com1.z0.glb.clouddn.com/sort_and_count.png" alt=""></p>
 <p>如果左半数组B中的所有元素都小于右半数组C中的元素，那么split inversion的个数就是0。按照下图所示的merge操作，可以总结出一个结论，如果右半数组中的元素y比左半数组中的某个元素x小，则x之后剩余的所有元素都能和y组成逆序对。这是显然的，因为左右半数组前提已经是有序的了。这个统计split inversion的运行时间也是线性的，因为前面的课程已经分析了merge操作是$O(n)$，统计求和本身也是$O(n)$，则$O(n)+O(n)=O(n)$。递归调用和Merge sort一样，则找出数组中的逆序对，这个问题的总运行时间是$O(n\cdot log n)$。</p>
 <a id="more"></a>
@@ -263,10 +257,7 @@
 <p>关于后面的公式如何得到的，Strassen是如何想到这个方法的，以及它的时间复杂度分析，后续课程将给出！</p>
 </li>
 </ol>
-<h2 id="Closest-pair-I-最近点对问题-I"><a href="#Closest-pair-I-最近点对问题-I" class="headerlink" title="Closest pair I / 最近点对问题 I"></a>Closest pair I / 最近点对问题 I</h2><blockquote>
-<p>update：2017/12/17</p>
-</blockquote>
-<p>这节课的视频讲解的是最近点对问题，要求找出给定平面上距离最近的两个点。这个问题是分治求解问题的经典算法之一，在其他应用领域也会经常遇到这个问题，比如计算机图形学、机器人等。</p>
+<h2 id="Closest-pair-I-最近点对问题-I"><a href="#Closest-pair-I-最近点对问题-I" class="headerlink" title="Closest pair I / 最近点对问题 I"></a>Closest pair I / 最近点对问题 I</h2><p>这节课的视频讲解的是最近点对问题，要求找出给定平面上距离最近的两个点。这个问题是分治求解问题的经典算法之一，在其他应用领域也会经常遇到这个问题，比如计算机图形学、机器人等。</p>
 <p>首先是问题的形式化定义：给定一个平面内的若干个点，每个点由其横坐标x与纵坐标y的序列定义。两个点的距离是指欧氏距离(坐标差的平方和开根号)。最近点对问题就是要求找出一对点，使得它们的距离是所有点对中最小的。</p>
 <p>求解的前提假设：不存在ties，即所有端点的x坐标不同，y坐标也不同。没有这个前提假问题也能解决，这里只是为了方便算法的论述。</p>
 <p>沿袭前面的课程统计数组中的inversion求解过程：如果允许平方的运行时间，依旧可以利用暴力求解找出最近点对，即嵌套循环遍历所有不同的点对，计算各自的距离，最终找出最短的。但是，是否存在与counting inversion一样O(nlogn)的求解？在1-dimension的情况下，所有点在一条坐标轴上，可以先排序O(nlogn)，再遍历一遍找出最短的O(n)。</p>
@@ -295,10 +286,9 @@
 </li>
 <li><p>遍历$S_y$中的点，找出距离小于$\delta$的最短点对，具体过程如下图所示。首先是初始化$best$与$best_pair$，分为用来记录最短点对的距离与最短点对本身；接着是嵌套循环遍历$S_y$，由于内层嵌套的迭代次数是常量7，因此内层的运行时间是O(1)，外层的运行时间是O(n)，总体的运行时间依旧是O(n)。<strong>如果最终找出距离小于$\delta$的点对(p,q)，则p与q在$S_y$中至多相间7个点。</strong>以上的证明在下个视频课程给出。</p>
 <p><img src="http://7xwggp.com1.z0.glb.clouddn.com/iterate_sy.png" alt=""></p>
-<h2 id="Closest-pair-II-最近点对问题-II"><a href="#Closest-pair-II-最近点对问题-II" class="headerlink" title="Closest pair II / 最近点对问题 II"></a>Closest pair II / 最近点对问题 II</h2><blockquote>
-<p>update：2017/12/18</p>
-</blockquote>
-<p>这节视频主要是证明上一节求解ClosestSplitPair中的结论：令$p\in Q, q\in R$是一对split pair，且$d(p,q)&lt;\delta$，则有</p>
+</li>
+</ol>
+<h2 id="Closest-pair-II-最近点对问题-II"><a href="#Closest-pair-II-最近点对问题-II" class="headerlink" title="Closest pair II / 最近点对问题 II"></a>Closest pair II / 最近点对问题 II</h2><p>这节视频主要是证明上一节求解ClosestSplitPair中的结论：令$p\in Q, q\in R$是一对split pair，且$d(p,q)&lt;\delta$，则有</p>
 <ol>
 <li>p和q是$S_y$中的两个点</li>
 <li>p与q在$S_y$中的位置最多间隔7个点</li>
@@ -313,8 +303,6 @@
 <li>辅助定理2：每个box中至多存在一个点。可以用反证法证明，假设a和b两个点存在于同一个盒子中，那个它们必定要么都来自Q，要么都来自R，且它们的距离$d(a,b)\leq \frac{\sqrt{2}}{2}\delta\leq\delta$，这就与原始条件(split pair分别来自Q与R且$\delta$本身已经是Q或者R中最短的距离)相矛盾。</li>
 </ul>
 <p>结合以上两个辅助定理，可以推出包含p和q在内，这8个box中总共至多包含8个点。因此p与q至多相隔7个点。</p>
-</li>
-</ol>
 
 			
 			
@@ -326,7 +314,7 @@
   <p><span>Title:</span><a href="/2017/12/18/Course1-III/">Algorithm Specialization I-III Dive and Conquer Algorithms</a></p>
   <p><span>Author:</span><a href="/" title="visit Tankcat 's personal blog">Tankcat</a></p>
   <p><span>Release Date:</span>2017-12-18  17:05</p>
-  <p><span>Update Date:</span>2017-12-20  22:47</p>
+  <p><span>Update Date:</span>2017-12-23  12:37</p>
   <p>
     <span>Original Link:</span><a href="/2017/12/18/Course1-III/" title="Algorithm Specialization I-III Dive and Conquer Algorithms">http://tankcat2.com/2017/12/18/Course1-III/</a>
     <span class="btn" data-clipboard-text="Master Copy: http://tankcat2.com/2017/12/18/Course1-III/　　Author: Tankcat" title="copy the article link">
@@ -425,7 +413,7 @@
 
 </div>
 
-    <a data-url="http://tankcat2.com/2017/12/18/Course1-III/" data-id="cjbhzvjkr002fngkxn8jyh2fp" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://tankcat2.com/2017/12/18/Course1-III/" data-id="cjbk7lbtk000dtskxthb2u3fx" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding

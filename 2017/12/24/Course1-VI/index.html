@@ -4,7 +4,7 @@
 	<!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css">   
     <meta charset="utf-8">
     
-    <title>Search | Tankcat</title>
+    <title>Algorithm Specialization I-VI QuickSort Algorithm Analysis | Tankcat</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     
 
@@ -124,9 +124,17 @@
 					</div>
 			</aside>
 			
-					<section id="main"><article id="search-" class="article article-type-search" itemscope itemprop="blogPost">
+					<section id="main"><article id="post-Course1-VI" class="article article-type-post" itemscope itemprop="blogPost">
     
 	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
+        
+            
+	
+		<img src="http://7xwggp.com1.z0.glb.clouddn.com/quicksort_analysis.jpg" class="article-banner" />
+	
+
+
+
         
         
             <header class="article-header">
@@ -134,7 +142,7 @@
 					<center>
     
         <h1 class="article-title" itemprop="name">
-            Search
+            Algorithm Specialization I-VI QuickSort Algorithm Analysis
         </h1>
     
 
@@ -142,19 +150,48 @@
 						<div class="article-meta">
 							
     <div class="article-date">    
-        <a href="/search/index.html">
-            <time datetime="2017-11-26T05:33:11.689Z" itemprop="datePublished">2017-11-26</time>
+        <a href="/2017/12/24/Course1-VI/">
+            <time datetime="2017-12-24T03:20:00.000Z" itemprop="datePublished">2017-12-24</time>
         </a>
     </div>
 
-							<!---->
-							<!---->
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Techniques/">Techniques</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/Algorithm-Specialization/">Algorithm Specialization</a>, <a class="tag-link" href="/tags/Course-I/">Course I</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Algorithm-Specialization/">Algorithm Specialization</a>, <a class="tag-link" href="/tags/Course-I/">Course I</a>
+    </div>
+-->
 						</div>
 					
 					
 					
 						<span class="article-meta">
 							
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Techniques/">Techniques</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/Algorithm-Specialization/">Algorithm Specialization</a>, <a class="tag-link" href="/tags/Course-I/">Course I</a>
+			</span>
+		
+    </div>
+
 							
 						</span>
 						
@@ -168,7 +205,31 @@
         <div class="article-entry" itemprop="articleBody">
         
 			
-            
+				<br/>
+				 <blockquote style="font-size:120%;line-height:1.5em;color:#083a4e">
+					Coursera上学习“Algorithm专项课程”中的第一课程，主要涉及渐近表示法(大O表示法)，排序与搜索算法，分治算法(主项定理、整数与矩阵乘法、最近点对问题)，以及随机算法(快速排序、最小割集收缩算法)。这是Course I中介绍QuickSort Algorithm证明分析的笔记。
+				 </blockquote>
+			  
+            <p>这一章节的课程是证明随机选择pivot的快速排序算法的其平均运行时间是$O(nlogn)$，证明过程如同算法本身是巧妙的，基于一个在随机算法分析中很有用的“分解原理”。</p>
+<p>首先定义：</p>
+<ol>
+<li>输入数组A的长度为n</li>
+<li>样本空间$\Omega=$快排中所有可能的随机选择，即<strong>一组pivot序列</strong></li>
+<li>随机变量$C(\delta)=$对于一组pivot序列$\delta$，元素比较的总次数</li>
+</ol>
+<p>有一个重要的结论是，快排的运行时间取决于元素比较的次数。可以证明的是，存在一个常数c，对于所有可能的pivot序列，有$RT(\delta)\leq c\cdot C(\delta)$。因此接下来的目标就是证明$E(C)=O(nlogn)$。如果想先通过递归关系理论来探讨$C(\delta)$是比较困难负责的，因此可以利用<strong>分解原理</strong>，将复杂的$C_(\delta)$分解成若干个简单的随机变量之和。</p>
+<p>接下来定义基础构建：这里不能利用Master method，因为在快排中子问题的大小是随机变化的。定义$z_i$是输入数组A中第i小的元素。对于$\delta\in\Omega$，当$i&lt;j$时，定义$X_{ij}=$第i小的元素与第j小的元素的比较次数。根据快排的ChoosePivot子程序中的Partition操作可知，元素的比较操作只会存在于pivot和其他元素之间，的=只有当$z_i和z_j$中有一个是pivot时，比较次数为1，其他情况都为0。因此有$C(\delta)=\sum_{i=1}^{n-1}\sum_{j=i+1}^{n}X_{ij}(\delta)$。接着利用线性期望，可得$E(C)=\sum_{i=1}^{n-1}\sum_{j=i+1}^{n}E(X_{ij})$，其中$E(X_{ij})=0\cdot P(X_{ij}=0)+1\cdot P(X_{ij}=1)$，则$E(C)=\sum_{i=1}^{n-1}\sum_{j=i+1}^{n}P(X_{ij}=1)$。</p>
+<p>下面是求$P(X_{ij}=1)$，即给定pivot序列，则输入数组中第i小与第j小的元素被比较的概率。对于$z_i,z_j$且$i&lt;j$，它们之间还存在其他元素，即有$z_i,z_{i+1},…,z_{j-1},z_{j}$，有一个结论是，如果选择的pivot是$z_i$或者$z_j$，则它们会被比较；反之，如果选择的pivot是$z_i$和$z_j$之间的元素，则它们不会被比较，因为它们会被pivot左右两边各自的递归继续调用。因此，而每个元素被选中为pivot的概率都是$\frac{1}{j-i+1}$，因此$P(X_{ij}=1)=\frac{2}{j-i+1}$。因此$E(C)=\sum_{i=1}^{n-1}\sum_{j=1}^{n}\frac{2}{j-i+1}$。</p>
+<p>最后问题就归结为证明$\sum_{i=1}^{n-1}\sum_{j=1}^{n}\frac{2}{j-i+1}=O(nlogn)$。先分析$\sum_{j=1}^{n}\frac{2}{j-i+1}=\frac{1}{2}+\frac{1}{3}+…=\sum_{k=2}^n\frac{1}{k}$，根据下图可知，$\sum_{k=2}^n\frac{1}{k}\leq\int_{1}^n\frac{1}{x}dx=lnx|_{1}^n=ln$。因此，$E(C)\leq 2\cdot n\cdot ln n$。</p>
+<a id="more"></a>
+<p><img src="http://7xwggp.com1.z0.glb.clouddn.com/logn.png" alt=""></p>
+<p>ps: 撇开快排的证明，下面总结一下分解原理的通常步骤。</p>
+<ol>
+<li>确定好真正关心的随机变量Y</li>
+<li>将复杂的随机变量Y分解为若干个简单的随机变量indicator(仅仅取值0或者1)之和，即$Y=\sum_{l=1}^mX_e$</li>
+<li>最后利用线性期望来求得$E(Y)=\sum_{l=1}^mP(X_e=1)$</li>
+</ol>
+
 			
 			
 		<br>
@@ -176,13 +237,13 @@
 		
 		
 <div class="copyright">
-  <p><span>Title:</span><a href="/search/index.html">Search</a></p>
+  <p><span>Title:</span><a href="/2017/12/24/Course1-VI/">Algorithm Specialization I-VI QuickSort Algorithm Analysis</a></p>
   <p><span>Author:</span><a href="/" title="visit Tankcat 's personal blog">Tankcat</a></p>
-  <p><span>Release Date:</span>2017-11-26  13:33</p>
-  <p><span>Update Date:</span>2016-07-17  14:27</p>
+  <p><span>Release Date:</span>2017-12-24  11:20</p>
+  <p><span>Update Date:</span>2017-12-24  11:20</p>
   <p>
-    <span>Original Link:</span><a href="/search/index.html" title="Search">http://tankcat2.com/search/index.html</a>
-    <span class="btn" data-clipboard-text="Master Copy: http://tankcat2.com/search/index.html　　Author: Tankcat" title="copy the article link">
+    <span>Original Link:</span><a href="/2017/12/24/Course1-VI/" title="Algorithm Specialization I-VI QuickSort Algorithm Analysis">http://tankcat2.com/2017/12/24/Course1-VI/</a>
+    <span class="btn" data-clipboard-text="Master Copy: http://tankcat2.com/2017/12/24/Course1-VI/　　Author: Tankcat" title="copy the article link">
         <i class="fa fa-clipboard"></i>
     </span>
   </p>
@@ -278,7 +339,7 @@
 
 </div>
 
-    <a data-url="http://tankcat2.com/search/index.html" data-id="cjbk7lbt40008tskx1bup6veb" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://tankcat2.com/2017/12/24/Course1-VI/" data-id="cjbk7lbtk000htskxclv3lx8i" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -346,7 +407,7 @@
 
             
     
-        <a href="http://tankcat2.com/search/index.html#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://tankcat2.com/search/index.html">Comments</a>
+        <a href="http://tankcat2.com/2017/12/24/Course1-VI/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://tankcat2.com/2017/12/24/Course1-VI/">Comments</a>
     
 
         </footer>
@@ -354,6 +415,16 @@
     </div>
     
         
+<nav id="article-nav">
+    
+    
+        <a href="/2017/12/23/diary1223/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">十二月的第四周</div>
+        </a>
+    
+</nav>
+
 
     
 </article>
@@ -373,7 +444,7 @@
 <script>
 
 var gitment = new Gitment({
-  id: 'http://tankcat2.com/search/index.html',
+  id: 'http://tankcat2.com/2017/12/24/Course1-VI/',
   owner: 'tankcat',
   repo: 'tankcat.github.io',
   oauth: {
@@ -450,7 +521,7 @@ gitment.render('comments')
 <script>
 
 var gitment = new Gitment({
-  id: 'http://tankcat2.com/search/index.html',
+  id: 'http://tankcat2.com/2017/12/24/Course1-VI/',
   owner: 'tankcat',
   repo: 'tankcat.github.io',
   oauth: {

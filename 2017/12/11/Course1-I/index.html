@@ -210,10 +210,7 @@
 					Coursera上学习“Algorithm专项课程”中的第一课程，主要涉及渐近表示法(大O表示法)，排序与搜索算法，分治算法(主项定理、整数与矩阵乘法、最近点对问题)，以及随机算法(快速排序、最小割集收缩算法)。这是Course I中介绍Introduction的笔记。
 				 </blockquote>
 			  
-            <h1 id="Introduction-简介"><a href="#Introduction-简介" class="headerlink" title="Introduction / 简介"></a>Introduction / 简介</h1><blockquote>
-<p>update: 2017/12/05</p>
-</blockquote>
-<p>求解：两个n位整数相乘</p>
+            <h1 id="Introduction-简介"><a href="#Introduction-简介" class="headerlink" title="Introduction / 简介"></a>Introduction / 简介</h1><p>求解：两个n位整数相乘</p>
 <p>输入：两个n位的整数x与y</p>
 <p>输出：两者的乘积</p>
 <p>解决方案：</p>
@@ -242,10 +239,7 @@
 <li>确定输入与输出</li>
 <li>给出解决方案，即算法，使得输入转化为输出</li>
 </ol>
-<h1 id="About-the-course-关于这门课程"><a href="#About-the-course-关于这门课程" class="headerlink" title="About the course /关于这门课程"></a>About the course /关于这门课程</h1><blockquote>
-<p>update: 2017/12/06</p>
-</blockquote>
-<p>课程涵盖了5个话题：</p>
+<h1 id="About-the-course-关于这门课程"><a href="#About-the-course-关于这门课程" class="headerlink" title="About the course /关于这门课程"></a>About the course /关于这门课程</h1><p>课程涵盖了5个话题：</p>
 <ol>
 <li>设计与<strong>分析算法性能</strong>所需要的基本知识，比如大O表示法</li>
 <li><strong>分治算法</strong>的设计与分析，使用场景很多，比如上一节课提到的Karatsuba算法，还有其他的比如排序、矩阵乘法等，需要分析类似递归算法的运行之间</li>
@@ -271,10 +265,7 @@
 <li>Explain why things are the way the are, why we analyze the algorithms in the way that we do. 除了设计一个高效的算法，更重要的是你需要能够给别人讲懂，为什么是这样设计，为什么用这种方法来分析。这就回到上一点，良好的算法思路需要扎实功底的数学分析，这样才能充分理解！</li>
 </ol>
 <a id="more"></a>
-<h1 id="Divide-and-Conquer-分治"><a href="#Divide-and-Conquer-分治" class="headerlink" title="Divide and Conquer / 分治"></a>Divide and Conquer / 分治</h1><h2 id="Merge-Sort-：Example-归并排序：示例"><a href="#Merge-Sort-：Example-归并排序：示例" class="headerlink" title="Merge Sort ：Example/ 归并排序：示例"></a>Merge Sort ：Example/ 归并排序：示例</h2><blockquote>
-<p>update: 2017/12/07</p>
-</blockquote>
-<p>为什么在这里要讲解Merge Sort？有以下五点原因。</p>
+<h1 id="Divide-and-Conquer-分治"><a href="#Divide-and-Conquer-分治" class="headerlink" title="Divide and Conquer / 分治"></a>Divide and Conquer / 分治</h1><h2 id="Merge-Sort-：Example-归并排序：示例"><a href="#Merge-Sort-：Example-归并排序：示例" class="headerlink" title="Merge Sort ：Example/ 归并排序：示例"></a>Merge Sort ：Example/ 归并排序：示例</h2><p>为什么在这里要讲解Merge Sort？有以下五点原因。</p>
 <ol>
 <li>Merge sort是一个著名的、古老但是很有用的排序算法，现在已经被列入许多标准库中了</li>
 <li>Merge sort完美体现了分治的思想：把一个大问题分解为多个小问题，然后递归地解决小问题，最后合并小问题的求解结果，比Selection / Insetion / Bubble sort算法更直观更有优势</li>
@@ -287,10 +278,7 @@
 <p>输出：n个有序排列的数字</p>
 <p>处理：把输入的数分成两半，先递归地解决左半部分，再解决右半部分，最后整合出结果，如下图所示，第一步可以想象成在递归调用之前先把左右两部分各自拷贝到新的数组中。</p>
 <p><img src="http://7xwggp.com1.z0.glb.clouddn.com/merge_sort.png" alt=""></p>
-<h2 id="Merge-sort：pseudocode-归并排序：伪代码"><a href="#Merge-sort：pseudocode-归并排序：伪代码" class="headerlink" title="Merge sort：pseudocode / 归并排序：伪代码"></a>Merge sort：pseudocode / 归并排序：伪代码</h2><blockquote>
-<p>update：2017/12/08</p>
-</blockquote>
-<p>伪代码：不管归并排序的子程序具体是如何实现的，假设子程序已经存在了，那就直接合并。所以Merge sort的伪代码就比较明了，如下三步。</p>
+<h2 id="Merge-sort：pseudocode-归并排序：伪代码"><a href="#Merge-sort：pseudocode-归并排序：伪代码" class="headerlink" title="Merge sort：pseudocode / 归并排序：伪代码"></a>Merge sort：pseudocode / 归并排序：伪代码</h2><p>伪代码：不管归并排序的子程序具体是如何实现的，假设子程序已经存在了，那就直接合并。所以Merge sort的伪代码就比较明了，如下三步。</p>
 <ol>
 <li>递归地对输入数组第一半子数组进行排序</li>
 <li>递归地对输入数组第二半子数组进行排序</li>
@@ -301,10 +289,7 @@
 <p><img src="http://7xwggp.com1.z0.glb.clouddn.com/merge_preudocode.png" alt=""></p>
 <p>分析归并排序的运行时间：从直观上看，应该从一个调试者的角度来考虑算法的运行，也就是说算法运行的时间就是所执行操作的数量，可以理解为实际执行代码的行数。虽然这是一个复杂的问题，但是这次视频忽略了递归相关的操作数量，只考虑归并操作。初始化有2步，进入for循环，每一次迭代有3步，然后还有循环本身的递增，即每一次迭代有4步。把这些加到一起，就得到归并操作的运行时间。给定一个有M数字的数组，最多执行$4\cdot M+2$步操作。这个上界可以放宽到$6\cdot M$，因为可能你要考虑循环递增数与总长度的比较，这类小细节操作。但这不是重点。分析Merge sort的主程序会更复杂，因为它在不断调用自身，所以需要分析递归调用的次数，这个次数是呈<strong>指数级</strong>增长的。_现在还有一个矛盾_，那就是进行递归调用时，输入数组会不断的减小，每次都是之前的一半大小。一方面是子问题的分裂造成的膨胀， 而另一面又是子问题会越来越小，二者之间形成了牵制 ，要解决这二者之间的矛盾就要取决于是什么在驱动Merge sort。后续视频会给出证明，这里先给出一个结论，就是算法的总步骤不超过$6\cdot N\cdot log N + 6\cdot N$。其他类似冒泡排序算法的总步骤是$N^2$，这两个的比较可以看下图，N越大，优势就越明显。</p>
 <p><img src="http://7xwggp.com1.z0.glb.clouddn.com/runtime.png" alt=""></p>
-<h2 id="Merge-sort：analysis-归并排序：运行时间分析"><a href="#Merge-sort：analysis-归并排序：运行时间分析" class="headerlink" title="Merge sort：analysis / 归并排序：运行时间分析"></a>Merge sort：analysis / 归并排序：运行时间分析</h2><blockquote>
-<p>update：2017/12/09</p>
-</blockquote>
-<p>这节课的视频是分析Merge sort的运行时间，用数学方式证明：递归Merge sort算法对给定的包含n个数字的数组进行排序，输出有序数组总共需要$6\cdot n\cdot log_{2}n + 6\cdot n$次操作。</p>
+<h2 id="Merge-sort：analysis-归并排序：运行时间分析"><a href="#Merge-sort：analysis-归并排序：运行时间分析" class="headerlink" title="Merge sort：analysis / 归并排序：运行时间分析"></a>Merge sort：analysis / 归并排序：运行时间分析</h2><p>这节课的视频是分析Merge sort的运行时间，用数学方式证明：递归Merge sort算法对给定的包含n个数字的数组进行排序，输出有序数组总共需要$6\cdot n\cdot log_{2}n + 6\cdot n$次操作。</p>
 <p>证明方法是使用recursion tree递归树，在树结构中写下Merge sort所做的全部工作，一个节点每次递归调用就创建两个孩子节点，如下图所示。根节点root是首次对Merge sort的调用，这一层称作level-0。level-1对应root接下来的两次递归调用，输入是原数组的一半。以此类推，直到最后子数组里面数字的个数为0或者1。显然，叶子节点所在的层是level-$log_{2}n+1$。</p>
 <p><img src="http://7xwggp.com1.z0.glb.clouddn.com/recursion_tree.png" alt=""></p>
 <p>确定好树的深度，需要计算每层的操作数量。首先回答两个问题：</p>
@@ -314,10 +299,7 @@
 </ol>
 <p>答案也显然，第j层有$2^j$个sub problem，每个sub problem的输入size是$\frac{n}{2^j}$。整个递归树的总操作数量是每层的操作数量之和。由于递归调用本身可以忽略不计，因此只考虑merge操作里的操作数量。分析如下图，第j层的merge次数是$2^{j}\cdot 6\cdot \frac{n}{2^j}$，其中$6$在上一节课的视频中分析过。最后，总共有$log_{2}n+1$层，所以最终结果是$6\cdot (log_2n+1)$，证明结束。</p>
 <p><img src="http://7xwggp.com1.z0.glb.clouddn.com/operation_time.png" alt=""></p>
-<h2 id="Guiding-principles-for-analysis-of-algorithms"><a href="#Guiding-principles-for-analysis-of-algorithms" class="headerlink" title="Guiding principles for analysis of algorithms"></a>Guiding principles for analysis of algorithms</h2><blockquote>
-<p>update：2017/12/11</p>
-</blockquote>
-<p>这一节课的视频是回过头来，介绍算法分析的三项指导原则，也可以说是三项假设，从而帮助我们分析推到算法，并给出”fast”算法的定义。</p>
+<h2 id="Guiding-principles-for-analysis-of-algorithms"><a href="#Guiding-principles-for-analysis-of-algorithms" class="headerlink" title="Guiding principles for analysis of algorithms"></a>Guiding principles for analysis of algorithms</h2><p>这一节课的视频是回过头来，介绍算法分析的三项指导原则，也可以说是三项假设，从而帮助我们分析推到算法，并给出”fast”算法的定义。</p>
 <ol>
 <li>只考虑worst-case。和avarage-case和benchmark analytics相反，最坏情况的分析对输入没有要求，不需要domain knowledge。</li>
 <li>忽略小的常数因子。原因比较简单，第一，简化分析；第二，就这个课程而言，纠结于常数因子对算法的影响没有意义，毕竟常数因子对算法的影响很大程度上还取决于硬件结构、编译器、使用的编程语言、程序员编码习惯等。</li>
@@ -334,7 +316,7 @@
   <p><span>Title:</span><a href="/2017/12/11/Course1-I/">Algorithm Specialization I-I Introduction</a></p>
   <p><span>Author:</span><a href="/" title="visit Tankcat 's personal blog">Tankcat</a></p>
   <p><span>Release Date:</span>2017-12-11  15:11</p>
-  <p><span>Update Date:</span>2017-12-20  22:52</p>
+  <p><span>Update Date:</span>2017-12-23  12:38</p>
   <p>
     <span>Original Link:</span><a href="/2017/12/11/Course1-I/" title="Algorithm Specialization I-I Introduction">http://tankcat2.com/2017/12/11/Course1-I/</a>
     <span class="btn" data-clipboard-text="Master Copy: http://tankcat2.com/2017/12/11/Course1-I/　　Author: Tankcat" title="copy the article link">
@@ -433,7 +415,7 @@
 
 </div>
 
-    <a data-url="http://tankcat2.com/2017/12/11/Course1-I/" data-id="cjbhzvjj10002ngkx4o25tvsc" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://tankcat2.com/2017/12/11/Course1-I/" data-id="cjbk7lbso0003tskx8h9afcog" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding

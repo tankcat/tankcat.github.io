@@ -210,10 +210,7 @@
 					Coursera上学习“Algorithm专项课程”的第一课程，主要涉及渐近表示法(大O表示法)，排序与搜索算法，分治算法(主项定理、整数与矩阵乘法、最近点对问题)，以及随机算法(快速排序、最小割集收缩算法)。这是Course I中Asymptotic Analysis的笔记。
 				 </blockquote>
 			  
-            <h2 id="The-gist-要旨"><a href="#The-gist-要旨" class="headerlink" title="The gist / 要旨"></a>The gist / 要旨</h2><blockquote>
-<p>update：2017/12/11</p>
-</blockquote>
-<p>Asymptotic analysis是设计和分析算法的vocabulary，比如大O表示法：</p>
+            <h2 id="The-gist-要旨"><a href="#The-gist-要旨" class="headerlink" title="The gist / 要旨"></a>The gist / 要旨</h2><p>Asymptotic analysis是设计和分析算法的vocabulary，比如大O表示法：</p>
 <ul>
 <li>从较高的层次分析算法的sweet spot</li>
 <li>足够coarse来压缩依赖于系统/编程语言/编译器的细节</li>
@@ -231,16 +228,10 @@
 <li>判断数组A和B中是否包含相同的整数，$O(n^2)$</li>
 <li>判断数组A中是否包含重复的整数，$\frac{1}{2}n\cdot (n+1) = O(n^2)$</li>
 </ol>
-<h2 id="Big-Oh-notation-大O表示法"><a href="#Big-Oh-notation-大O表示法" class="headerlink" title="Big-Oh notation / 大O表示法"></a>Big-Oh notation / 大O表示法</h2><blockquote>
-<p>update：2017/12/11</p>
-</blockquote>
-<p>这一节课讲解大O表示法的定义。令T(n)是n的函数f(n)，通常表示一个算法的worst case运行时间，那么问题是：什么时候$T(n)=O(f(n))$？答案是，当n足够大，最终T(n)的上限是一个常数与f(n)的乘积。下图所示，给出形式化定义：</p>
+<h2 id="Big-Oh-notation-大O表示法"><a href="#Big-Oh-notation-大O表示法" class="headerlink" title="Big-Oh notation / 大O表示法"></a>Big-Oh notation / 大O表示法</h2><p>这一节课讲解大O表示法的定义。令T(n)是n的函数f(n)，通常表示一个算法的worst case运行时间，那么问题是：什么时候$T(n)=O(f(n))$？答案是，当n足够大，最终T(n)的上限是一个常数与f(n)的乘积。下图所示，给出形式化定义：</p>
 <p>当存在常数c和$n_0$，对于所有的$n\geq n_0$，有$T(n)\leq c\cdot f(n)$，则称$T(n) = O(f(n))$。其中，常数c和$n_0$与n无关。<br><a id="more"></a></p>
 <p><img src="http://7xwggp.com1.z0.glb.clouddn.com/bigoh.png" alt=""></p>
-<h2 id="Basic-examples-基础示例"><a href="#Basic-examples-基础示例" class="headerlink" title="Basic examples / 基础示例"></a>Basic examples / 基础示例</h2><blockquote>
-<p>update：2017/12/11</p>
-</blockquote>
-<p>这节课的视频给出两个有关大O表示法的示例证明。</p>
+<h2 id="Basic-examples-基础示例"><a href="#Basic-examples-基础示例" class="headerlink" title="Basic examples / 基础示例"></a>Basic examples / 基础示例</h2><p>这节课的视频给出两个有关大O表示法的示例证明。</p>
 <ol>
 <li><p><img src="http://7xwggp.com1.z0.glb.clouddn.com/bigoh_example1.png" alt=""></p>
 </li>
@@ -248,10 +239,7 @@
 <p><img src="http://7xwggp.com1.z0.glb.clouddn.com/bigoh_example2.png" alt=""></p>
 </li>
 </ol>
-<h2 id="Big-omega-and-theta-大-Omega-和大-Theta"><a href="#Big-omega-and-theta-大-Omega-和大-Theta" class="headerlink" title="Big omega and theta / 大$\Omega$ 和大$\Theta$"></a>Big omega and theta / 大$\Omega$ 和大$\Theta$</h2><blockquote>
-<p>update：2017/12/11</p>
-</blockquote>
-<p>前面两节课已经讲了$O()$表示法的形式化定义与基础示例证明，这节课视频再介绍三个相关的表示法。</p>
+<h2 id="Big-omega-and-theta-大-Omega-和大-Theta"><a href="#Big-omega-and-theta-大-Omega-和大-Theta" class="headerlink" title="Big omega and theta / 大$\Omega$ 和大$\Theta$"></a>Big omega and theta / 大$\Omega$ 和大$\Theta$</h2><p>前面两节课已经讲了$O()$表示法的形式化定义与基础示例证明，这节课视频再介绍三个相关的表示法。</p>
 <ol>
 <li><p>$\Omega()$表示法：关注的对象是运行时间的下界，形式化定义是如果存在常数$c，n_0$使得对于任意$n\geq n_0$都有$T(n)\geq c\cdot f(n)$，则$T(n)=\Omega(f(n))$。示意图如下图所示。</p>
 <p><img src="http://7xwggp.com1.z0.glb.clouddn.com/bigoh_omega.png" alt=""></p>
@@ -274,7 +262,7 @@
   <p><span>Title:</span><a href="/2017/12/12/Course1-II/">Algorithm Specialization I-II  Asymptotic Analysis</a></p>
   <p><span>Author:</span><a href="/" title="visit Tankcat 's personal blog">Tankcat</a></p>
   <p><span>Release Date:</span>2017-12-12  18:55</p>
-  <p><span>Update Date:</span>2017-12-20  22:47</p>
+  <p><span>Update Date:</span>2017-12-23  12:36</p>
   <p>
     <span>Original Link:</span><a href="/2017/12/12/Course1-II/" title="Algorithm Specialization I-II  Asymptotic Analysis">http://tankcat2.com/2017/12/12/Course1-II/</a>
     <span class="btn" data-clipboard-text="Master Copy: http://tankcat2.com/2017/12/12/Course1-II/　　Author: Tankcat" title="copy the article link">
@@ -373,7 +361,7 @@
 
 </div>
 
-    <a data-url="http://tankcat2.com/2017/12/12/Course1-II/" data-id="cjbhzvjjg0008ngkxbiyrn0dc" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://tankcat2.com/2017/12/12/Course1-II/" data-id="cjbk7lbtk000btskxondiigy3" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding

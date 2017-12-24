@@ -211,14 +211,8 @@
 				 </blockquote>
 			  
             <p>这一章节的课程主要介绍Master method，一种通用的分析分治算法运行时间的数学工具，先给出motivation，再介绍形式化描述，接着讲解6个示例，最后讨论Master method的证明。</p>
-<h2 id="Motivation-动机"><a href="#Motivation-动机" class="headerlink" title="Motivation / 动机"></a>Motivation / 动机</h2><blockquote>
-<p>update：2017/12/18</p>
-</blockquote>
-<p>潜在有用的算法通常需要数学分析来评估其性能，回顾小学时期的整数相乘算法使用$\Theta(n^2)$的运行时间来计算两个n位整数的乘积$x\times y$。递归算法是将x分解为$x=10^{\frac{1}{2}n}a+b$，将y分解为$y=10^{\frac{1}{2}n}c+d$，则$x\times y = 10^nac+10^{\frac{1}{2}n}(ad+bc)+bd$。即递归计算$ac,ad,bc,bd$的乘积即可。令T(n)表示计算两个n位整数乘积过程中操作的数量，基线条件是$T(1)\leq $常数，对于$n\geq 1$，有$T(n)\leq 4T(\frac{1}{2}n)+O(n)$。此外，一个更好的递归算法是减少一次递归调用，只计算ac,bd与(a+b)(c+d)，而ad+bc=(a+b)(c+d)-ac-bd。这样，对于$n\geq1$，有$T(n)\leq3T(\frac{1}{2}n)+O(n)$。</p>
-<h2 id="Formal-statement-形式化叙述"><a href="#Formal-statement-形式化叙述" class="headerlink" title="Formal statement / 形式化叙述"></a>Formal statement / 形式化叙述</h2><blockquote>
-<p>update：2017/12/18</p>
-</blockquote>
-<p>这一节课程视频主要介绍Master method的形式化叙述，可以理解为解决递归问题的一个black box，有一个前提假设，即所有的子问题拥有相同的size。其形式化表述如下：</p>
+<h2 id="Motivation-动机"><a href="#Motivation-动机" class="headerlink" title="Motivation / 动机"></a>Motivation / 动机</h2><p>潜在有用的算法通常需要数学分析来评估其性能，回顾小学时期的整数相乘算法使用$\Theta(n^2)$的运行时间来计算两个n位整数的乘积$x\times y$。递归算法是将x分解为$x=10^{\frac{1}{2}n}a+b$，将y分解为$y=10^{\frac{1}{2}n}c+d$，则$x\times y = 10^nac+10^{\frac{1}{2}n}(ad+bc)+bd$。即递归计算$ac,ad,bc,bd$的乘积即可。令T(n)表示计算两个n位整数乘积过程中操作的数量，基线条件是$T(1)\leq $常数，对于$n\geq 1$，有$T(n)\leq 4T(\frac{1}{2}n)+O(n)$。此外，一个更好的递归算法是减少一次递归调用，只计算ac,bd与(a+b)(c+d)，而ad+bc=(a+b)(c+d)-ac-bd。这样，对于$n\geq1$，有$T(n)\leq3T(\frac{1}{2}n)+O(n)$。</p>
+<h2 id="Formal-statement-形式化叙述"><a href="#Formal-statement-形式化叙述" class="headerlink" title="Formal statement / 形式化叙述"></a>Formal statement / 形式化叙述</h2><p>这一节课程视频主要介绍Master method的形式化叙述，可以理解为解决递归问题的一个black box，有一个前提假设，即所有的子问题拥有相同的size。其形式化表述如下：</p>
 <ol>
 <li><p>首先是基线条件Base Case：当n足够小时，T(n)为常数</p>
 </li>
@@ -232,10 +226,7 @@
 <p>需要注意的是，当$a=b^d$时，big-O里面的log基数省略没写，这是因为基数具体为哪个值并不重要，不同基数带来的变化是常量级别的；而当$a&gt;b^d$时，由于log是在指数的位置，所以基数是哪个值就很重要了，不能忽略。</p>
 </li>
 </ol>
-<h2 id="Examples-示例"><a href="#Examples-示例" class="headerlink" title="Examples / 示例"></a>Examples / 示例</h2><blockquote>
-<p>update：2017/12/18</p>
-</blockquote>
-<p>这一节课程主要是利用6个具体示例来说明Master method。</p>
+<h2 id="Examples-示例"><a href="#Examples-示例" class="headerlink" title="Examples / 示例"></a>Examples / 示例</h2><p>这一节课程主要是利用6个具体示例来说明Master method。</p>
 <h3 id="示例1：Merge-sort"><a href="#示例1：Merge-sort" class="headerlink" title="示例1：Merge sort"></a>示例1：Merge sort</h3><p>首先确定a、b、d的数值：</p>
 <ul>
 <li>a=2</li>
@@ -279,10 +270,7 @@
 </ul>
 <p>由于满足$a&lt;b^d$，因此$T(n)=O(n^d)=O(n^2)$</p>
 <a id="more"></a>
-<h2 id="Proof-I-证明-I"><a href="#Proof-I-证明-I" class="headerlink" title="Proof I / 证明 I"></a>Proof I / 证明 I</h2><blockquote>
-<p>update：2017/12/18</p>
-</blockquote>
-<p>这一节课程主要是介绍Master method的证明。这个证明是概念性层面上的，理解Master method的三种case的概念性意义以及对于的recursion tree是有很大帮助的。如果理解了，就不用对Master method的三种case进行死记硬背。</p>
+<h2 id="Proof-I-证明-I"><a href="#Proof-I-证明-I" class="headerlink" title="Proof I / 证明 I"></a>Proof I / 证明 I</h2><p>这一节课程主要是介绍Master method的证明。这个证明是概念性层面上的，理解Master method的三种case的概念性意义以及对于的recursion tree是有很大帮助的。如果理解了，就不用对Master method的三种case进行死记硬背。</p>
 <p>证明的前提假设如下：</p>
 <ol>
 <li>$T(1)\leq c$</li>
@@ -290,19 +278,13 @@
 <li>n是b的幂次方</li>
 </ol>
 <p>按照Merge sort讲解recursion tree的思路，在第j层，有$a^j$次方个子问题，且每个子问题的输入规模是$\frac{n}{b^j}$。层数j的取值范围是[0,1,…,$log_bn$]。分析第j层的总工作量为$\leq a^j\cdot c\cdot [\frac{n}{b^j}]^d=c\cdot n^d\cdot (\frac{a}{b^d})^j$，其中$(\frac{n}{b^j})^d$是第j层每个子问题的总工作量，对公式进行化简整理，使得与j相关、无关的变量分离。对所以层的工作量求和，即$\leq c\cdot n^d\cdot \sum_{j=0}^{log_bn}(\frac{a}{b^d})^j$。后续视频会讲解这个式子与Master method的三种case之间的关联。</p>
-<h2 id="Interpretation-of-the-3-cases-3种情况的演绎"><a href="#Interpretation-of-the-3-cases-3种情况的演绎" class="headerlink" title="Interpretation of the 3 cases / 3种情况的演绎"></a>Interpretation of the 3 cases / 3种情况的演绎</h2><blockquote>
-<p>update：2017/12/18</p>
-</blockquote>
-<p>上一节课程已经介绍了第j层的工作量上界是$c\cdot n^d\cdot(\frac{a}{b^d})^j$。令a为子问题增生的速率RSP，$b^d$是每个子问题工作量的收缩速率RWS，有下面三种结论：</p>
+<h2 id="Interpretation-of-the-3-cases-3种情况的演绎"><a href="#Interpretation-of-the-3-cases-3种情况的演绎" class="headerlink" title="Interpretation of the 3 cases / 3种情况的演绎"></a>Interpretation of the 3 cases / 3种情况的演绎</h2><p>上一节课程已经介绍了第j层的工作量上界是$c\cdot n^d\cdot(\frac{a}{b^d})^j$。令a为子问题增生的速率RSP，$b^d$是每个子问题工作量的收缩速率RWS，有下面三种结论：</p>
 <ol>
 <li>如果RSP&lt;RWS，则每一层工作量随着层数j而递减，recursion tree根节点处的工作量更多，起决定性作用，而根节点的输入规模是n，因此$T(n)=O(n^d)$</li>
 <li>如果RSP&gt;RWS，则每一层工作量随着层数j而递增，recursion tree叶子节点处的工作量更多，起决定性作用</li>
 <li>如果RSP=RWS，则每一层的工作量是相同的，而层数规模是$O(logn)$，每一层的工作量为$O(n^d)$，因此$T(n)=O(n^dlogn)$</li>
 </ol>
-<h2 id="Proof-II-证明-II"><a href="#Proof-II-证明-II" class="headerlink" title="Proof II / 证明 II"></a>Proof II / 证明 II</h2><blockquote>
-<p>update：2017/12/19</p>
-</blockquote>
-<p>前面的两节课程分别分析了recursion tree的工作量(放大聚焦于给定的第j层工作量，然后对所有层的工作量求和)，以及赋予它三种直观语义。这一节课程继续完成Master method的精确证明。</p>
+<h2 id="Proof-II-证明-II"><a href="#Proof-II-证明-II" class="headerlink" title="Proof II / 证明 II"></a>Proof II / 证明 II</h2><p>前面的两节课程分别分析了recursion tree的工作量(放大聚焦于给定的第j层工作量，然后对所有层的工作量求和)，以及赋予它三种直观语义。这一节课程继续完成Master method的精确证明。</p>
 <p>首先回顾一下总工作量：$\leq c\cdot n^d\cdot \sum_{j=0}^{log_bn}(\frac{a}{b^d})^j \star$</p>
 <ol>
 <li><p>当$a=b^d$时，$\star=c\cdot n^d (log_bn+1)=O(n^dlogn)$</p>
@@ -325,7 +307,7 @@
   <p><span>Title:</span><a href="/2017/12/19/Course1-IV/">Algorithm Specialization I-IV The Master Method</a></p>
   <p><span>Author:</span><a href="/" title="visit Tankcat 's personal blog">Tankcat</a></p>
   <p><span>Release Date:</span>2017-12-19  08:29</p>
-  <p><span>Update Date:</span>2017-12-20  22:47</p>
+  <p><span>Update Date:</span>2017-12-23  12:36</p>
   <p>
     <span>Original Link:</span><a href="/2017/12/19/Course1-IV/" title="Algorithm Specialization I-IV The Master Method">http://tankcat2.com/2017/12/19/Course1-IV/</a>
     <span class="btn" data-clipboard-text="Master Copy: http://tankcat2.com/2017/12/19/Course1-IV/　　Author: Tankcat" title="copy the article link">
@@ -424,7 +406,7 @@
 
 </div>
 
-    <a data-url="http://tankcat2.com/2017/12/19/Course1-IV/" data-id="cjbhzvjjg000angkxkznxppfl" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://tankcat2.com/2017/12/19/Course1-IV/" data-id="cjbk7lbtk000jtskxz6wxjxfw" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
