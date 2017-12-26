@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://tankcat2.com/favorite/index.html</loc>
+    
+    <lastmod>2017-12-26T02:48:24.776Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://tankcat2.com/2017/12/23/diary1223/</loc>
     
     <lastmod>2017-12-24T03:21:30.896Z</lastmod>
@@ -247,23 +254,9 @@
   </url>
   
   <url>
-    <loc>http://tankcat2.com/favorite/index.html</loc>
-    
-    <lastmod>2017-05-07T10:29:36.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://tankcat2.com/photos/index.html</loc>
     
     <lastmod>2017-03-16T13:22:48.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://tankcat2.com/photos/data.json</loc>
-    
-    <lastmod>2017-03-16T11:25:54.000Z</lastmod>
     
   </url>
   
