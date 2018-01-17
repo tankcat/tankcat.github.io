@@ -125,6 +125,363 @@
 			</aside>
 			
 					<section id="main">
+    <article id="post-Course1-VII" class="article article-type-post" itemscope itemprop="blogPost">
+    
+	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
+        
+            
+	
+		<a href="/2017/12/22/Course1-VII/" itemprop="url">
+            <img src="http://7xwggp.com1.z0.glb.clouddn.com/probability_statistics.jpg" class="article-banner" />
+        </a>
+	
+
+
+
+        
+        
+            <header class="article-header">
+				
+					<center>
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/12/22/Course1-VII/">Algorithm Specialization I-VII Probability Review</a>
+        </h1>
+    
+
+					 
+						<div class="article-meta">
+							
+    <div class="article-date">    
+        <a href="/2017/12/22/Course1-VII/">
+            <time datetime="2017-12-22T14:10:00.000Z" itemprop="datePublished">2017-12-22</time>
+        </a>
+    </div>
+
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Techniques/">Techniques</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/Algorithm-Specialization/">Algorithm Specialization</a>, <a class="tag-link" href="/tags/Course-I/">Course I</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Algorithm-Specialization/">Algorithm Specialization</a>, <a class="tag-link" href="/tags/Course-I/">Course I</a>
+    </div>
+-->
+						</div>
+					
+					
+					
+					</center>
+				
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><p>这一章节的课程分了两个视频，首先回顾了离散概率、样本空间、事件、随机变量、期望值的概念，其次主要介绍条件概率与独立事件。学习这些是为后续随机压缩算法的分析做准备。</p>
+<h2 id="Sample-spaces-样本空间"><a href="#Sample-spaces-样本空间" class="headerlink" title="Sample spaces / 样本空间"></a>Sample spaces / 样本空间</h2><p>样本空间$\Omega$表示所有可能发生的结果，在算法设计中，$\Omega$通常是有限的。对于样本空间中的每一个结果i，其发生概率$p(i)\geq0$，且所有结果发生概率之和$\sum_{i\in\Omega}p(i)=1$。</p>
+<p>样本空间举例：</p>
+<ol>
+<li>掷两个六面骰子，则$\Omega=\{(1,1),(1,2),…,(6,5),(6,6)\}$，共有36个结果</li>
+<li>一次QuickSort调用中的pivot选择，$\Omega=\{1,2,…,n\},p(i)=\frac{1}{n}$</li>
+</ol>
+<h2 id="Events-事件"><a href="#Events-事件" class="headerlink" title="Events / 事件"></a>Events / 事件</h2><p>事件$E$表示一个样本空间的子集，即$E\in\Omega$，事件E发生的概率是其拥有所有结果的发生概率之和，即$P(E)=\sum_{i\in E}p(i)$。</p>
+<p>事件举例：</p>
+<ol>
+<li><p>掷两个六面骰子，则点数之和为7的事件概率是多少？</p>
+<p>枚举可知$E=\{(1,6),(6,1),(2,5),(5,2),(3,4),(4,3)\}$，则$P(E)=\frac{6}{36}=\frac{1}{6}$</p>
+</li>
+<li><p>一次QuickSort调用ChoosePivot，则将输入数组划分成比25-75更好的划分事件概率是多少？</p>
+<p>可知E={第$(\frac{n}{4}+1)^{th}$小元素，…，第$(\frac{3n}{4})^{th}$小元素}，则$P(E)=\frac{1}{2}$</p>
+</li>
+</ol>
+<h2 id="Random-Variables-随机变量"><a href="#Random-Variables-随机变量" class="headerlink" title="Random Variables / 随机变量"></a>Random Variables / 随机变量</h2><p>随机变量$X$是一个实数函数，即$X:\Omega\rightarrow R$</p>
+<h2 id="Expectation-期望值"><a href="#Expectation-期望值" class="headerlink" title="Expectation / 期望值"></a>Expectation / 期望值</h2><p>期望就是随机变量$X$的平均值，使用$E(X)$表示，有$E(X)=\sum_{i\in\Omega}X(i)\cdot p(i)$</p>
+<h2 id="Linearity-of-Expectation-线性期望"><a href="#Linearity-of-Expectation-线性期望" class="headerlink" title="Linearity of Expectation / 线性期望"></a>Linearity of Expectation / 线性期望</h2><p>令$X_1,X_2,…,X_n$是定义在样本空间$\Omega$上的一组随机变量，则有$E[\sum_{j=1}^{n}X_j]=\sum_{j=1}^{n}E[X_j]$。这里对随机变量没有要求，即它们未必是独立的，这个结论在任何情况下都成立。</p>
+<p>线性期望举例：掷骰子，令$X_1$表示第一个骰子的点数，$X_2$表示第二个骰子的点数，则两个骰子的点数之和的期望$E(X_1+X_2)=E(X_1)+E(X_2)$,而$E(X_1)=E(X_2)=\frac{1}{6}\cdot(1+2+3+4+5+6)=3.5$，则$E(X_1+X_2)=7$</p></p>
+            <p class="article-more-link">
+               <a href="/2017/12/22/Course1-VII/#more">Read More</a>
+				
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Algorithm-Specialization/">Algorithm Specialization</a>, <a class="tag-link" href="/tags/Course-I/">Course I</a>
+    </div>
+
+            </p>
+        
+        </div>
+		
+    </div>
+    
+</article>
+
+
+
+
+
+    <article id="post-Course1-V" class="article article-type-post" itemscope itemprop="blogPost">
+    
+	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
+        
+            
+	
+		<a href="/2017/12/20/Course1-V/" itemprop="url">
+            <img src="http://7xwggp.com1.z0.glb.clouddn.com/quicksort_algorithm.jpeg" class="article-banner" />
+        </a>
+	
+
+
+
+        
+        
+            <header class="article-header">
+				
+					<center>
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/12/20/Course1-V/">Algorithm Specialization I-V QuickSort Algorithm</a>
+        </h1>
+    
+
+					 
+						<div class="article-meta">
+							
+    <div class="article-date">    
+        <a href="/2017/12/20/Course1-V/">
+            <time datetime="2017-12-20T14:50:00.000Z" itemprop="datePublished">2017-12-20</time>
+        </a>
+    </div>
+
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Techniques/">Techniques</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/Algorithm-Specialization/">Algorithm Specialization</a>, <a class="tag-link" href="/tags/Course-I/">Course I</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Algorithm-Specialization/">Algorithm Specialization</a>, <a class="tag-link" href="/tags/Course-I/">Course I</a>
+    </div>
+-->
+						</div>
+					
+					
+					
+					</center>
+				
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><p>这一章节的课程主要是关于快速排序，它是一个经典的随机算法，会介绍伪码、如何以线性的时间以及最小的额外空间来围绕一个pivot对一个数组进行划分、不同pivot的选择对性能的影响以及阐述算法是如何运行的。</p>
+<h2 id="Quick-Sort-overview-快速排序简介"><a href="#Quick-Sort-overview-快速排序简介" class="headerlink" title="Quick Sort overview / 快速排序简介"></a>Quick Sort overview / 快速排序简介</h2><p>QuickSort快速排序是一个很经典、著名的算法，很实用，是由图灵奖获得者Hoare提出的，在现实应用中经常比Merge Sort更加高效。它是一个很巧妙的算法，它的代码言简意赅。可以通过数学分析来解释为什么Quick Sort可以运行得很快，它的平均运行时间是$O(nlogn)$。和Merge Sort不同的是，QuickSort直接在原始数组的位置上重复地进行swap操作，只需要很少的额外空间。</p>
+<p>首先回顾一下排序问题，假设不包含重复数字：</p>
+<ul>
+<li>输入是包含n个无序数字的数组</li>
+<li>输出是包含n个递增有序数字的数组</li>
+</ul>
+<p>QuickSort的关键子程序是“围绕一个pivot对数组进行划分”，即从数组中选择一个数字作为pivot(后面会介绍选择哪一个数字作为pivot)，然后把所有小于pivot的数字放置在pivot左边，所有大于pivot的数字放置在pivot右边，这样就把数组划分为两个bucket。如下图所示，选择第一个数字3作为pivot，重新排序数组，使得所有小于3的数字位于左边，所有大于3的数字位于右边。在这一阶段，不关注bucket内部是否是有序的。所以划分操作的直接目的是<strong>把pivot放置在正确的位置上</strong>，最终目的是排序。</p>
+<p><img src="http://7xwggp.com1.z0.glb.clouddn.com/pivot.png" alt=""></p>
+<p>关于划分操作，有两个结论：</p>
+<ol>
+<li>这个操作的运行时间是线性的$O(n)$，且不需要额外的空间</li>
+<li>这个操作减少了problem size，能够继续使用分治算法来进行排序</li>
+</ol>
+<p>最后介绍Quick Sort的整体处理流程，输入数组A以及长度n：</p>
+<ol>
+<li><p>如果数组A只包含一个元素，则直接返回</p>
+</li>
+<li><p>调用ChoosePivot(A，n)选择pivot p</p>
+</li>
+<li><p>以p为分界点将A进行划分，如下图所示，左半部分的元素都小于p，右半部分的元素都大于p</p>
+<p><img src="http://7xwggp.com1.z0.glb.clouddn.com/partition.png" alt=""></p>
+</li>
+<li><p>递归对左半部分子数组进行QuickSort</p>
+</li>
+<li><p>递归对右半部分子数组进行QuickSort</p>
+</li>
+</ol></p>
+            <p class="article-more-link">
+               <a href="/2017/12/20/Course1-V/#more">Read More</a>
+				
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Algorithm-Specialization/">Algorithm Specialization</a>, <a class="tag-link" href="/tags/Course-I/">Course I</a>
+    </div>
+
+            </p>
+        
+        </div>
+		
+    </div>
+    
+</article>
+
+
+
+
+
+    <article id="post-Course1-IV" class="article article-type-post" itemscope itemprop="blogPost">
+    
+	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
+        
+            
+	
+		<a href="/2017/12/19/Course1-IV/" itemprop="url">
+            <img src="http://7xwggp.com1.z0.glb.clouddn.com/master2.png" class="article-banner" />
+        </a>
+	
+
+
+
+        
+        
+            <header class="article-header">
+				
+					<center>
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/12/19/Course1-IV/">Algorithm Specialization I-IV The Master Method</a>
+        </h1>
+    
+
+					 
+						<div class="article-meta">
+							
+    <div class="article-date">    
+        <a href="/2017/12/19/Course1-IV/">
+            <time datetime="2017-12-19T00:29:00.000Z" itemprop="datePublished">2017-12-19</time>
+        </a>
+    </div>
+
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Techniques/">Techniques</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/Algorithm-Specialization/">Algorithm Specialization</a>, <a class="tag-link" href="/tags/Course-I/">Course I</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Algorithm-Specialization/">Algorithm Specialization</a>, <a class="tag-link" href="/tags/Course-I/">Course I</a>
+    </div>
+-->
+						</div>
+					
+					
+					
+					</center>
+				
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><p>这一章节的课程主要介绍Master method，一种通用的分析分治算法运行时间的数学工具，先给出motivation，再介绍形式化描述，接着讲解6个示例，最后讨论Master method的证明。</p>
+<h2 id="Motivation-动机"><a href="#Motivation-动机" class="headerlink" title="Motivation / 动机"></a>Motivation / 动机</h2><p>潜在有用的算法通常需要数学分析来评估其性能，回顾小学时期的整数相乘算法使用$\Theta(n^2)$的运行时间来计算两个n位整数的乘积$x\times y$。递归算法是将x分解为$x=10^{\frac{1}{2}n}a+b$，将y分解为$y=10^{\frac{1}{2}n}c+d$，则$x\times y = 10^nac+10^{\frac{1}{2}n}(ad+bc)+bd$。即递归计算$ac,ad,bc,bd$的乘积即可。令T(n)表示计算两个n位整数乘积过程中操作的数量，基线条件是$T(1)\leq $常数，对于$n\geq 1$，有$T(n)\leq 4T(\frac{1}{2}n)+O(n)$。此外，一个更好的递归算法是减少一次递归调用，只计算ac,bd与(a+b)(c+d)，而ad+bc=(a+b)(c+d)-ac-bd。这样，对于$n\geq1$，有$T(n)\leq3T(\frac{1}{2}n)+O(n)$。</p>
+<h2 id="Formal-statement-形式化叙述"><a href="#Formal-statement-形式化叙述" class="headerlink" title="Formal statement / 形式化叙述"></a>Formal statement / 形式化叙述</h2><p>这一节课程视频主要介绍Master method的形式化叙述，可以理解为解决递归问题的一个black box，有一个前提假设，即所有的子问题拥有相同的size。其形式化表述如下：</p>
+<ol>
+<li><p>首先是基线条件Base Case：当n足够小时，T(n)为常数</p>
+</li>
+<li><p>通常递归调用的情况下，对于较大的n，假设有$T(n)\leq a\cdot T(\frac{n}{b})+O(n^d)$，其中a、b、d都是常数，与n大小无关</p>
+<ul>
+<li>a是递归调用的次数($\geq 1$)</li>
+<li>b是输入大小收缩系数($&gt; 1$)</li>
+<li>d是“合并阶段”运行时间的指数($\geq 0$)</li>
+</ul>
+<p>则有$ T(n)=\begin{cases}O(n^dlogn) &amp;a = b^d \ O(n^d) &amp; a &lt; b^d \\O(n^{log_ba}) &amp; a &gt; b^d  \end{cases}​$</p>
+<p>需要注意的是，当$a=b^d$时，big-O里面的log基数省略没写，这是因为基数具体为哪个值并不重要，不同基数带来的变化是常量级别的；而当$a&gt;b^d$时，由于log是在指数的位置，所以基数是哪个值就很重要了，不能忽略。</p>
+</li>
+</ol>
+<h2 id="Examples-示例"><a href="#Examples-示例" class="headerlink" title="Examples / 示例"></a>Examples / 示例</h2><p>这一节课程主要是利用6个具体示例来说明Master method。</p>
+<h3 id="示例1：Merge-sort"><a href="#示例1：Merge-sort" class="headerlink" title="示例1：Merge sort"></a>示例1：Merge sort</h3><p>首先确定a、b、d的数值：</p>
+<ul>
+<li>a=2</li>
+<li>b=2</li>
+<li>d=1</li>
+</ul>
+<p>满足$a=b^d$，因此Merge sort的$T(n)=O(n^dlogn)=O(nlogn)$</p>
+<h3 id="示例2：有序数组的二分查找"><a href="#示例2：有序数组的二分查找" class="headerlink" title="示例2：有序数组的二分查找"></a>示例2：有序数组的二分查找</h3><p>首先确定a、b、d的数值：</p>
+<ul>
+<li>a=1</li>
+<li>b=2</li>
+<li>d=0</li>
+</ul>
+<p>和Merge sort不同，只需要将要查找的数与中间元素比较，如果小于中间元素，则递归调用左半部分，否则调用右半部分，所以a的值为1；递归之外的操作就是元素的比较，因此d的值为0。由于满足$a=b^d$，因此有序数组的二分查找的$T(n)=O(n^dlogn)=O(logn)$</p>
+<h3 id="示例3：整数相乘的递归算法I"><a href="#示例3：整数相乘的递归算法I" class="headerlink" title="示例3：整数相乘的递归算法I"></a>示例3：整数相乘的递归算法I</h3><p>首先确定a、b、d的数值：</p>
+<ul>
+<li>a=4</li>
+<li>b=2</li>
+<li>d=1</li>
+</ul>
+<p>整数相乘的基础递归算法总共有4次调用，所以a=4；每一次调用的整数位数是原来的一半，所以b=2；递归调用之外的加操作是线性的，所以d=1。由于满足$a&gt;b^d$，因此整数相乘的基础递归算法的$T(n)=O(n^{log_ba})=O(n^2)$</p>
+<h3 id="示例4：整数相乘的递归算法II"><a href="#示例4：整数相乘的递归算法II" class="headerlink" title="示例4：整数相乘的递归算法II"></a>示例4：整数相乘的递归算法II</h3><p>首先确定a、b、d的数值：</p>
+<ul>
+<li>a=3</li>
+<li>b=2</li>
+<li>d=1</li>
+</ul>
+<p>整数相乘的改进递归算法总共有3次调用，所以a=3；每一次调用的整数位数是原来的一半，所以b=2；递归调用之外的加操作是线性的，所以d=1。由于满足$a&gt;b^d$，因此整数相乘的基础递归算法的$T(n)=O(n^{log_ba})=O(n^{log_23})=O(n^{1.59})$</p>
+<h3 id="示例5：Strassen矩阵乘法"><a href="#示例5：Strassen矩阵乘法" class="headerlink" title="示例5：Strassen矩阵乘法"></a>示例5：Strassen矩阵乘法</h3><p>首先确定a、b、d的数值：</p>
+<ul>
+<li>a=7</li>
+<li>b=2</li>
+<li>d=2</li>
+</ul>
+<p>Strassen矩阵乘法是递归调用7次$P_1$~$P_7$加减操作，所以a=7；$P_1$~$P_7$子矩阵的规模是原始矩阵的一半，所以b=2；递归调用之外的加操作规模是子矩阵的大小，因此d=1。由于满足$a&gt;b^d$，因此整数相乘的基础递归算法的$T(n)=O(n^{log_ba})=O(n^{log_27})=O(n^{2.81})$</p>
+<h3 id="示例6：Fictitious-recurrence-for-a-lt-b-d"><a href="#示例6：Fictitious-recurrence-for-a-lt-b-d" class="headerlink" title="示例6：Fictitious recurrence for $a&lt;b^d$"></a>示例6：Fictitious recurrence for $a&lt;b^d$</h3><p>假设a、b、d的数值：</p>
+<ul>
+<li>a=2</li>
+<li>b=2</li>
+<li>d=2</li>
+</ul>
+<p>由于满足$a&lt;b^d$，因此$T(n)=O(n^d)=O(n^2)$</p></p>
+            <p class="article-more-link">
+               <a href="/2017/12/19/Course1-IV/#more">Read More</a>
+				
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Algorithm-Specialization/">Algorithm Specialization</a>, <a class="tag-link" href="/tags/Course-I/">Course I</a>
+    </div>
+
+            </p>
+        
+        </div>
+		
+    </div>
+    
+</article>
+
+
+
+
+
     <article id="post-Course1-III" class="article article-type-post" itemscope itemprop="blogPost">
     
 	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
@@ -361,342 +718,8 @@
 
 
 
-    <article id="post-Course1-II" class="article article-type-post" itemscope itemprop="blogPost">
-    
-	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
-        
-            
-	
-		<a href="/2017/12/12/Course1-II/" itemprop="url">
-            <img src="http://7xwggp.com1.z0.glb.clouddn.com/course2.jpg" class="article-banner" />
-        </a>
-	
-
-
-
-        
-        
-            <header class="article-header">
-				
-					<center>
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2017/12/12/Course1-II/">Algorithm Specialization I-II  Asymptotic Analysis</a>
-        </h1>
-    
-
-					 
-						<div class="article-meta">
-							
-    <div class="article-date">    
-        <a href="/2017/12/12/Course1-II/">
-            <time datetime="2017-12-12T10:55:00.000Z" itemprop="datePublished">2017-12-12</time>
-        </a>
-    </div>
-
-							<!--
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Techniques/">Techniques</a>
-		&nbsp;&nbsp;
-		
-			<span class="article-tag">
-				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/Algorithm-Specialization/">Algorithm Specialization</a>, <a class="tag-link" href="/tags/Course-I/">Course I</a>
-			</span>
-		
-    </div>
--->
-							<!--
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Algorithm-Specialization/">Algorithm Specialization</a>, <a class="tag-link" href="/tags/Course-I/">Course I</a>
-    </div>
--->
-						</div>
-					
-					
-					
-					</center>
-				
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            <p><h2 id="The-gist-要旨"><a href="#The-gist-要旨" class="headerlink" title="The gist / 要旨"></a>The gist / 要旨</h2><p>Asymptotic analysis是设计和分析算法的vocabulary，比如大O表示法：</p>
-<ul>
-<li>从较高的层次分析算法的sweet spot</li>
-<li>足够coarse来压缩依赖于系统/编程语言/编译器的细节</li>
-<li>足够sharp来进行不同算法之间的有效对比，尤其是针对大规模输入集</li>
-</ul>
-<p>High-level Idea：比如$6\cdot n\cdot log_2n$== $n\cdot log n$，也就是说运行时间是$O(n\cdot log n)$</p>
-<ol>
-<li>压缩常数因子：依赖于系统/编程语言/编译器等</li>
-<li>压缩低阶因子：与输入规模的增大无关</li>
-</ol>
-<p>举了四个例子：</p>
-<ol>
-<li>判断数组A中是否包含给定的整数t，$O(n)$</li>
-<li>判断数组A或者B中是否包含给定的整数t，$2\cdot n = O(n)​$</li>
-<li>判断数组A和B中是否包含相同的整数，$O(n^2)$</li>
-<li>判断数组A中是否包含重复的整数，$\frac{1}{2}n\cdot (n+1) = O(n^2)$</li>
-</ol>
-<h2 id="Big-Oh-notation-大O表示法"><a href="#Big-Oh-notation-大O表示法" class="headerlink" title="Big-Oh notation / 大O表示法"></a>Big-Oh notation / 大O表示法</h2><p>这一节课讲解大O表示法的定义。令T(n)是n的函数f(n)，通常表示一个算法的worst case运行时间，那么问题是：什么时候$T(n)=O(f(n))$？答案是，当n足够大，最终T(n)的上限是一个常数与f(n)的乘积。下图所示，给出形式化定义：</p>
-<p>当存在常数c和$n_0$，对于所有的$n\geq n_0$，有$T(n)\leq c\cdot f(n)$，则称$T(n) = O(f(n))$。其中，常数c和$n_0$与n无关。<br></p>
-            <p class="article-more-link">
-               <a href="/2017/12/12/Course1-II/#more">Read More</a>
-				
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Algorithm-Specialization/">Algorithm Specialization</a>, <a class="tag-link" href="/tags/Course-I/">Course I</a>
-    </div>
-
-            </p>
-        
-        </div>
-		
-    </div>
-    
-</article>
-
-
-
-
-
-    <article id="post-Course1-I" class="article article-type-post" itemscope itemprop="blogPost">
-    
-	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
-        
-            
-	
-		<a href="/2017/12/11/Course1-I/" itemprop="url">
-            <img src="http://7xwggp.com1.z0.glb.clouddn.com/course1.jpg" class="article-banner" />
-        </a>
-	
-
-
-
-        
-        
-            <header class="article-header">
-				
-					<center>
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2017/12/11/Course1-I/">Algorithm Specialization I-I Introduction</a>
-        </h1>
-    
-
-					 
-						<div class="article-meta">
-							
-    <div class="article-date">    
-        <a href="/2017/12/11/Course1-I/">
-            <time datetime="2017-12-11T07:11:00.000Z" itemprop="datePublished">2017-12-11</time>
-        </a>
-    </div>
-
-							<!--
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Techniques/">Techniques</a>
-		&nbsp;&nbsp;
-		
-			<span class="article-tag">
-				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/Algorithm-Specialization/">Algorithm Specialization</a>, <a class="tag-link" href="/tags/Course-I/">Course I</a>
-			</span>
-		
-    </div>
--->
-							<!--
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Algorithm-Specialization/">Algorithm Specialization</a>, <a class="tag-link" href="/tags/Course-I/">Course I</a>
-    </div>
--->
-						</div>
-					
-					
-					
-					</center>
-				
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            <p><h1 id="Introduction-简介"><a href="#Introduction-简介" class="headerlink" title="Introduction / 简介"></a>Introduction / 简介</h1><p>求解：两个n位整数相乘</p>
-<p>输入：两个n位的整数x与y</p>
-<p>输出：两者的乘积</p>
-<p>解决方案：</p>
-<ol>
-<li><p>Naive方法：确定基本运算，即y的每一位都要与x中的n位相乘，就是n次基本运算了，乘积十位上的数字还要进上去，这就涉及一些额外的加法运算，但是总之在任何情况下，基本运算的总量最多是2n。同理，得到每一部分乘积最多都需要2n步运算，而部分乘积的总次数为n，即要做$2n^2$次基本运算。然而还没有结束，还要把这些部分乘积累加起来，才能得到最终结果，这一步的求和运算量最多也是$2n^2$次，因此计算两个n位整数的乘积的基本运算操作量为$4n^2$，是输入长度n的二次函数。</p>
-</li>
-<li><p>Karatsuba方法：利用分治的思想，把x表示为ab，y表示成cd，即a=56，b=78，c=12，d=34。通过以下前三个递归步骤，利用$x\cdot y = 10000\cdot a\cdot c + 100\cdot a\cdot d + 100\cdot b\cdot c + b\cdot d$这一思想来求得最终的结果。可以发现，第三步化简之后就是ad+bc，但是在具体操作时不是分别计算ad和bc的乘积再求和，而是使用化简之前的表示，先各自求得a与b之和、c与d之和，然后求积，最后减去已知的ac与bd。这样是为了减少一次递归次数，毕竟加减法才是最基本的运算。</p>
-<p>形式化的方式来归纳以下，就是：</p>
-<ul>
-<li>$x = 10^{\frac{1}{2}}\cdot a + b$，$y= 10^{\frac{1}{2}}\cdot c + d$</li>
-<li>$x\cdot y=10^{n}a\cdot c + 10^{\frac{1}{2}}(a\cdot d+ b\cdot c) + b\cdot d$，$n=4$ ($\star$)</li>
-<li>递归计算ac，ad，bc，bd，然后代入上面的星式求得最终乘积</li>
-<li>为了减少一次递归运算，不需要单独计算ad与bc的乘积</li>
-</ul>
-<p><img src="http://7xwggp.com1.z0.glb.clouddn.com/karatsuba.jpg" alt=""></p>
-</li>
-</ol>
-<blockquote>
-<p>对于一个优秀的算法设计者而言，最重要的原则就是拒绝满足。</p>
-<p>Perhaps the most important principle for the good algorithm designer is to refuse to be content.</p>
-<p>The algorithm design space is surprisingly rich!</p>
-<p>算法的设计空间，比我们想象中的要广阔得多！</p>
-</blockquote>
-<p>讲解模式：</p>
-<ol>
-<li>确定输入与输出</li>
-<li>给出解决方案，即算法，使得输入转化为输出</li>
-</ol>
-<h1 id="About-the-course-关于这门课程"><a href="#About-the-course-关于这门课程" class="headerlink" title="About the course /关于这门课程"></a>About the course /关于这门课程</h1><p>课程涵盖了5个话题：</p>
-<ol>
-<li>设计与<strong>分析算法性能</strong>所需要的基本知识，比如大O表示法</li>
-<li><strong>分治算法</strong>的设计与分析，使用场景很多，比如上一节课提到的Karatsuba算法，还有其他的比如排序、矩阵乘法等，需要分析类似递归算法的运行之间</li>
-<li><strong>随机化算法</strong>的设计与分析，涉及到快速排序、图分解、哈希等</li>
-<li><strong>图论分析</strong>的基本知识，涉及计算连通信息量、最短路径、社交网络的结构等</li>
-<li>基本<strong>数据结构</strong>的实现与运用，涉及堆、平衡二叉搜索树、哈希表及其变种，比如布隆过滤器等</li>
-</ol>
-<p>后续课程可能会涵盖的话题：</p>
-<ol>
-<li><strong>贪心</strong>算法，涉及最小生成树、调度问题和信息编码理论</li>
-<li><strong>动态规划</strong>算法，涉及基因序列和社交网络中的最短路径</li>
-<li><strong>NP完全</strong>问题，涉及是什么以及解法<ul>
-<li>能够解决特殊问题的快速算法</li>
-<li>高效的有可证效率的回溯算法</li>
-<li>具有指数时间复杂度的算法，本质上会比暴力搜索优化</li>
-</ul>
-</li>
-</ol>
-<p>从这门课学到什么：视频里说了不少，我挑我最感兴趣且觉得最重要的几点说说</p>
-<ol>
-<li>Become a better programmer.虽说读博对代码技巧要求未必很高，但还是希望自己除了学术分析、写作之上，有扎实的代码功底。毕竟还是希望自己毕业之后能去工业界待一段时间的。</li>
-<li>Shapen mathematica analytical skills.这是实实在在我需要提神的一项技能！不仅老板指出来了，我自己也深有感触，写paper时构造不出定理与证明，实在是一大败笔！</li>
-<li>Explain why things are the way the are, why we analyze the algorithms in the way that we do. 除了设计一个高效的算法，更重要的是你需要能够给别人讲懂，为什么是这样设计，为什么用这种方法来分析。这就回到上一点，良好的算法思路需要扎实功底的数学分析，这样才能充分理解！</li>
-</ol></p>
-            <p class="article-more-link">
-               <a href="/2017/12/11/Course1-I/#more">Read More</a>
-				
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Algorithm-Specialization/">Algorithm Specialization</a>, <a class="tag-link" href="/tags/Course-I/">Course I</a>
-    </div>
-
-            </p>
-        
-        </div>
-		
-    </div>
-    
-</article>
-
-
-
-
-
-    <article id="post-diary1210" class="article article-type-post" itemscope itemprop="blogPost">
-    
-	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
-        
-            
-	
-		<a href="/2017/12/10/diary1210/" itemprop="url">
-            <img src="http://7xwggp.com1.z0.glb.clouddn.com/zuocai.JPG" class="article-banner" />
-        </a>
-	
-
-
-
-        
-        
-            <header class="article-header">
-				
-					<center>
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2017/12/10/diary1210/">十二月的第二周</a>
-        </h1>
-    
-
-					 
-						<div class="article-meta">
-							
-    <div class="article-date">    
-        <a href="/2017/12/10/diary1210/">
-            <time datetime="2017-12-10T14:51:00.000Z" itemprop="datePublished">2017-12-10</time>
-        </a>
-    </div>
-
-							<!--
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Jottings/">Jottings</a>
-		&nbsp;&nbsp;
-		
-			<span class="article-tag">
-				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/周记/">周记</a>, <a class="tag-link" href="/tags/自省/">自省</a>
-			</span>
-		
-    </div>
--->
-							<!--
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/周记/">周记</a>, <a class="tag-link" href="/tags/自省/">自省</a>
-    </div>
--->
-						</div>
-					
-					
-					
-					</center>
-				
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            <p><h3 id="被各种杂事扰乱的工作日"><a href="#被各种杂事扰乱的工作日" class="headerlink" title="被各种杂事扰乱的工作日"></a>被各种杂事扰乱的工作日</h3><p>结束了上周五组会上的简陋survey，这周的工作日就不打算继续读新的paper了，给自己定了下面几个需要完成的目标：</p>
-<ul>
-<li style="list-style: none"><input type="checkbox" checked> 明珠这周讨论班要将讨论班，再读08年的CRB，把checkpoint的过程梳理一遍；</li>
-<li style="list-style: none"><input type="checkbox" checked> Demo文章初稿，和蒋程交涉好前端需要做的；</li>
-<li style="list-style: none"><input type="checkbox" checked> 关注NVMe；</li>
-<li style="list-style: none"><input type="checkbox" checked> 思考并设计survey的维度；</li>
-<li style="list-style: none"><input type="checkbox" checked> 开始学习Algorithm Specialization课程的学习</li>
-</ul>
-<p>周一一早来老板便交代了要开始准备1月初的Demo投稿，因为这个工作的后端实现是和房叔一起做的，已经出了两篇paper了，前端明珠之前实现了一个相对简单的版本，所以论文写起来应该不费事，所以上午先搞了注册的事情。今年有点懵逼啊，按照Demo track给的submission链接注册好个人信息了之后发现没有任何提交paper信息的按钮？？？最后只在Research track板块里给的链接找到了能投稿的地方，占了一个坑。paper的名字也是随意起的。正式写之前先找了几篇已经发表的demo paper看了看，页数限制，就简单安排了一下论文框架。然后抽出了之前工作的关键技术，简要介绍了一番。画系统架构图废了点时间，虽然以前的图也能用，但是太Low了，还是要好好设计一下，毕竟中了的话还能去土澳浪一波~下午三四点的时候在大众点评上选中了两家轰趴馆，晚上约了欢欢去“实地考察”了一番，第一家新开的，环境很不错但是价格不低；第二家环境一般价格也不是很低。回来之后和实验室的小伙伴讨论了一下，大家觉得场地费平摊下来人均不低，所以当天晚上没有确定结果。</p>
-<p>周二早上6点半就起床了，因为天气预报说有太阳，于是洗漱之前把床单被单拿到楼下洗衣房洗，洗漱收拾好把被子和洗好的床被单拿出去晒。上午就继续写demo。中午回去发现晒被子的地方没有阳光了，所以就转移场地，拿到宿舍西边楼道的窗台上晒了。下午抽空继续商讨轰趴馆的选择。由于现在是黄金档，就近的几家价格都不便宜，大家因为价格原因不太愿意去，有的同学甚至建议直接组织出去唱歌然后举个餐就算了事了。但是毕竟有的人不喜欢唱歌啊，这样他们参与不进来，所以迟迟出不了结果。最后学姐让步了，她说她和小龙愿意承担1000块，算作是她毕业请吃饭。我把情况和大家说明了一下，可能是觉得学姐都让步到这个程度了，所以最终确定了还去轰趴。几个学弟还是很好说话的，他们本来也建议去轰趴，也不是很在乎钱的问题。轰趴馆就选的第一家，和店家确定之后交了五百押金，这事就算是安定了。晚饭期间去操场跑了三公里，快走了一公里。</p>
-<p>周三是最忙的一天了。早上化了妆出门，以为下午颁奖典礼需要上台。上午本来打算把CRB好好再看一遍的，老板一个消息发过来要帮她买一桶羽毛球。一开始以为大活那边有得卖，哪知道体育器材店没有开门。遇到一个保安大叔，他说校门那边的体育馆有得卖，我就急匆匆地跑过去，发现就剩几只了，没有成桶卖的。然后又跑到校外的联华超市，被告知又没有！最后只能寄希望于教育超市了，如果在没有只能让老板自己淘宝了。万幸，教超有得卖。买到手的时候内心mmp，为啥一开始不先去教超呢，明明离得最近……买完已经10点半了，迅速回宿舍补了妆，然后去河东食堂吃了午饭，就去停车场等校车去闵行路。颁奖典礼一直开到下午三点多，根本用不着我们上台，事先确定好了学生代表上台领奖。返程路上看完了行尸走肉这周新更，全程高度紧张，片尾又留悬念，看完更饿了。到了学校之后赶紧去全家买了一个鸡肉卷饼。晚饭之前迅速浏览了一遍CRB，弄清楚了一些基本概念，比如COW、WAL。晚上我们FToS小分队三人继续了这周的小讨论班，帮明珠解答了论文中看不懂的疑惑，我自己也顺带加深一遍理解。</p></p>
-            <p class="article-more-link">
-               <a href="/2017/12/10/diary1210/#more">Read More</a>
-				
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/周记/">周记</a>, <a class="tag-link" href="/tags/自省/">自省</a>
-    </div>
-
-            </p>
-        
-        </div>
-		
-    </div>
-    
-</article>
-
-
-
-
-
     <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/home.html">&laquo; Prev</a><a class="page-number" href="/home.html">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+        <a class="extend prev" rel="prev" href="home.html">&laquo; Prev</a><a class="page-number" href="home.html">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
 </section>
 			
@@ -745,7 +768,7 @@
 
 </div>
         <div id="footer-info" class="inner">
-            &copy; 2017 <i class="fa fa-heart blink-slow"></i> Tankcat<br>
+            &copy; 2018 <i class="fa fa-heart blink-slow"></i> Tankcat<br>
             Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
         </div>
 		

@@ -125,19 +125,9 @@
 			</aside>
 			
 					<section id="main">
-    <article id="post-evil" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-index" class="article article-type-post" itemscope itemprop="blogPost">
     
 	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
-        
-            
-	
-		<a href="/2017/02/27/evil/" itemprop="url">
-            <img src="http://7xwggp.com1.z0.glb.clouddn.com/alice.jpg" class="article-banner" />
-        </a>
-	
-
-
-
         
         
             <header class="article-header">
@@ -145,7 +135,7 @@
 					<center>
     
         <h1 itemprop="name">
-            <a class="article-title" href="/2017/02/27/evil/">再见我的暴力女王</a>
+            <a class="article-title" href="/2017/05/06/index/">聚类索引与非聚类索引</a>
         </h1>
     
 
@@ -153,20 +143,20 @@
 						<div class="article-meta">
 							
     <div class="article-date">    
-        <a href="/2017/02/27/evil/">
-            <time datetime="2017-02-27T12:11:31.000Z" itemprop="datePublished">2017-02-27</time>
+        <a href="/2017/05/06/index/">
+            <time datetime="2017-05-06T13:08:00.000Z" itemprop="datePublished">2017-05-06</time>
         </a>
     </div>
 
 							<!--
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Reviews/">Reviews</a>
+        <a class="article-category-link" href="/categories/Techniques/">Techniques</a>
 		&nbsp;&nbsp;
 		
 			<span class="article-tag">
 				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/生化危机/">生化危机</a>
+				<a class="tag-link" href="/tags/索引/">索引</a>
 			</span>
 		
     </div>
@@ -174,7 +164,7 @@
 							<!--
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/生化危机/">生化危机</a>
+        <a class="tag-link" href="/tags/索引/">索引</a>
     </div>
 -->
 						</div>
@@ -188,18 +178,256 @@
         
         <div class="article-entry" itemprop="articleBody">
         
-            <p><p>初二的时候，老妈同事的儿子来我家排练吹笛子，给我讲了生化危机3，当时没记住名字；</p>
-<p>后来在家里的电脑上翻到了，还是没字幕英文版的，就这样看完了；</p>
-<p>到了高二，周末回家，把第一部第二部给补完了，没看过瘾，导致后来第二部反复拿出来看，可能看了有十多遍了，里面的角色很鲜明，很喜欢吉尔，喜欢短发帅气的她；</p>
-<p>没过多久，第四部就上映了，在网上看过一遍之后才去老文化馆那边的电影院再看一遍，记得那次的3D眼睛还是硬纸片做的；第五部也是在网上看的枪版，越来越没趣。</p>
-<p>今天，和实验室的小伙伴一起看了终章，看完有点失落，追了这么多年的欧美暴力女王，就这么结束了。我不说这是情怀，有点装逼，但可能也是因为生化3，开始了我喜欢丧尸类型片子之路。等网上出了终章的未删减版，我要再刷一波。</p>
-<p>最后，刚刚在知乎上看到“如何评价生化危机6”里面有个回答说，我觉得最大的彩蛋是我旁边的哥们儿看到女主骑着摩托绝尘而去的时候，突然说了一句，她真该进复联。。。</p></p>
+            <p><p>索引，是对数据库表中一列或者多列的值进行排序的一种数据结构，以便于快速访问数据库表的特定信息.如果没有索引，则需要遍历整张表，直到定位到所需的信息为止.可见，索引是用来<strong>定位</strong>的，加快数据库的查询速度.</p>
+<h2 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h2><p>索引可分为聚集索引与非聚集索引.下面就两者分别介绍.</p>
+<h3 id="聚集索引"><a href="#聚集索引" class="headerlink" title="聚集索引"></a>聚集索引</h3><p>在聚集索引中，表中行的物理顺序与索引的顺序相同，且一张表只能包含一个聚集索引.聚集索引类似物电话簿，索引可以包含一个或者多个列，类似电话簿按照姓氏和名字进行组织一样.</p>
+<p>聚集索引很适用于那些经常要搜索范围值的列。使用聚集索引找到包含第一个值的行后，便可以确保包含后续索引值的行在物理上相邻.比如，若应用程序执行的某个查询经常检索某一个日期范围的记录，使用聚集索引可以迅速找到包含开始日期的行，接着检索相邻的行，直到到达结束日期.这样有助于提高类似查询的性能.</p>
+<p>索引是通过<a href="http://blog.jobbole.com/24006/" target="_blank" rel="noopener">二叉树</a>的数据结构来描述的，我们可以这么理解聚集索引：索引的叶子节点就是数据节点，如下图所示.</p>
+<p><img src="http://7xwggp.com1.z0.glb.clouddn.com/cluster.JPG" alt=""></p>
+<h3 id="非聚集索引"><a href="#非聚集索引" class="headerlink" title="非聚集索引"></a>非聚集索引</h3><p>非聚集索引的逻辑顺序与表中行的物理存储数据不同，数据结构中的叶节点仍然是索引节点，有一个指针指向对应的数据块，如下图所示.</p>
+<p><img src="http://7xwggp.com1.z0.glb.clouddn.com/noncluster.JPG" alt=""></p>
+<h2 id="两者的区别"><a href="#两者的区别" class="headerlink" title="两者的区别"></a>两者的区别</h2><p>实际上，可把索引理解为一种特殊的目录。下面举个例子来说明一下聚集索引与非聚集索引的区别.</p>
+<p>我们的汉语字典的正文本身就是一个聚集索引。比如，我们要查“安”字，就会很自然地翻开字典的前几页，因为“安”的拼音是“an”，而按照拼音排序汉字的字典是以英文字母“a”开头并以“z”结尾的，那么“安”字就自然地排在字典的前部。如果翻完了所有以“a”开头的部分仍然找不到这个字，那么就说明您的字典中没有这个字；同样的，如果查“张”字，那也会将您的字典翻到最后部分，因为“张”的拼音是“zhang”。也就是说，<strong>字典的正文部分本身就是一个目录</strong>，您不需要再去查其他目录来找到您需要找的内容。我们<strong>把这种正文内容本身就是一种按照一定规则排列的目录称为“聚集索引”</strong>。</p>
+<p>如果我们认识某个字，可以快速地从自动中查到这个字。但也可能会遇到不认识的字，不知道它的发音，这时候，就不能按照刚才的方法找到我们要查的字，而需要去根据“偏旁部首”查到要找的字，然后根据这个字后的页码直接翻到某页来找到您要找的字。但结合“部首目录”和“检字表”而查到的字的排序并不是真正的正文的排序方法，比如查“张”字，我们可以看到在查部首之后的检字表中“张”的页码是672页，检字表中“张”的上面是“驰”字，但页码却是63页，“张”的下面是“弩”字，页面是390页。很显然，这些字并不是真正的分别位于“张”字的上下方，现在看到的连续的“驰、张、弩”三字实际上就是他们在<strong>非聚集索引中的排序</strong>，<strong>是字典正文中的字在非聚集索引中的映射</strong>。我们可以通过这种方式来找到您所需要的字，但它需要两个过程，先找到目录中的结果，然后再翻到所需要的页码。我们<strong>把这种目录纯粹是目录，正文纯粹是正文的排序方式称为“非聚集索引”</strong>。</p>
+<p>通过以上例子，我们可以理解到什么是“聚集索引”和“非聚集索引”。进一步引申一下，我们可以很容易的理解：每个表只能有一个聚集索引，因为目录只能按照一种方法进行排序。</p>
+<h2 id="两种索引的应用场合"><a href="#两种索引的应用场合" class="headerlink" title="两种索引的应用场合"></a>两种索引的应用场合</h2><table>
+<thead>
+<tr>
+<th>动作描述</th>
+<th>聚集索引</th>
+<th>非聚集索引</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>经常对列进行分组排序</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>返回某个范围内的数据</td>
+<td>√</td>
+<td>×</td>
+</tr>
+<tr>
+<td>一个或者极少不同的值</td>
+<td>×</td>
+<td>×</td>
+</tr>
+<tr>
+<td>小数目的不同值</td>
+<td>√</td>
+<td>×</td>
+</tr>
+<tr>
+<td>大数目的不同值</td>
+<td>×</td>
+<td>√</td>
+</tr>
+<tr>
+<td>频繁更新的列</td>
+<td>×</td>
+<td>√</td>
+</tr>
+<tr>
+<td>频繁更新索引列</td>
+<td>×</td>
+<td>√</td>
+</tr>
+<tr>
+<td>外键列</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>主键列</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></p>
             <p class="article-more-link">
-               <a href="/2017/02/27/evil/#more">Read More</a>
+               <a href="/2017/05/06/index/#more">Read More</a>
 				
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/生化危机/">生化危机</a>
+        <a class="tag-link" href="/tags/索引/">索引</a>
+    </div>
+
+            </p>
+        
+        </div>
+		
+    </div>
+    
+</article>
+
+
+
+
+
+    <article id="post-daofeng" class="article article-type-post" itemscope itemprop="blogPost">
+    
+	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
+        
+            
+	
+		<a href="/2017/04/20/daofeng/" itemprop="url">
+            <img src="http://7xwggp.com1.z0.glb.clouddn.com/daofeng.png" class="article-banner" />
+        </a>
+	
+
+
+
+        
+        
+            <header class="article-header">
+				
+					<center>
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/04/20/daofeng/">&lt;刀锋&gt;观后感</a>
+        </h1>
+    
+
+					 
+						<div class="article-meta">
+							
+    <div class="article-date">    
+        <a href="/2017/04/20/daofeng/">
+            <time datetime="2017-04-20T12:11:31.000Z" itemprop="datePublished">2017-04-20</time>
+        </a>
+    </div>
+
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Jottings/">Jottings</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/刀锋/">刀锋</a>, <a class="tag-link" href="/tags/毛姆/">毛姆</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/刀锋/">刀锋</a>, <a class="tag-link" href="/tags/毛姆/">毛姆</a>
+    </div>
+-->
+						</div>
+					
+					
+					
+					</center>
+				
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><p>先摘抄一段刀锋里面我很喜欢的一段话，“For men and women are not only themselves; they are also the region in which they were born, the city apartment or the farm in which they learnt to walk, the games they played as children, the tales they overheard, the food they ate, the schools they attended, the sports they followed, the poets they read and the God they believed in. It is all these things that have made them what they are, and these are the things that you can’t come to know by hearsay, you can only know them if you have lived them. You can only know them if you are them.”</p>
+<p>“因为人不论男男女女，都不仅仅是他们自身；他们也是自己出生的乡土，学步的农场或城市公寓，儿时玩的游戏，私下听来的山海经，吃的饭食，上的学校，关心的运动，吟哦的诗章，和信仰的上帝。这一切东西把他们造成现在这样，而这些东西都不是道听途说就可以了解的，你非得和那些人生活过。要了解这些，你就得是这些。 ”</p>
+<p>无论中英文，都是一流的文字，解释了各种文化之间的冲突，以及冲突误解的永恒性。</p>
+<p>很少有外国作品上让我读得这么舒服，这完全归功于周旭良老师的翻译功底，整本书翻译地非常好，读起来如沐春风。书写得很平淡，但每个角色都很有意思，拉里最为迷人。很奇怪，刚开始看的时候我脑子里对拉里的想象，居然是血战钢锯岭里的戴斯蒙特，这里也仅是人物形象。拉里一直追寻的答案，等同于追求终极真理，而这个问题最终都会归结到理性与精神的绝对满足。真的很难以想象，拉里这样的人，现实中又有多少，他们的生活又是怎样的？这种绝对的内心的泰然平和，我生生世世估计也做不到吧。<br></p>
+            <p class="article-more-link">
+               <a href="/2017/04/20/daofeng/#more">Read More</a>
+				
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/刀锋/">刀锋</a>, <a class="tag-link" href="/tags/毛姆/">毛姆</a>
+    </div>
+
+            </p>
+        
+        </div>
+		
+    </div>
+    
+</article>
+
+
+
+
+
+    <article id="post-historyUSA" class="article article-type-post" itemscope itemprop="blogPost">
+    
+	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
+        
+            
+	
+		<a href="/2017/04/16/historyUSA/" itemprop="url">
+            <img src="http://7xwggp.com1.z0.glb.clouddn.com/meiguo.png" class="article-banner" />
+        </a>
+	
+
+
+
+        
+        
+            <header class="article-header">
+				
+					<center>
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/04/16/historyUSA/">&lt;简明美国史&gt;观后感</a>
+        </h1>
+    
+
+					 
+						<div class="article-meta">
+							
+    <div class="article-date">    
+        <a href="/2017/04/16/historyUSA/">
+            <time datetime="2017-04-16T12:11:31.000Z" itemprop="datePublished">2017-04-16</time>
+        </a>
+    </div>
+
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Reviews/">Reviews</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/历史/">历史</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/历史/">历史</a>
+    </div>
+-->
+						</div>
+					
+					
+					
+					</center>
+				
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><p>相对于厚重的、教科书式的历史文献，这是一本薄薄的，轻松的普及读本，没有平板数据，没有经济图表，却把把美国历史的端倪，黑暗，辉煌，血腥，光明清晰地勾勒出来。</p>
+<p>有人说陈勤老师的这本美国史写得实在是太简太浅显，但是对我这种历史水平只停留在高中课本上的”史盲“来说，基本上是够了，从脉络上了解美国自1620年《五月花号公约》至2016年奥巴马最后的执政之间所发生的重大历史事件，这其中涵盖了美国从英属殖民地开始，到1776年《独立宣言》宣告独立，到1860年林肯领导南北战争，再到一战、二战、冷战，以及至今美国发生的种种。读完全书的第一感受是，陈勤老师应当是亲美派的，书中给我描述的美国是一个有趣、鲜活、有人味的美国，虽然对历史变革中发生的流血事件只是轻描淡写地带过，但还是能些许体会到”世界何尝不简单，历史从来不温柔“这一面。读完一遍脑海中对美国的历史线还是稍有混乱，有时间自己再整理整理。</p></p>
+            <p class="article-more-link">
+               <a href="/2017/04/16/historyUSA/#more">Read More</a>
+				
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/历史/">历史</a>
     </div>
 
             </p>
@@ -329,9 +557,19 @@
 
 
 
-    <article id="post-Robust and Skew-resistant Parallel Joins in Shared-Nothing Systems" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-evil" class="article article-type-post" itemscope itemprop="blogPost">
     
 	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
+        
+            
+	
+		<a href="/2017/02/27/evil/" itemprop="url">
+            <img src="http://7xwggp.com1.z0.glb.clouddn.com/alice.jpg" class="article-banner" />
+        </a>
+	
+
+
+
         
         
             <header class="article-header">
@@ -339,7 +577,7 @@
 					<center>
     
         <h1 itemprop="name">
-            <a class="article-title" href="/2017/01/17/Robust and Skew-resistant Parallel Joins in Shared-Nothing Systems/">Robust and Skew-resistant Parallel Joins in Shared-Nothing Systems</a>
+            <a class="article-title" href="/2017/02/27/evil/">再见我的暴力女王</a>
         </h1>
     
 
@@ -347,20 +585,20 @@
 						<div class="article-meta">
 							
     <div class="article-date">    
-        <a href="/2017/01/17/Robust and Skew-resistant Parallel Joins in Shared-Nothing Systems/">
-            <time datetime="2017-01-17T05:11:31.000Z" itemprop="datePublished">2017-01-17</time>
+        <a href="/2017/02/27/evil/">
+            <time datetime="2017-02-27T12:11:31.000Z" itemprop="datePublished">2017-02-27</time>
         </a>
     </div>
 
 							<!--
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Papers/">Papers</a>
+        <a class="article-category-link" href="/categories/Reviews/">Reviews</a>
 		&nbsp;&nbsp;
 		
 			<span class="article-tag">
 				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/Join/">Join</a>
+				<a class="tag-link" href="/tags/生化危机/">生化危机</a>
 			</span>
 		
     </div>
@@ -368,7 +606,7 @@
 							<!--
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Join/">Join</a>
+        <a class="tag-link" href="/tags/生化危机/">生化危机</a>
     </div>
 -->
 						</div>
@@ -382,261 +620,18 @@
         
         <div class="article-entry" itemprop="articleBody">
         
-            <p><h2 id="并行连接处理的两种基本框架"><a href="#并行连接处理的两种基本框架" class="headerlink" title="并行连接处理的两种基本框架"></a>并行连接处理的两种基本框架</h2><ul>
-<li><p><strong>hash-based</strong> 基于哈希，如下图所示，分为四个步骤：</p>
-<ol>
-<li>partition划分，将原先每个节点上存储的$R_i$和$S_i$按照连接属性键的哈希值进行划分，比如图中，将第一个节点(大的实线矩形)中的$R_1$和$S_1$分别划分为k个子集；</li>
-<li>distribution分发，根据连接属性键的哈希值，将上面的子集分发到另外一个空闲节点上，比如图中，将每个节点中的第k个子集$R_{ik}$ 和 $S_{ik}$ 同时分发到一个空闲节点上，那么这个空闲节点存储的数据为$R_k=\bigcup_{i=1}^{n}R_{ik}$,$S_k=\bigcup_{i=1}^{n}S_{ik}$;</li>
-<li>build构建，在空闲节点中，对数据集$R_k$进行扫描，并对它构建一个存储在内存中的哈希表；</li>
-<li>prob检测，在空闲节点中，对数据集$S_k$进行遍历，判断每一条数据的键值是否存在于上面构建的哈希表中，并输出连接结果.</li>
-</ol>
-<p><img src="http://7xwggp.com1.z0.glb.clouddn.com/hash-based.png" alt="hash-based"></p>
-</li>
-<li><p><strong>duplication-based</strong> 基于副本，如下图所示，分为三个步骤：</p>
-<ol>
-<li>duplication复制，针对每个节点，将其中存储的数据集$R_i$广播到其他所有并行节点上(不是空余节点)，这样在广播操作结束后，所有节点上的数据集$R_k=\bigcup_{i=1}^{n}R_i=R$即为全集R；</li>
-<li>build构建，构建哈希表，与hash-based相似；</li>
-<li>prob检测，遍历另外一个数据集，输出连接结果，与hash-based相似.</li>
-</ol>
-</li>
-</ul>
-<p><img src="http://7xwggp.com1.z0.glb.clouddn.com/duplicated-based.png" alt="duplicated-based"></p>
-<h2 id="PRPD连接算法"><a href="#PRPD连接算法" class="headerlink" title="PRPD连接算法"></a>PRPD连接算法</h2><ol>
-<li><p>PRPD定义：partial redistribution &amp; partition duplication，即将hash-based和duplication-based相结合.</p>
-</li>
-<li><p>处理流程，如下图所示：处理数据集R和S的连接，假设R是均匀分布，S是倾斜分布. 将每个节点中存储的S划分为两部分，$S_{loc}$是倾斜数据子集，$S_{redis}$是剩余的非倾斜数据子集.前者保留才原节点中不动，后者需要根据连接键值重新分发到一个空余节点中，类似与hash-based中的distribution操作. 同样，将每个节点中存储的R划分为两部分，$R_{dup}$是与$S_{loc}$连接键值相同的数据子集，$R_{redis}$是剩余的数据子集. 前者需要广播到其余所有的原节点中，类似于duplication-based中的duplication操作，后者需要根据连接键值重新分发到空余节点中，按照hash-based的最后两步，与$S_{redis}$进行连接.</p>
-<p><img src="http://7xwggp.com1.z0.glb.clouddn.com/PRPD.jpg" alt="PRPD"></p>
-</li>
-<li><p>存在的问题：</p>
-<ul>
-<li>global skew，涉及到的对数据集S和R的划分需要预先获取每个节点上的倾斜键值的分布；</li>
-<li>broadcasting，数据子集R的广播操作对网络负载施压，并且广播量将随着节点数量的增加而增加.</li>
-</ul>
-</li>
-</ol>
-<h2 id="本文提出算法"><a href="#本文提出算法" class="headerlink" title="本文提出算法"></a>本文提出算法</h2><p>PRPQ是基于两个可有效处理数据倾斜的分布式连接算法，semijoin-based和query-based. 基于这两者，提出改进.</p>
-<h3 id="Semijoin-based-连接"><a href="#Semijoin-based-连接" class="headerlink" title="Semijoin-based 连接"></a>Semijoin-based 连接</h3><ol>
-<li><p>semi-join的定义：半连接，从一个表中返回的行与另一个表中数据进行<strong>不完全</strong>连接查询，即查找到匹配的数据行就返回，不再继续查找.</p>
-</li>
-<li><p>semijoin-based连接，如下图所示. 数据集R和S在各自的属性a和b上做连接操作，分为以下四步骤：</p>
-<ol>
-<li>类似于hash-based中的第1,2两步，将各个节点中的数据集$R_i$按照连接属性的哈希值进行切分，再将元组分发到各自对应的空闲计算节点中(图中的红色虚线);</li>
-<li>对各个节点中的数据集$S_i$在属性b上做投影操作得到$\pi_b(S_i)$，根据哈希值将这些属性b的unique key分发到计算节点中；</li>
-<li>每个计算节点k收到数据集S的key 子集$\pi_b(S_{ik})$，和数据集R的子集$R_k=\bigcup_{i=1}^nR_{ik}$，对这两个子集做连接操作，将能连接上的R元组回发到各自的原节点i上(图中的③号线)；</li>
-<li>各个原节点接收到retrieval返回的R集元组，与本地存储的S集元组做最后实际的连接操作，输出结果.</li>
-</ol>
-<p><img src="http://7xwggp.com1.z0.glb.clouddn.com/semijoin.png" alt="semijoin"></p>
-</li>
-<li><p>特点：</p>
-<ul>
-<li>由于<strong>投影</strong>操作，S数据集只考虑unique key，而不考虑key的粒度，因此可以<strong>解决数据倾斜</strong>；</li>
-<li>第2和第3步骤，只传输key和能连接上的元组，因此<strong>减轻了网络传输代价</strong>.</li>
-<li>对于高选择性的连接，第2步和第3步中，S集的key和retrieval的R集元组交叠的数据量较大，仍然可能带来很大的网络通信量.</li>
-</ul>
-</li>
-</ol>
-<h3 id="Query-based-连接"><a href="#Query-based-连接" class="headerlink" title="Query-based 连接"></a>Query-based 连接</h3><ol>
-<li><p>根据semijoin-based的第三个特点(存在的问题)，对第3和第4步进行改进，则有query-based连接算法.改进如下：</p>
-<ol>
-<li>若存在连接上的key和R集元组，则只返回value，而不是整个元组；若没有数据能连接上，则返回值为null的value；</li>
-<li>返回的value和本地的S数据集做最后的实际连接操作，输出连接结果.</li>
-</ol>
-</li>
-<li><p>特点：</p>
-<ul>
-<li>对于高选择性的连接处理，优势大，减轻网络通信负载；</li>
-<li>对于低选择性的连接处理，存在问题，对于第3步没有能连接上的key，需要给返回的value赋值为null，以保证<key,value>的序列以便最后的连接处理，因此可能降低处理速度.</key,value></li>
-</ul>
-</li>
-<li><p>折中综合：通过一个<strong>计数器</strong>来统计第3步骤中null出现的比例，从而动态地选择适合的方法，即当null比例较低时，使用query-based，否则使用semijoin-based.</p>
-<h3 id="性能问题"><a href="#性能问题" class="headerlink" title="性能问题"></a>性能问题</h3><p>本文比较推崇直接在内存中进行连接计算，而不使用基于磁盘的计算框架比如MapReduce. 因此网络通信成本至关重要.当处理大规模的连接操作，上述两种方法都可能遭遇无法接受的网络通信负荷.</p>
-<h3 id="PRPQ连接算法"><a href="#PRPQ连接算法" class="headerlink" title="PRPQ连接算法"></a>PRPQ连接算法</h3><ol>
-<li><p>PRPQ定义：partial redistribution &amp; partial query，将hash-based和query-based相结合，如下图所示，分为四步骤：</p>
-<ol>
-<li><p>R distribution，与hash-based类似，将各个节点i上存储的数据集$R_i$根据连接属性a的哈希值，重新分发到一个空余计算节点上(图中红色虚线①)；</p>
-</li>
-<li><p>Push query keys，将各个节点i上存储的数据集$S_i$划分为两部分，低数据倾斜部分$S_i^{‘}$和高数据倾斜部分$h_i$. 根据连接属性b的哈希值，同时将$S_i^{‘}$的元组和$h_i$的投影unique key集合$\pi_b(h)$重新分发到对应的计算节点上(图中紫色虚线②)；</p>
-</li>
-<li>Return queried values，在每个计算节点k上，与hash-based的第3步类似，对集合$R_k=\bigcup_{i=1}^{n}R_{ik}$建立哈希表，(1). 对接收到的集合$\bigcup_{i=1}^{n}S_{ik}^{’}$进行遍历，并查找哈希表，直接输出连接结果；(2). 对接收到的key集合$\pi_b(h_{ik})$也遍历并查找路由表，如果没有匹配的key，则将retrieval的value置为null，若有匹配的key，则返回对应R的value.所有返回的value和节点k接收到key的顺序一致，并返回发送到原节点i；</li>
-<li>Result lookup，接收到计算节点返回的value集合之后，在原节点中遍历value，并和本地存储的数据集S的高倾斜部分h进行连接，输出连接结果：若value为null，则继续扫描下一个；若不为空，则必定存在一个R和S的元组能连接上. 因此，最终的连接结果是第3步骤的部分结果$\bigcup$第4部分的连接结果.</li>
-</ol>
-<p><img src="http://7xwggp.com1.z0.glb.clouddn.com/PRPQ.png" alt="PRPQ"></p>
-</li>
-<li><p>特点：</p>
-<ul>
-<li>与query-based算法相比<ol>
-<li>当处理的数据集包含大量倾斜程度低的数据时，在网络上传送的query key以及对应的value的规模将相当小. 在倾斜程度为0的情况下，即为hash-based算法的实现.因此，PRPQ算法有效地弥补了query-based算法的缺点，提高了鲁棒性.</li>
-<li>继承了query-based算法的优点，处理倾斜程度高的数据集时，大大减少网络通信量，因为高倾斜的元组并没有直接在网络上传输，而仅仅传输其unique key. </li>
-</ol>
-</li>
-<li>与PRPD算法相比<ol>
-<li>最主要的区别在于，使用query而不是duplication操作.</li>
-<li>PRPQ涉及到的数据划分(第2步骤对S数据集进行倾斜程度的划分)，只定性分析局部的倾斜度，而不需要全局的；而PRPD需要获取全局数据集S的倾斜分布信息.关于如何定义全局倾斜，PRPD在连接操作之前将倾斜程度高的元组均匀分发到所有节点上.这个预处理操作会带来额外的通信代价.</li>
-<li>对于倾斜程度中等mid-skew的元组，如何确定问题，PRPD使用广播的操作，可能导致节点负荷超载.</li>
-</ol>
-</li>
-</ul>
-</li>
-</ol>
-</li>
-</ol></p>
+            <p><p>初二的时候，老妈同事的儿子来我家排练吹笛子，给我讲了生化危机3，当时没记住名字；</p>
+<p>后来在家里的电脑上翻到了，还是没字幕英文版的，就这样看完了；</p>
+<p>到了高二，周末回家，把第一部第二部给补完了，没看过瘾，导致后来第二部反复拿出来看，可能看了有十多遍了，里面的角色很鲜明，很喜欢吉尔，喜欢短发帅气的她；</p>
+<p>没过多久，第四部就上映了，在网上看过一遍之后才去老文化馆那边的电影院再看一遍，记得那次的3D眼睛还是硬纸片做的；第五部也是在网上看的枪版，越来越没趣。</p>
+<p>今天，和实验室的小伙伴一起看了终章，看完有点失落，追了这么多年的欧美暴力女王，就这么结束了。我不说这是情怀，有点装逼，但可能也是因为生化3，开始了我喜欢丧尸类型片子之路。等网上出了终章的未删减版，我要再刷一波。</p>
+<p>最后，刚刚在知乎上看到“如何评价生化危机6”里面有个回答说，我觉得最大的彩蛋是我旁边的哥们儿看到女主骑着摩托绝尘而去的时候，突然说了一句，她真该进复联。。。</p></p>
             <p class="article-more-link">
-               <a href="/2017/01/17/Robust and Skew-resistant Parallel Joins in Shared-Nothing Systems/#more">Read More</a>
+               <a href="/2017/02/27/evil/#more">Read More</a>
 				
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Join/">Join</a>
-    </div>
-
-            </p>
-        
-        </div>
-		
-    </div>
-    
-</article>
-
-
-
-
-
-    <article id="post-stormproblems" class="article article-type-post" itemscope itemprop="blogPost">
-    
-	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
-        
-        
-            <header class="article-header">
-				
-					<center>
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2016/12/30/stormproblems/">使用Storm遇到的问题以及解决方案</a>
-        </h1>
-    
-
-					 
-						<div class="article-meta">
-							
-    <div class="article-date">    
-        <a href="/2016/12/30/stormproblems/">
-            <time datetime="2016-12-30T05:45:31.000Z" itemprop="datePublished">2016-12-30</time>
-        </a>
-    </div>
-
-							<!--
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Techniques/">Techniques</a>
-		&nbsp;&nbsp;
-		
-			<span class="article-tag">
-				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/Storm/">Storm</a>
-			</span>
-		
-    </div>
--->
-							<!--
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Storm/">Storm</a>
-    </div>
--->
-						</div>
-					
-					
-					
-					</center>
-				
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            <p><ol>
-<li><p>集群中有3台服务器执行 storm supervisor命令后自动退出，supervisor起不来，后来在 logs目录下的supervisor.log日志文件中查到以下报错：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2016</span>-<span class="number">12</span>-<span class="number">30</span> <span class="number">12</span>:<span class="number">41</span>:<span class="number">17.269</span> b.s.event [ERROR] Error when processing event</span><br><span class="line">java.lang.RuntimeException: java.lang.RuntimeException: java.io.FileNotFoundException: File <span class="string">'/home/admin/stormdata/data/supervisor/localstate/1480504905565'</span> does not exist</span><br><span class="line">	at backtype.storm.utils.LocalState.partialSnapshot(LocalState.java:<span class="number">118</span>) ~[storm-core-<span class="number">0.10</span>.0.jar:<span class="number">0.10</span>.0]</span><br><span class="line">	at backtype.storm.utils.LocalState.get(LocalState.java:<span class="number">126</span>) ~[storm-core-<span class="number">0.10</span>.0.jar:<span class="number">0.10</span>.0]</span><br><span class="line">	at backtype.storm.local_state$ls_local_assignments.invoke(local_state.clj:<span class="number">83</span>) ~[storm-core-<span class="number">0.10</span>.0.jar:<span class="number">0.10</span>.0]</span><br><span class="line">	at backtype.storm.daemon.supervisor$sync_processes.invoke(supervisor.clj:<span class="number">321</span>) ~[storm-core-<span class="number">0.10</span>.0.jar:<span class="number">0.10</span>.0]</span><br><span class="line">	at clojure.lang.AFn.applyToHelper(AFn.java:<span class="number">154</span>) ~[clojure-<span class="number">1.6</span>.0.jar:?]</span><br><span class="line">	at clojure.lang.AFn.applyTo(AFn.java:<span class="number">144</span>) ~[clojure-<span class="number">1.6</span>.0.jar:?]</span><br><span class="line">	at clojure.core$apply.invoke(core.clj:<span class="number">626</span>) ~[clojure-<span class="number">1.6</span>.0.jar:?]</span><br><span class="line">	at clojure.core$partial$fn__4228.doInvoke(core.clj:<span class="number">2468</span>) ~[clojure-<span class="number">1.6</span>.0.jar:?]</span><br><span class="line">	at clojure.lang.RestFn.invoke(RestFn.java:<span class="number">397</span>) ~[clojure-<span class="number">1.6</span>.0.jar:?]</span><br><span class="line">	at backtype.storm.event$event_manager$fn__7258.invoke(event.clj:<span class="number">40</span>) [storm-core-<span class="number">0.10</span>.0.jar:<span class="number">0.10</span>.0]</span><br><span class="line">	at clojure.lang.AFn.run(AFn.java:<span class="number">22</span>) [clojure-<span class="number">1.6</span>.0.jar:?]</span><br><span class="line">	at java.lang.Thread.run(Thread.java:<span class="number">744</span>) [?:<span class="number">1.7</span>.0_45]</span><br></pre></td></tr></table></figure>
-<p>找不到’/home/admin/stormdata/data/supervisor/localstate/1480504905565’这个文件夹，网上找了下原因，给出的答案是<strong>stop the server without previously stop the supervisor</strong>，就是说可能是由于不正常关机造成状态不一致，具体原因不知，解决方案是<strong>删除stormdata/data/supervisor整个目录即可</strong>.</p></p>
-            <p class="article-more-link">
-               <a href="/2016/12/30/stormproblems/#more">Read More</a>
-				
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Storm/">Storm</a>
-    </div>
-
-            </p>
-        
-        </div>
-		
-    </div>
-    
-</article>
-
-
-
-
-
-    <article id="post-knowledgebase" class="article article-type-post" itemscope itemprop="blogPost">
-    
-	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
-        
-        
-            <header class="article-header">
-				
-					<center>
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2016/10/26/knowledgebase/">关于苏打绿的题库</a>
-        </h1>
-    
-
-					 
-						<div class="article-meta">
-							
-    <div class="article-date">    
-        <a href="/2016/10/26/knowledgebase/">
-            <time datetime="2016-10-26T08:26:31.000Z" itemprop="datePublished">2016-10-26</time>
-        </a>
-    </div>
-
-							<!--
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Jottings/">Jottings</a>
-		&nbsp;&nbsp;
-		
-			<span class="article-tag">
-				<i class="fa fa-tag"></i>
-				<a class="tag-link" href="/tags/苏打绿/">苏打绿</a>
-			</span>
-		
-    </div>
--->
-							<!--
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/苏打绿/">苏打绿</a>
-    </div>
--->
-						</div>
-					
-					
-					
-					</center>
-				
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            <p><h1 id="1-团队成员"><a href="#1-团队成员" class="headerlink" title="1.团队成员"></a>1.团队成员</h1><p> 6个人。<br> 吴青峰：主唱，1982.8.30，台湾台北，国立政治大学中文系，钢琴、口琴、口风琴、打击乐器、长笛<br> 谢馨仪：贝斯手，1982.4.16，台湾台北，国立政治大学科技管理研究所，贝斯、钢琴、摇滚吉他、古筝<br> 史俊威：鼓手，1979.8.26，台湾，国立政治大学社会系，吉他、鼓、口琴<br></p>
-            <p class="article-more-link">
-               <a href="/2016/10/26/knowledgebase/#more">Read More</a>
-				
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/苏打绿/">苏打绿</a>
+        <a class="tag-link" href="/tags/生化危机/">生化危机</a>
     </div>
 
             </p>
@@ -652,7 +647,7 @@
 
 
     <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/home.html">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
+        <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="home.html">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
     </nav>
 </section>
 			
@@ -701,7 +696,7 @@
 
 </div>
         <div id="footer-info" class="inner">
-            &copy; 2017 <i class="fa fa-heart blink-slow"></i> Tankcat<br>
+            &copy; 2018 <i class="fa fa-heart blink-slow"></i> Tankcat<br>
             Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
         </div>
 		

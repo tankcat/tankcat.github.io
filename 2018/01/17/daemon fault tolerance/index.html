@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+	<!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css">   
+    <meta charset="utf-8">
+    
+    <title>守护进程的容错机制 | Tankcat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    
+
+    
+
+    
+        <link rel="shortcut icon" href="/css/images/favicon.ico" />
+    
+	
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+	<link rel="stylesheet" href="/css/comment.css">
+    <link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/tagclouds.css">
+	<link rel="stylesheet" href="/css/font-awesome.css">
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/lightgallery/css/lightgallery.min.css">
+    
+    
+    
+    
+    
+
+
+	<script src="//cdn.bootcss.com/jquery/2.1.0/jquery.min.js" type="text/javascript"></script>
+	<script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+</head>
+
+
+<body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="containerr">
+        
+    <header id="header" style="padding-top:15px">
+    <div id="header-main" class="header-inner">
+			
+			 <div class="outer">
+
+				<a href="/" id="logo">
+					<i class="logo"></i>
+	
+				</a>
+				<nav id="main-nav">
+					
+						<a class="main-nav-link" href="/index.html">Home</a>
+					
+						<a class="main-nav-link" href="/archives">Archive</a>
+					
+						<a class="main-nav-link" href="/categories">Category</a>
+					
+						<a class="main-nav-link" href="/tags">Tag</a>
+					
+						<a class="main-nav-link" href="/about">About</a>
+					
+						<a class="main-nav-link" href="/favorite">Photos</a>
+					
+				</nav>
+			</div> 
+	</div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/index.html">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archive</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Category</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tag</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                    <td><a class="main-nav-link" href="/favorite">Photos</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+
+
+
+			
+        <div class="outer">
+			<aside id="profile">
+					<div class="profile-inner">
+					</div>
+			</aside>
+			
+					<section id="main"><article id="post-daemon fault tolerance" class="article article-type-post" itemscope itemprop="blogPost">
+    
+	<div class="article-inner" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
+        
+            
+	
+		<img src="http://7xwggp.com1.z0.glb.clouddn.com/storm-topo.png" class="article-banner" />
+	
+
+
+
+        
+        
+            <header class="article-header">
+				
+					<center>
+    
+        <h1 class="article-title" itemprop="name">
+            守护进程的容错机制
+        </h1>
+    
+
+					 
+						<div class="article-meta">
+							
+    <div class="article-date">    
+        <a href="/2018/01/17/daemon fault tolerance/">
+            <time datetime="2018-01-17T06:10:00.000Z" itemprop="datePublished">2018-01-17</time>
+        </a>
+    </div>
+
+							<!--
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Techniques/">Techniques</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/Fault-Tolerance/">Fault Tolerance</a>, <a class="tag-link" href="/tags/Storm/">Storm</a>
+			</span>
+		
+    </div>
+-->
+							<!--
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Fault-Tolerance/">Fault Tolerance</a>, <a class="tag-link" href="/tags/Storm/">Storm</a>
+    </div>
+-->
+						</div>
+					
+					
+					
+						<span class="article-meta">
+							
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Techniques/">Techniques</a>
+		&nbsp;&nbsp;
+		
+			<span class="article-tag">
+				<i class="fa fa-tag"></i>
+				<a class="tag-link" href="/tags/Fault-Tolerance/">Fault Tolerance</a>, <a class="tag-link" href="/tags/Storm/">Storm</a>
+			</span>
+		
+    </div>
+
+							
+						</span>
+						
+					
+					
+					</center>
+				
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+			
+				<br/>
+				 <blockquote style="font-size:120%;line-height:1.5em;color:#083a4e">
+					原文链接http://storm.apache.org/releases/1.1.1/Daemon-Fault-Tolerance.html
+				 </blockquote>
+			  
+            <p>Storm有三种不同的守护进程<a href="守护进程是指一类后台运行的特殊进程，不受用户的直接控制，用于执行特殊的系统任务，在系统引导的时候启动，一直运行到系统关闭。">^daemon</a> </p>
+<ul>
+<li>Nimbus，负责调度worker；</li>
+<li>Supervisor，负责启动与终止worker；</li>
+<li>Log Viewer，提供日志的访问；</li>
+<li>UI，提供集群的运行状态。</li>
+</ul>
+<h2 id="1-当worker意外终止时会发生什么？"><a href="#1-当worker意外终止时会发生什么？" class="headerlink" title="1. 当worker意外终止时会发生什么？"></a>1. 当worker意外终止时会发生什么？</h2><p>当一个worker意外终止时，Supervisor会对它进行重启。该worker如果在重启过程中仍然一直失败，并且无法向Nimbus发送心跳信息，则Nimbus会重新调度该worker(安排到其他物理节点上运行)。</p>
+<h2 id="2-当物理节点出现故障时会发生什么？"><a href="#2-当物理节点出现故障时会发生什么？" class="headerlink" title="2. 当物理节点出现故障时会发生什么？"></a>2. 当物理节点出现故障时会发生什么？</h2><p>这里的物理节点指代Storm集群中的工作服务器，而非Nimbus所在的服务器。当一个物理节点意外宕机，在该节点上运行的所有task都将超时；Nimbus检测到这些超时的task之后会把它们重新调度到其他服务器上去运行。</p>
+<h2 id="3-当Nimbus或者Supervisor意外终止时会发生什么？"><a href="#3-当Nimbus或者Supervisor意外终止时会发生什么？" class="headerlink" title="3. 当Nimbus或者Supervisor意外终止时会发生什么？"></a>3. 当Nimbus或者Supervisor意外终止时会发生什么？</h2><p>Nimbus和Supervisor都是快速失败的(即无论何时遇到突发状况都会进入自毁模式)、无状态的(其所有状态都保存在磁盘或者Zookeeper上)。系统中必须使用后台监控工具来监测Nimbus和Supervisor的运行。因此，若Nimbus或者Supervisor意外终止了，它们会自行重启。</p>
+<p>需要注意的是，即使Nimbus或者Supervisor意外终止了，也不会影响worker的继续运行。这与Hadoop形成鲜明对比(JobTracker如果意外终止，则会丢失所有运行中的job)。</p>
+<h2 id="4-Nimbus是否是SPOF？"><a href="#4-Nimbus是否是SPOF？" class="headerlink" title="4. Nimbus是否是SPOF？"></a>4. Nimbus是否是SPOF？</h2><p>即使Nimbus所在的节点出现故障无法访问，worker进程依旧能继续运行；Supervisor也会继续运行，并重启失效的worker。但是，没有Nimbus的调度与协调，worker进程不能被重新指派到其他节点服务器。比如如果一个节点服务器失效，在该节点上运行的所有worker就会丢失，无法被重新调度。因此，Nimbus确实有些类似SPOF<a href="Single-point-of-failure，即单点故障，是系统的一个组件，如果该组件失效或者停止运转，将会导致整个系统不能继续工作。">^spof</a>。</p>
+<p>不过，Storm 1.0.0开始之后的版本已经实现了<a href="https://github.com/tankcat/storm-documents/blob/master/Intermediate/high%20available%20nimbus.md" target="_blank" rel="noopener">Nimbus的高可用设计</a>。</p>
+<a id="more"></a>
+
+			
+			
+		<br>
+		
+		
+		
+<div class="copyright">
+  <p><span>Title:</span><a href="/2018/01/17/daemon fault tolerance/">守护进程的容错机制</a></p>
+  <p><span>Author:</span><a href="/" title="visit Tankcat 's personal blog">Tankcat</a></p>
+  <p><span>Release Date:</span>2018-01-17  14:10</p>
+  <p><span>Update Date:</span>2018-01-17  14:17</p>
+  <p>
+    <span>Original Link:</span><a href="/2018/01/17/daemon fault tolerance/" title="守护进程的容错机制">http://tankcat2.com/2018/01/17/daemon fault tolerance/</a>
+    <span class="btn" data-clipboard-text="Master Copy: http://tankcat2.com/2018/01/17/daemon fault tolerance/　　Author: Tankcat" title="copy the article link">
+        <i class="fa fa-clipboard"></i>
+    </span>
+  </p>
+ <p><span>License Agreement:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="Mainland China (CC BY-NC-SA 3.0 CN)">"Signature-Non Commercial-Share Alike 3.0"</a>.
+ <br>
+ <br>
+ <span>Please retain the original link and author if reprinting.
+ </span>
+ </p>
+  <script src="/js/clipboard.min.js"></script>
+  <script> var clipboard = new Clipboard('.btn'); </script>
+</div>
+<style type="text/css">
+  .copyright p .btn {
+    margin-left: 1em;
+  }
+  .copyright:hover p .btn::after {
+    content: "Copy"
+  }
+  .copyright p .btn:hover {
+      color: gray;
+      cursor: pointer;
+    };
+</style>
+
+<br>
+<br>
+		<style type="text/css">
+		  .center {
+			  text-align: center;
+		  }
+		  .hidden {
+			  display: none;
+		  }
+		.donate_bar a.btn_donate{
+		  display: inline-block;
+		  width: 82px;
+		  height: 82px;
+		  background: url("http://7xsl28.com1.z0.glb.clouddn.com/btn_reward.gif") no-repeat;
+		  _background: url("http://7xsl28.com1.z0.glb.clouddn.com/btn_reward.gif") no-repeat;
+		  -webkit-transition: background 0s;
+		  -moz-transition: background 0s;
+		  -o-transition: background 0s;
+		  -ms-transition: background 0s;
+		  transition: background 0s;
+		}
+
+		.donate_bar a.btn_donate:hover{ background-position: 0px -82px;}
+		.donate_bar .donate_txt {
+		  display: block;
+		  color: #9d9d9d;
+		  font: 14px/2 "Microsoft Yahei";
+		}
+		.bold{ font-weight: bold; }
+	  </style>
+	  
+	  
+	  
+	  <div id="donate_module">
+		<div id="donate_board" class="donate_bar center">
+		打赏 | Buy me a coffee<br/><br/>
+		<a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}"></a>
+		  
+		
+		</div>
+		
+		<div id="QR" style="display: none;">
+			<br>
+		  <br>
+		
+		<a href="http://7xwggp.com1.z0.glb.clouddn.com/wechatdonate.jpg" title="用微信扫一扫哦~" class="fancybox" rel="article0">
+		  <img src="http://7xwggp.com1.z0.glb.clouddn.com/wechatdonate.jpg" title="微信打赏 Colin" height="250px" width="250px"/>
+		</a>
+		<br>
+		<center>
+		<span class="donate_txt">
+		  If you enjoy the blog, please feel free to donate~Thx for your support.
+		</span>
+	</center>
+	  </div>
+	  <br>
+	   
+	  </div>
+		
+				
+			
+        </div>
+		
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://tankcat2.com/2018/01/17/daemon fault tolerance/" data-id="cjcioeo9z0015ywkxzjwweanx" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + encodedUrl + '" class="fa fa-qq article-share-qzone" target="_blank" title="Qzone"></a>',
+                            '<a href="http://service.weibo.com/share/share.php?url=' + encodedUrl + '" class="fa fa-weibo article-share-weibo" target="_blank" title="Weibo"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="http://tankcat2.com/2018/01/17/daemon fault tolerance/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://tankcat2.com/2018/01/17/daemon fault tolerance/">Comments</a>
+    
+
+        </footer>
+		
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2018/01/17/message processing guarantees/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">消息的可靠传输保证</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+
+
+	
+    
+    <section id="comments" style="border-radius:1.5px; box-shadow: 10px 10px 5px #ccc;">
+    
+        
+<div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+
+<script>
+
+var gitment = new Gitment({
+  id: 'http://tankcat2.com/2018/01/17/daemon fault tolerance/',
+  owner: 'tankcat',
+  repo: 'tankcat.github.io',
+  oauth: {
+    client_id: '60fb85b01453b027d1f5',
+    client_secret: '4d0e75031ae53e76418d288b34897a8718481fd2',
+  },
+})
+gitment.render('comments')
+</script>
+
+    
+    </section>
+
+
+</section>
+			
+			
+			
+        </div>
+
+			<div style="height:10px;pistion:absolute;bottom:0"></div>
+<footer id="footer" >
+    <div class="outer">
+		<div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        <div id="footer-info" class="inner">
+            &copy; 2018 <i class="fa fa-heart blink-slow"></i> Tankcat<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+		
+    </div>
+</footer>
+			
+    
+<div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+
+<script>
+
+var gitment = new Gitment({
+  id: 'http://tankcat2.com/2018/01/17/daemon fault tolerance/',
+  owner: 'tankcat',
+  repo: 'tankcat.github.io',
+  oauth: {
+    client_id: '60fb85b01453b027d1f5',
+    client_secret: '4d0e75031ae53e76418d288b34897a8718481fd2',
+  },
+})
+gitment.render('comments')
+</script>
+
+
+
+    
+        <script src="/vendor/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-share.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-video.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+	
+    </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+
+</html>
